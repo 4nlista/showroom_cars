@@ -42,7 +42,7 @@ const Login = () => {
         console.log("Login successful:", result.users);
         sessionStorage.setItem("username", result.users.username);
         if (result.users.role_id === '1') {
-          navigate("/admin");
+          navigate("/admin/quan-tri");
         } else {
           navigate("/");
         }
@@ -70,7 +70,7 @@ const Login = () => {
       const result = await login(form)
       if (result.success) {
         if (result.user.role_id === 1) {
-          navigate('/admin')
+          navigate('/admin/quan-tri')
         } else {
           navigate('/')
         }

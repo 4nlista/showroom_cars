@@ -1,0 +1,116 @@
+/* CSS cho các Modal User */
+
+/* Styling cho modal */
+.user-modal .modal-content {
+    border-radius: 12px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+}
+
+.user-modal .modal-header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border-radius: 12px 12px 0 0;
+}
+
+.user-modal .modal-header .btn-close {
+    filter: brightness(0) invert(1);
+}
+
+.user-modal .modal-title {
+    color: white !important;
+}
+
+/* Avatar container */
+.avatar-container {
+    position: relative;
+    display: inline-block;
+}
+
+.avatar-image {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border: 4px solid #e0e0e0;
+    transition: transform 0.3s ease;
+}
+
+.avatar-image:hover {
+    transform: scale(1.05);
+}
+
+/* Form controls trong modal detail */
+.form-control-detail {
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 6px;
+    padding: 10px 12px;
+    font-size: 14px;
+    color: #495057;
+}
+
+/* Form controls trong modal edit */
+.form-control {
+    border: 1px solid #ced4da;
+    border-radius: 6px;
+    padding: 10px 12px;
+    font-size: 14px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form-control:focus {
+    border-color: #667eea;
+    box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+}
+
+.form-control.is-invalid {
+    border-color: #dc3545;
+}
+
+.form-control.is-invalid:focus {
+    box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
+}
+
+.btn-upload-avatar:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+}
+
+/* Form labels */
+.form-label {
+    font-weight: 500;
+    font-size: 13px;
+    margin-bottom: 6px;
+    color: #161718;
+}
+
+/* Invalid feedback */
+.invalid-feedback {
+    font-size: 12px;
+    margin-top: 4px;
+}
+
+/* Modal footer buttons */
+.modal-footer .btn {
+    border-radius: 6px;
+    padding: 8px 24px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.modal-footer .btn-primary {
+    border: none;
+}
+
+.modal-footer .btn-primary:hover {
+    transform: translateY(-2px);
+}
+
+.modal-footer .btn-secondary {
+    background-color: #6c757d;
+    border: none;
+}
+
+.modal-footer .btn-secondary:hover {
+    background-color: #5a6268;
+    transform: translateY(-2px);
+}
