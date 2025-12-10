@@ -17,7 +17,7 @@ const CarProgressLoading = ({
     onComplete,
     duration = 2000,
     minLoadingTime = 1000,
-    carImage = "/public/proj_images/loading_car.png"
+    carImage = "/Images/loading_car.png"
 }) => {
     const [progress, setProgress] = useState(0);
     const [startTime] = useState(Date.now());
@@ -63,22 +63,22 @@ const CarProgressLoading = ({
                 overflow: 'hidden',
             }}
         >
-            <Box sx={{ mb: 8, textAlign: 'center',  }}>
+            <Box sx={{ mb: 8, textAlign: 'center', }}>
                 <img
-                    src="/proj_images/logo/logo.png"
+                    src="/Images/logo/logo.png"
                     alt="Mercedes Logo"
                     style={{
                         width: 200,
                         height: 200,
                         objectFit: 'contain',
                         marginBottom: 20,
-                        
+
                     }}
                 />
                 <Typography
                     variant="h4"
                     sx={{
-                        color: '#fff', 
+                        color: '#fff',
                         fontWeight: 300,
                         letterSpacing: '6px',
                         fontFamily: 'serif',

@@ -15,7 +15,7 @@ const AboutUs = () => {
                                 <CardMedia
                                     component="img"
                                     height="100%"
-                                    image="/proj_images/aboutus/intro.avif"
+                                    image="/Images/aboutus/intro.avif"
                                     alt="green iguana"
                                 />
                             </Card>

@@ -129,9 +129,9 @@ const Header = () => {
           }}
         >
           <img
-            src="../../../public/proj_images/logo/logo.png"
+            src="/Images/logo/logo.png"
             alt="Mercedes-Benz Logo"
-            onClick={() => navigate('/')} 
+            onClick={() => navigate('/')}
             style={{
               height: 90,
               width: "auto",
@@ -204,7 +204,7 @@ const Header = () => {
               <ShoppingCartIcon sx={{
                 marginLeft: 1,
                 cursor: "pointer"
-                }} />
+              }} />
             </>
           ) : (
             <>

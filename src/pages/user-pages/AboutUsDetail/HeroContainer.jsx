@@ -27,13 +27,13 @@ const HeroContainer = () => {
     >
       <Box
         sx={{
-          
+
           position: 'absolute',
           top: 0,
           left: 0,
           right: 0,
           bottom: 0,
-          backgroundImage: 'url("public/proj_images/aboutus/nav.avif")', 
+          backgroundImage: 'url("/Images/aboutus/nav.avif")',
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           backgroundRepeat: 'no-repeat',
@@ -64,7 +64,7 @@ const HeroContainer = () => {
               >
                 Định nghĩa về xe luôn thay đổi, nhưng đẳng cấp thì không.
               </Typography>
-              
+
               <Typography
                 variant="body1"
                 sx={{
@@ -72,7 +72,7 @@ const HeroContainer = () => {
                   fontSize: '1rem',
                   mb: 4,
                   textShadow: '1px 1px 2px rgba(0,0,0,0.7)',
-                  marginBottom: {xs: 2, md: 9}
+                  marginBottom: { xs: 2, md: 9 }
                 }}
               >
                 Khi đó là Mercedes-Benz.

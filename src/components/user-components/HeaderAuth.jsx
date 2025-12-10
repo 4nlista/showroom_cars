@@ -77,7 +77,7 @@ const HeaderAuth = () => {
                     }}
                 >
                     <img
-                        src="../../../public/proj_images/logo/logo.png"
+                        src="/Images/logo/logo.png"
                         alt="Mercedes-Benz Logo"
                         onClick={() => window.location.href = '/'}
                         style={{
@@ -107,7 +107,7 @@ const HeaderAuth = () => {
                         <SearchIcon />
                     </IconButton>
 
-                    
+
                 </Box>
             </Toolbar>
         </AppBar>

@@ -25,14 +25,14 @@ const Banner = () => {
   const videos = [
     {
       id: 1,
-      src: '/proj_images/vid-demo/original.mp4',
-      poster: '/images/poster1.jpg',
+      src: '/Images/vid-demo/original.mp4',
+      poster: '/Images/poster1.jpg',
       title: 'Khám Phá Đẳng Cấp Mercedes-Benz'
     },
     {
       id: 2,
-      src: '/proj_images/vid-demo/The-G-Class-Experience-Center-in-Graz-Get-G-Proved-1080p-FHD[1080p-FHD]-(www.Download.Tube).mp4',
-      poster: '/images/poster2.jpg',
+      src: '/Images/vid-demo/The-G-Class-Experience-Center-in-Graz-Get-G-Proved-1080p-FHD[1080p-FHD]-(www.Download.Tube).mp4',
+      poster: '/Images/poster2.jpg',
       title: 'Trải Nghiệm G-Class Biểu Tượng Sức Mạnh Và Đẳng Cấp'
     },
   ];
@@ -162,24 +162,24 @@ const Banner = () => {
                   <source src={video.src} type="video/mp4" />
                   Trình duyệt của bạn không hỗ trợ video.
                 </video>
-                  <Box
-                    sx={{
-                      position: 'absolute',
-                      bottom: { xs: 80, md: 250 },
-                      left: { xs: 25, md: 90 },
-                      zIndex: 20,
-                      color: 'white',
-                      fontWeight: 550,
-                      fontSize: { xs: '1.2rem', md: '1.5rem', lg: '2.8rem' },
-                      textShadow: '0 2px 8px rgba(0,0,0,0.7)',
-                      maxWidth: { xs: '90%', md: '30%' },
-                      pointerEvents: 'none',
-                    }}
-                  >
-                    {video.title}
-                  </Box>
+                <Box
+                  sx={{
+                    position: 'absolute',
+                    bottom: { xs: 80, md: 250 },
+                    left: { xs: 25, md: 90 },
+                    zIndex: 20,
+                    color: 'white',
+                    fontWeight: 550,
+                    fontSize: { xs: '1.2rem', md: '1.5rem', lg: '2.8rem' },
+                    textShadow: '0 2px 8px rgba(0,0,0,0.7)',
+                    maxWidth: { xs: '90%', md: '30%' },
+                    pointerEvents: 'none',
+                  }}
+                >
+                  {video.title}
+                </Box>
 
-                
+
 
                 <Box sx={{
                   position: 'absolute',

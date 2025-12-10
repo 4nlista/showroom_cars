@@ -72,7 +72,7 @@
       "name": "Mercedes-Benz C-Class",
       "description": "Mercedes-Benz C-Class là dòng xe hạng sang cỡ nhỏ kết hợp giữa sự sang trọng, hiệu suất cao và công nghệ tiên tiến. Xe sở hữu thiết kế thanh lịch, nội thất tiện nghi và hàng loạt động cơ mạnh mẽ.",
       "price": "1.599.000.000₫",
-      "image": "./public/proj_images/mecerdes-benz/sedan/c-class.png",
+      "image": "/Images/mecerdes-benz/sedan/c-class.png",
       "transmission": "Automatic",
       "category_id": 1
     },
@@ -81,7 +81,7 @@
       "name": "Mercedes-Benz GLE",
       "description": "Mercedes-Benz GLE là mẫu SUV hạng sang cỡ trung, mang đến sự kết hợp hoàn hảo giữa sự thoải mái, hiệu suất và tính linh hoạt. Xe sở hữu nội thất rộng rãi, các tính năng an toàn tiên tiến và loạt động cơ mạnh mẽ.",
       "price": "2.000.000.000₫",
-      "image": "./public/proj_images/mecerdes-benz/SUV/gle.png",
+      "image": "/Images/mecerdes-benz/SUV/gle.png",
       "transmission": "Automatic",
       "category_id": 2
     },
@@ -90,7 +90,7 @@
       "name": "Mercedes-Benz G-Class",
       "description": "Mercedes-Benz G-Class là mẫu SUV hạng sang cỡ lớn, nổi bật với thiết kế vuông vức, mạnh mẽ và khả năng off-road vượt trội. Xe được trang bị nội thất sang trọng, công nghệ tiên tiến và động cơ mạnh mẽ.",
       "price": "7.000.000.000₫",
-      "image": "./public/proj_images/mecerdes-benz/SUV/G63.avif",
+      "image": "/Images/mecerdes-benz/SUV/G63.avif",
       "transmission": "Automatic",
       "category_id": 2
     }
@@ -101,10 +101,10 @@
       "name": "Mercedes-Benz C-Class",
       "description": "Mercedes-Benz C-Class là dòng xe hạng sang cỡ nhỏ kết hợp giữa sự sang trọng, hiệu suất cao và công nghệ tiên tiến. Xe sở hữu thiết kế thanh lịch, nội thất tiện nghi và hàng loạt động cơ mạnh mẽ.",
       "price": "1590000000",
-      "image": "/proj_images/mecerdes-benz/sedan/c-class.png",
+      "image": "/Images/mecerdes-benz/sedan/c-class.png",
       "imageDetail": [
-        "/proj_images/mecerdes-benz/sedan/c-class-1.png",
-        "/proj_images/mecerdes-benz/sedan/c-class-2.png"
+        "/Images/mecerdes-benz/sedan/c-class-1.png",
+        "/Images/mecerdes-benz/sedan/c-class-2.png"
       ],
       "transmission": "Automatic",
       "fuel_type": "gasoline",
@@ -120,7 +120,7 @@
       "name": "Mercedes-Benz GLE",
       "description": "Mercedes-Benz GLE là mẫu SUV hạng sang cỡ trung, mang đến sự kết hợp hoàn hảo giữa sự thoải mái, hiệu suất và tính linh hoạt. Xe sở hữu nội thất rộng rãi, các tính năng an toàn tiên tiến và loạt động cơ mạnh mẽ.",
       "price": "2000000000",
-      "image": "./public/proj_images/mecerdes-benz/SUV/gle.png",
+      "image": "Images/mecerdes-benz/SUV/gle.png",
       "imageDetail": [
         ""
       ],
@@ -138,7 +138,7 @@
       "name": "Mercedes-Benz G-Class",
       "description": "Mercedes-Benz G-Class là mẫu SUV hạng sang cỡ lớn, nổi bật với thiết kế vuông vức, mạnh mẽ và khả năng off-road vượt trội. Xe được trang bị nội thất sang trọng, công nghệ tiên tiến và động cơ mạnh mẽ.",
       "price": "10000000000",
-      "image": "./public/proj_images/mecerdes-benz/SUV/G63.avif",
+      "image": "Images/mecerdes-benz/SUV/G63.avif",
       "imageDetail": [
         ""
       ],
@@ -156,7 +156,7 @@
       "name": "Mercedes-Benz S-Class",
       "description": "Mercedes-Benz S-Class là dòng xe sedan hạng sang cỡ lớn, biểu tượng của sự sang trọng và công nghệ tiên tiến. Xe nổi bật với thiết kế tinh tế, nội thất đẳng cấp và loạt động cơ mạnh mẽ.",
       "price": "11000000000",
-      "image": "./public/proj_images/mecerdes-benz/sedan/s-class.png",
+      "image": "/Images/mecerdes-benz/sedan/s-class.png",
       "imageDetail": [
         ""
       ],
@@ -174,7 +174,7 @@
       "name": "Mercedes-Benz E-Class",
       "description": "Mercedes-Benz E-Class là dòng xe sedan hạng sang cỡ trung, kết hợp hoàn hảo giữa hiệu suất, sự thoải mái và công nghệ hiện đại. Xe sở hữu thiết kế thanh lịch, nội thất tiện nghi và nhiều tùy chọn động cơ mạnh mẽ.",
       "price": "3500000000",
-      "image": "./public/proj_images/mecerdes-benz/sedan/e-class.png",
+      "image": "/Images/mecerdes-benz/sedan/e-class.png",
       "imageDetail": [
         ""
       ],
@@ -192,7 +192,7 @@
       "name": "Mercedes-Benz GLS",
       "description": "Mercedes-Benz GLS là SUV hạng sang 7 chỗ, rộng rãi, êm ái, nhiều công nghệ. Không gian rộng rãi, trải nghiệm êm, trang bị hiện đại.",
       "price": "8900000000",
-      "image": "./public/proj_images/mecerdes-benz/SUV/gls.png",
+      "image": "/Images/mecerdes-benz/SUV/gls.png",
       "imageDetail": [
         ""
       ],
@@ -210,7 +210,7 @@
       "name": "Mercedes-Benz GLC",
       "description": "Không gian rộng rãi, trải nghiệm êm, trang bị hiện đại. Thiết kế sang trọng, động cơ mạnh mẽ, nhiều công nghệ. Vận hành ổn định, tiết kiệm, phù hợp gia đình.",
       "price": "3500000000",
-      "image": "./public/proj_images/mecerdes-benz/SUV/glc.png",
+      "image": "/Images/mecerdes-benz/SUV/glc.png",
       "imageDetail": [
         ""
       ],
@@ -228,7 +228,7 @@
       "name": "Mercedes-Benz G63",
       "description": "Mercedes-Benz G63 là dòng xe hatchback hạng sang cỡ nhỏ, nổi bật với thiết kế hiện đại, hiệu suất mạnh mẽ và công nghệ tiên tiến. Xe mang đến trải nghiệm lái năng động và tiện nghi cao cấp.",
       "price": "15300000000",
-      "image": "./public/proj_images/AMG/SUV/g-class.png",
+      "image": "/Images/AMG/SUV/g-class.png",
       "imageDetail": [
         ""
       ],
@@ -245,7 +245,7 @@
       "name": "Mercedes-Benz CLA",
       "description": "Mercedes-Benz CLA là dòng xe coupe 4 cửa hạng sang cỡ nhỏ, kết hợp giữa thiết kế thể thao, hiệu suất mạnh mẽ và công nghệ tiên tiến. Xe nổi bật với kiểu dáng thanh lịch và nội thất tiện nghi.",
       "price": "4000000000",
-      "image": "./public/proj_images/AMG/Sedan/a-class.png",
+      "image": "/Images/AMG/Sedan/a-class.png",
       "imageDetail": [
         ""
       ],
@@ -262,7 +262,7 @@
       "name": "Mercedes-Benz GLC",
       "description": "Mercedes-Benz GLC là mẫu SUV hạng sang cỡ trung, mang đến sự kết hợp hoàn hảo giữa sự thoải mái, hiệu suất và tính linh hoạt. Xe sở hữu nội thất rộng rãi, các tính năng an toàn tiên tiến và loạt động cơ mạnh mẽ.",
       "price": "5500000000",
-      "image": "./public/proj_images/mecerdes-benz/SUV/glc.png",
+      "image": "Images/mecerdes-benz/SUV/glc.png",
       "imageDetail": [
         ""
       ],
@@ -279,7 +279,7 @@
       "name": "Mercedes-AMG A-Class",
       "description": "Mercedes-AMG A-Class là dòng xe hatchback hạng sang cỡ nhỏ, nổi bật với thiết kế hiện đại, hiệu suất mạnh mẽ và công nghệ tiên tiến. Xe mang đến trải nghiệm lái năng động và tiện nghi cao cấp.",
       "price": "2330000000",
-      "image": "./public/proj_images/AMG/sedan/a-class.png",
+      "image": "/Images/AMG/sedan/a-class.png",
       "imageDetail": [
         ""
       ],
@@ -296,7 +296,7 @@
       "name": "Mercedes-AMG C-Class",
       "description": "Mercedes-AMG C-Class là dòng xe coupe 4 cửa hạng sang cỡ nhỏ, kết hợp giữa thiết kế thể thao, hiệu suất mạnh mẽ và công nghệ tiên tiến. Xe nổi bật với kiểu dáng thanh lịch và nội thất tiện nghi.",
       "price": "4400000000",
-      "image": "./public/proj_images/AMG/sedan/c-class.png",
+      "image": "/Images/AMG/sedan/c-class.png",
       "imageDetail": [
         ""
       ],
@@ -313,7 +313,7 @@
       "name": "Mercedes-AMG GLA-Class",
       "description": "Mercedes-AMG GLA-Class là dòng xe SUV hiệu suất cao, gọn nhẹ, phong cách thể thao. Thiết kế năng động, động cơ mạnh mẽ, công nghệ tiên tiến. Vận hành linh hoạt, tiết kiệm, phù hợp đô thị.",
       "price": "6400000000",
-      "image": "./public/proj_images/AMG/suv/gla.png",
+      "image": "/Images/AMG/suv/gla.png",
       "imageDetail": [
         ""
       ],
@@ -330,7 +330,7 @@
       "name": "Mercedes-AMG GLB-Class",
       "description": "Mercedes-AMG GLB-Class là mẫu SUV 7 chỗ cỡ nhỏ, linh hoạt và tiện dụng. Gọn gàng, 3 hàng ghế, phù hợp gia đình trẻ. Phong cách mạnh mẽ, nội thất đa dụng.",
       "price": "7500000000",
-      "image": "./public/proj_images/AMG/suv/glb.png",
+      "image": "/Images/AMG/suv/glb.png",
       "imageDetail": [
         ""
       ],
@@ -347,7 +347,7 @@
       "name": "Mercedes-AMG GLE-Class",
       "description": "SUV hạng sang 5-7 chỗ, sang trọng và mạnh mẽ. Sang trọng, mạnh mẽ, phù hợp gia đình và doanh nhân. Công nghệ tiên tiến, vận hành êm ái.",
       "price": "2000000000",
-      "image": "./public/proj_images/AMG/suv/gle.png",
+      "image": "/Images/AMG/suv/gle.png",
       "imageDetail": [
         ""
       ],
@@ -364,7 +364,7 @@
       "name": "Mercedes-AMG SL Roadster",
       "description": "Mercedes-AMG SL Roadster là mẫu xe thể thao hạng sang, nổi bật với thiết kế mui trần, động cơ mạnh mẽ và công nghệ tiên tiến. Xe mang đến trải nghiệm lái đầy phấn khích và sang trọng.",
       "price": "8500000000",
-      "image": "./public/proj_images/AMG/cabriolet/cabriolet.avif",
+      "image": "/Images/AMG/cabriolet/cabriolet.avif",
       "imageDetail": [
         ""
       ],
@@ -381,7 +381,7 @@
       "name": "Mercedes-Maybach S-Class",
       "description": "Mercedes-Maybach S-Class là mẫu sedan Sedan siêu sang, đỉnh cao tiện nghi và xa xỉ. Nội thất tinh tế, công nghệ hiện đại, động cơ mạnh mẽ. Trải nghiệm đẳng cấp, thoải mái tối đa.",
       "price": "20000000000",
-      "image": "./public/proj_images/MAYBACH/sedan/s-class.png",
+      "image": "/Images/MAYBACH/sedan/s-class.png",
       "imageDetail": [
         ""
       ],
@@ -398,7 +398,7 @@
       "name": "Mercedes-Maybach EQS-Class",
       "description": "SUV điện siêu sang, đỉnh cao công nghệ và xa xỉ. Trải nghiệm lái yên tĩnh, hiệu suất mạnh mẽ. Không gian rộng rãi, tiện nghi tối đa, đẳng cấp.",
       "price": "13000000000",
-      "image": "./public/proj_images/MAYBACH/SUV/eqs.avif",
+      "image": "/Images/MAYBACH/SUV/eqs.avif",
       "imageDetail": [
         ""
       ],
@@ -415,7 +415,7 @@
       "name": "Mercedes-Maybach GLS-Class",
       "description": "Mercedes-Maybach GLS-Class là mẫu SUV siêu sang, kết hợp giữa sự rộng rãi, tiện nghi và hiệu suất mạnh mẽ. Xe nổi bật với thiết kế tinh tế, nội thất đẳng cấp và công nghệ tiên tiến.",
       "price": "16000000000",
-      "image": "./public/proj_images/MAYBACH/SUV/gls.png",
+      "image": "/Images/MAYBACH/SUV/gls.png",
       "imageDetail": [
         ""
       ],
@@ -451,7 +451,7 @@
       "id": "1",
       "title": "S680 của riêng bạn đang chờ",
       "subtitle": "Chỉ vài bước để chạm đến chiếc Mercedes-Benz của bạn.",
-      "image": "/public/proj_images/post/S-Class.jpg",
+      "image": "/Images/post/S-Class.jpg",
       "buttons": [
         {
           "text": "Tìm xe có sẵn",
@@ -467,7 +467,7 @@
       "id": "2",
       "title": "Thông tin khuyến mại mới nhất",
       "subtitle": "Tìm hiểu chương trình khuyến mại từ Mercedes-Benz Việt Nam cùng hệ thống Nhà phân phối.",
-      "image": "/public/proj_images/post/promotion.jpg",
+      "image": "/Images/post/promotion.jpg",
       "buttons": [
         {
           "text": "Tìm hiểu thêm",
@@ -479,7 +479,7 @@
       "id": "3",
       "title": "Xe điện Mercedes-Benz",
       "subtitle": "Khám phá tương lai di chuyển thuần điện.",
-      "image": "/public/proj_images/post/xe-dien.avif",
+      "image": "/Images/post/xe-dien.avif",
       "buttons": [
         {
           "text": "Tìm hiểu thêm",
@@ -495,7 +495,7 @@
       "id": "4",
       "title": "Mercedes-Benz C-Class",
       "subtitle": "Đây là thế giới của tôi.",
-      "image": "/public/proj_images/post/c300.jpg",
+      "image": "/Images/post/c300.jpg",
       "buttons": [
         {
           "text": "Tìm hiểu thêm",
@@ -511,7 +511,7 @@
       "id": "5",
       "title": "Giải pháp tối ưu dành cho doanh nghiệp",
       "subtitle": "Quyền lợi đặc biệt cho Khối doanh nghiệp và Ngành nghề trọng điểm.",
-      "image": "/public/proj_images/post/business.avif",
+      "image": "/Images/post/business.avif",
       "buttons": [
         {
           "text": "Tìm hiểu thêm",

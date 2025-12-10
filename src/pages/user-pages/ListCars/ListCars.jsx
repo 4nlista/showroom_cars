@@ -21,10 +21,10 @@ const ListCars = () => {
     const [displayedCars, setDisplayedCars] = useState(6);
     const [searchKeyword, setSearchKeyword] = useState('');
     const location = useLocation();
-    
+
     const { cars, loading: carsLoading } = useCars();
     const { categories, loading: categoriesLoading } = useCategories();
-    
+
     const {
         filteredCars,
         sortBy,

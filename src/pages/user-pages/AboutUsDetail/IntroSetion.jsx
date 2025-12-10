@@ -5,27 +5,27 @@ const IntroSection = () => {
         {
             id: 1,
             title: '...một không gian thư giãn lý tưởng.',
-            img: '/public/proj_images/aboutus/card1.avif'
+            img: '/Images/aboutus/card1.avif'
         },
         {
             id: 2,
             title: '...một phòng làm việc.',
-            img: '/public/proj_images/aboutus/card2.avif'
+            img: '/Images/aboutus/card2.avif'
         },
         {
             id: 3,
             title: '...một rạp chiếu phim.',
-            img: '/public/proj_images/aboutus/card3.webp'
+            img: '/Images/aboutus/card3.webp'
         },
         {
             id: 4,
             title: '...một trung tâm công nghệ.',
-            img: '/public/proj_images/aboutus/card4.jpg'
+            img: '/Images/aboutus/card4.jpg'
         },
         {
             id: 5,
             title: '...một vùng an toàn.',
-            img: '/public/proj_images/aboutus/card5.avif'
+            img: '/Images/aboutus/card5.avif'
         }
     ]
 

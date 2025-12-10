@@ -32,7 +32,7 @@ const CartShopee = () => {
         {
             id: 1,
             name: 'Mercedes-Benz C-Class',
-            image: '/proj_images/mecerdes-benz/sedan/c-class.png',
+            image: '/Images/mecerdes-benz/sedan/c-class.png',
             price: 1590000000,
             quantity: 1,
             selected: true,
@@ -40,7 +40,7 @@ const CartShopee = () => {
         {
             id: 2,
             name: 'Mercedes-Benz E-Class',
-            image: '/proj_images/mecerdes-benz/sedan/e-class.png',
+            image: '/Images/mecerdes-benz/sedan/e-class.png',
             price: 2390000000,
             quantity: 1,
             selected: false,
@@ -51,7 +51,7 @@ const CartShopee = () => {
         {
             id: 4,
             name: 'Mercedes-Benz S-Class',
-            image: '/proj_images/mecerdes-benz/sedan/s-class.png',
+            image: '/Images/mecerdes-benz/sedan/s-class.png',
             price: 11000000000,
             transmission: 'Automatic',
             seats: 4,
@@ -59,7 +59,7 @@ const CartShopee = () => {
         {
             id: 6,
             name: 'Mercedes-Benz GLS',
-            image: '/proj_images/mecerdes-benz/SUV/gls.png',
+            image: '/Images/mecerdes-benz/SUV/gls.png',
             price: 8900000000,
             transmission: 'Automatic',
             seats: 7,
@@ -67,7 +67,7 @@ const CartShopee = () => {
         {
             id: 3,
             name: 'Mercedes-Benz G-Class',
-            image: '/proj_images/mecerdes-benz/SUV/G63.avif',
+            image: '/Images/mecerdes-benz/SUV/G63.avif',
             price: 10000000000,
             transmission: 'Manual',
             seats: 4,
@@ -75,7 +75,7 @@ const CartShopee = () => {
         {
             id: 2,
             name: 'Mercedes-Benz GLE',
-            image: '/proj_images/mecerdes-benz/SUV/gle.png',
+            image: '/Images/mecerdes-benz/SUV/gle.png',
             price: 2000000000,
             transmission: 'Automatic',
             seats: 4,
@@ -83,7 +83,7 @@ const CartShopee = () => {
         {
             id: 9,
             name: 'Mercedes-Benz GLC',
-            image: '/proj_images/mecerdes-benz/SUV/glc.png',
+            image: '/Images/mecerdes-benz/SUV/glc.png',
             price: 5500000000,
             transmission: 'Automatic',
             seats: 5,
@@ -91,7 +91,7 @@ const CartShopee = () => {
         {
             id: 15,
             name: 'Mercedes-AMG SL Roadster',
-            image: '/proj_images/AMG/cabriolet/cabriolet.avif',
+            image: '/Images/AMG/cabriolet/cabriolet.avif',
             price: 8500000000,
             transmission: 'Automatic',
             seats: 2,
