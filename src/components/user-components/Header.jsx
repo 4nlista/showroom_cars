@@ -14,8 +14,9 @@ import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import Fade from '@mui/material/Fade';
 import useCars from "../../hooks/useCars";
 import SearchOverlay from "./SearchOverlay";
-import { MdOutlineAddShoppingCart } from "react-icons/md";
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import { Badge } from "@mui/material";
+import { useCart } from "../../hooks/useCart";
 
 const Header = () => {
   const navigate = useNavigate();
@@ -25,12 +26,17 @@ const Header = () => {
     { label: "Về chúng tôi", path: "/ve-chung-toi" }
   ];
   const [anchorEl, setAnchorEl] = useState(null);
-
   const [user, setUser] = useState(null);
   const [searchOpen, setSearchOpen] = useState(false);
   const [searchAnchor, setSearchAnchor] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
   const { cars } = useCars();
+  const { cartItems, getUniqueItemCount } = useCart();
+  const countCart = getUniqueItemCount();
+
+  // Debug: kiểm tra giá trị
+  console.log('Cart Items:', cartItems);
+  console.log('Count Cart:', countCart);
 
   useEffect(() => {
     const storedUser = localStorage.getItem("user");
@@ -60,6 +66,7 @@ const Header = () => {
   const handleMenuClose = () => {
     setAnchorEl(null);
   };
+
 
   const handleLogout = () => {
     localStorage.removeItem("user");
@@ -201,10 +208,7 @@ const Header = () => {
               >
                 Đăng ký
               </Box>
-              <ShoppingCartIcon sx={{
-                marginLeft: 1,
-                cursor: "pointer"
-              }} />
+
             </>
           ) : (
             <>
@@ -297,6 +301,23 @@ const Header = () => {
                   Đăng xuất
                 </MenuItem>
               </Menu>
+              <Badge
+                badgeContent={countCart}
+                color="error"
+                showZero
+                onClick={() => navigate('/gio-hang')}
+                sx={{
+                  cursor: 'pointer',
+                  '& .MuiBadge-badge': {
+                    backgroundColor: '#ee4d2d',
+                    color: '#fff',
+                    fontWeight: 700,
+                    fontSize: '0.7rem',
+                  }
+                }}
+              >
+                <ShoppingCartIcon />
+              </Badge>
             </>
           )}
         </Box>

@@ -1,4 +1,3 @@
-// src/components/CarProgressLoading.jsx
 import React, { useState, useEffect } from 'react';
 import { Box, Typography } from '@mui/material';
 import { keyframes } from '@mui/system';
@@ -17,7 +16,7 @@ const CarProgressLoading = ({
     onComplete,
     duration = 2000,
     minLoadingTime = 1000,
-    carImage = "/Images/loading_car.png"
+    carImage = "/loading_car.png"
 }) => {
     const [progress, setProgress] = useState(0);
     const [startTime] = useState(Date.now());
@@ -71,7 +70,7 @@ const CarProgressLoading = ({
                         width: 200,
                         height: 200,
                         objectFit: 'contain',
-                        marginBottom: 20,
+                        marginBottom: 4,
 
                     }}
                 />
@@ -82,6 +81,7 @@ const CarProgressLoading = ({
                         fontWeight: 300,
                         letterSpacing: '6px',
                         fontFamily: 'serif',
+                        marginBottom: 4
                     }}
                 >
                     MERCEDES-BENZ

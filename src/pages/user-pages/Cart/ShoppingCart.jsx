@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import MainLayout from '../../../layouts/user-layouts/MainLayout';
+import {formatVND, parseCarPrice} from '../../../utils/formatters';
 import {
     Box,
     Container,
@@ -26,7 +27,7 @@ import {
     ArrowForward,
 } from '@mui/icons-material';
 
-const CartShopee = () => {
+const CartShopping = () => {
     const navigate = useNavigate();
     const [items, setItems] = useState([
         {
@@ -98,8 +99,7 @@ const CartShopee = () => {
         },
     ];
 
-    const formatPrice = (p) =>
-        new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(p);
+    const formatPrice = formatVND;
 
     const allChecked = items.length > 0 && items.every((i) => i.selected);
     const selectedCount = items.filter((i) => i.selected).length;
@@ -647,4 +647,4 @@ const CartShopee = () => {
     );
 };
 
-export default CartShopee;
+export default CartShopping;

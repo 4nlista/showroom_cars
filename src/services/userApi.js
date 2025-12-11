@@ -1,9 +1,6 @@
-// API calls để lấy dữ liệu người dùng từ db.json
 import axios from 'axios';
+import API_BASE_URL from '../config';
 
-const API_BASE_URL = 'http://localhost:9999';
-
-// Lấy danh sách tất cả người dùng
 export const fetchAllUsers = async () => {
     try {
         const response = await axios.get(`${API_BASE_URL}/users`);
@@ -14,7 +11,6 @@ export const fetchAllUsers = async () => {
     }
 };
 
-// Lấy thông tin chi tiết một người dùng theo ID
 export const fetchUserById = async (userId) => {
     try {
         const response = await axios.get(`${API_BASE_URL}/users/${userId}`);
@@ -25,7 +21,6 @@ export const fetchUserById = async (userId) => {
     }
 };
 
-// Tạo người dùng mới
 export const createUser = async (userData) => {
     try {
         const response = await axios.post(`${API_BASE_URL}/users`, userData);
