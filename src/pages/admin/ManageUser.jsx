@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { Table, Button, Image, Spinner, Alert, Form, InputGroup, Container } from 'react-bootstrap';
+import { Table, Button, Image, Spinner, Alert, Form, InputGroup } from 'react-bootstrap';
 import AdminLayout from '../../layouts/admin/AdminLayout';
-import UserDetailModal from '../../components/admin/UserDetailModal';
-import UserEditModal from '../../components/admin/UserEditModal';
+import UserDetailModal from './UserDetailModal';
+import UserEditModal from './UserEditModal';
+import CreateUserModal from './CreateUserModal';
 import { fetchAllUsers } from '../../services/userApi';
 import { updateUser, deleteUser, filterUsers } from '../../services/userService';
 import './ManageUser.css';
@@ -18,6 +19,7 @@ const ManageUser = () => {
     // State quản lý modal
     const [showDetailModal, setShowDetailModal] = useState(false);
     const [showEditModal, setShowEditModal] = useState(false);
+    const [showCreateModal, setShowCreateModal] = useState(false);
     const [selectedUser, setSelectedUser] = useState(null);
 
     // Load danh sách users khi component mount
@@ -50,6 +52,16 @@ const ManageUser = () => {
     // Xử lý thay đổi từ khóa tìm kiếm
     const handleSearchChange = (e) => {
         setSearchTerm(e.target.value);
+    };
+
+    // Mở modal tạo người dùng mới
+    const handleCreateUser = () => {
+        setShowCreateModal(true);
+    };
+
+    // Xử lý sau khi tạo user thành công
+    const handleUserCreated = async () => {
+        await loadUsers();
     };
 
     // Mở modal xem chi tiết
@@ -110,29 +122,39 @@ const ManageUser = () => {
                 {/* Hiển thị lỗi nếu có */}
                 {error && <Alert variant="danger" className="mb-3">{error}</Alert>}
 
-                {/* Filter Section */}
-                <div className="filter-section">
-                    <Form>
-                        <InputGroup>
-                            <InputGroup.Text>
-                                <i className="bi bi-search"></i>
-                            </InputGroup.Text>
-                            <Form.Control
-                                type="text"
-                                placeholder="Tìm kiếm theo tên, username, email, số điện thoại..."
-                                value={searchTerm}
-                                onChange={handleSearchChange}
-                            />
-                            {searchTerm && (
-                                <Button
-                                    variant="outline-secondary"
-                                    onClick={() => setSearchTerm('')}
-                                >
-                                    <i className="bi bi-x-lg"></i>
-                                </Button>
-                            )}
-                        </InputGroup>
-                    </Form>
+                {/* Filter Section tìm kiếm theo tên */}
+                <div className="filter-section-wrapper">
+                    <div className="filter-section">
+                        <Form>
+                            <InputGroup>
+                                <InputGroup.Text>
+                                    <i className="bi bi-search"></i>
+                                </InputGroup.Text>
+                                <Form.Control
+                                    type="text"
+                                    placeholder="Tìm kiếm theo tên, username, email, số điện thoại..."
+                                    value={searchTerm}
+                                    onChange={handleSearchChange}
+                                />
+                                {searchTerm && (
+                                    <Button
+                                        variant="outline-secondary"
+                                        onClick={() => setSearchTerm('')}
+                                    >
+                                        <i className="bi bi-x-lg"></i>
+                                    </Button>
+                                )}
+                            </InputGroup>
+                        </Form>
+                    </div>
+                    <Button
+                        variant="primary"
+                        onClick={handleCreateUser}
+                        className="btn-create-user"
+                    >
+                        <i className="bi bi-person-plus-fill me-2"></i>
+                        Thêm người dùng
+                    </Button>
                 </div>
 
                 {/* Hiển thị loading spinner */}
@@ -240,6 +262,13 @@ const ManageUser = () => {
                     onHide={() => setShowEditModal(false)}
                     user={selectedUser}
                     onUpdate={handleUpdate}
+                />
+
+                {/* Modal tạo người dùng mới */}
+                <CreateUserModal
+                    show={showCreateModal}
+                    onHide={() => setShowCreateModal(false)}
+                    onUserCreated={handleUserCreated}
                 />
             </div>
         </AdminLayout>
