@@ -118,7 +118,19 @@ const UserEditModal = ({ show, onHide, user, onUpdate }) => {
             onHide();
         } catch (error) {
             console.error('Error updating user:', error);
-            setErrors({ submit: 'Có lỗi xảy ra khi cập nhật thông tin' });
+            // Hiển thị lỗi cụ thể từ server
+            const errorMessage = error.message || 'Có lỗi xảy ra khi cập nhật thông tin';
+
+            // Kiểm tra xem có phải lỗi trùng lặp không
+            if (errorMessage.includes('Email')) {
+                setErrors({ email: errorMessage });
+            } else if (errorMessage.includes('Số điện thoại')) {
+                setErrors({ phone: errorMessage });
+            } else if (errorMessage.includes('Tên đăng nhập')) {
+                setErrors({ username: errorMessage });
+            } else {
+                setErrors({ submit: errorMessage });
+            }
         } finally {
             setIsSubmitting(false);
         }

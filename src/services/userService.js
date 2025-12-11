@@ -30,6 +30,34 @@ export const getUserById = async (userId) => {
 // Cập nhật thông tin người dùng
 export const updateUser = async (userId, userData) => {
     try {
+        // Lấy danh sách tất cả users để kiểm tra trùng lặp
+        const usersResponse = await axios.get(`${API_BASE_URL}/users`);
+        const users = usersResponse.data;
+
+        // Kiểm tra email đã được sử dụng bởi user khác chưa
+        const emailExists = users.some(user =>
+            user.id !== userId && user.email === userData.email
+        );
+        if (emailExists) {
+            throw new Error('Email đã được sử dụng bởi người dùng khác');
+        }
+
+        // Kiểm tra số điện thoại đã được sử dụng bởi user khác chưa
+        const phoneExists = users.some(user =>
+            user.id !== userId && user.phone === userData.phone
+        );
+        if (phoneExists) {
+            throw new Error('Số điện thoại đã được sử dụng bởi người dùng khác');
+        }
+
+        // Kiểm tra username đã được sử dụng bởi user khác chưa
+        const usernameExists = users.some(user =>
+            user.id !== userId && user.username === userData.username
+        );
+        if (usernameExists) {
+            throw new Error('Tên đăng nhập đã được sử dụng bởi người dùng khác');
+        }
+
         const response = await axios.put(`${API_BASE_URL}/users/${userId}`, userData);
         console.log('User updated:', response.data);
         return response.data;
@@ -70,8 +98,8 @@ export const validateUserData = (formData) => {
     // Validate số điện thoại
     if (!formData.phone?.trim()) {
         errors.phone = 'Vui lòng nhập số điện thoại';
-    } else if (!/^[0-9]{10}$/.test(formData.phone)) {
-        errors.phone = 'Số điện thoại phải có 10 chữ số';
+    } else if (!/^0[0-9]{9}$/.test(formData.phone)) {
+        errors.phone = 'Số điện thoại phải có 10 chữ số và bắt đầu bằng số 0';
     }
 
     return errors;
@@ -147,8 +175,8 @@ export const createNewUser = async (formData) => {
     // Validate số điện thoại
     if (!formData.phone?.trim()) {
         errors.phone = 'Vui lòng nhập số điện thoại';
-    } else if (!/^[0-9]{10}$/.test(formData.phone)) {
-        errors.phone = 'Số điện thoại phải có 10 chữ số';
+    } else if (!/^0[0-9]{9}$/.test(formData.phone)) {
+        errors.phone = 'Số điện thoại phải có 10 chữ số và bắt đầu bằng số 0';
     }
 
     // Validate mật khẩu
@@ -190,6 +218,16 @@ export const createNewUser = async (formData) => {
             throw {
                 validationErrors: {
                     email: 'Email đã được sử dụng'
+                }
+            };
+        }
+
+        // Kiểm tra số điện thoại đã được sử dụng chưa
+        const phoneExists = users.some(user => user.phone === formData.phone);
+        if (phoneExists) {
+            throw {
+                validationErrors: {
+                    phone: 'Số điện thoại đã được sử dụng'
                 }
             };
         }

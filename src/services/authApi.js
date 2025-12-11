@@ -11,6 +11,10 @@ const login = async ({ username, password }) => {
         );
 
         if (foundUser) {
+            // Kiểm tra trạng thái tài khoản
+            if (foundUser.status === 'inactive') {
+                throw new Error("Tài khoản của bạn đã bị vô hiệu hóa. Vui lòng liên hệ quản trị viên.");
+            }
             return foundUser;
         } else {
             throw new Error("Tên đăng nhập hoặc mật khẩu không đúng");
@@ -35,6 +39,8 @@ const signup = async (username, full_name, phone, email, address, password) => {
         if (users.some(user => user.email === email)) {
             throw new Error("Email đã được sử dụng");
         }
+
+
 
         const response = await axios.post(`${API_URL}/users`, {
             username,

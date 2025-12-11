@@ -15,6 +15,7 @@ const ManageUser = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
     const [searchTerm, setSearchTerm] = useState('');
+    const [roleFilter, setRoleFilter] = useState('all'); // all, 1 (admin), 2 (user)
 
     // State quản lý modal
     const [showDetailModal, setShowDetailModal] = useState(false);
@@ -22,16 +23,27 @@ const ManageUser = () => {
     const [showCreateModal, setShowCreateModal] = useState(false);
     const [selectedUser, setSelectedUser] = useState(null);
 
+    // Hàm lấy tên vai trò
+    const getRoleName = (roleId) => {
+        return roleId === 1 ? 'Admin' : 'User';
+    };
+
     // Load danh sách users khi component mount
     useEffect(() => {
         loadUsers();
     }, []);
 
-    // Lọc users khi searchTerm thay đổi
+    // Lọc users khi searchTerm hoặc roleFilter thay đổi
     useEffect(() => {
-        const filtered = filterUsers(users, searchTerm);
+        let filtered = filterUsers(users, searchTerm);
+
+        // Lọc theo role nếu không phải 'all'
+        if (roleFilter !== 'all') {
+            filtered = filtered.filter(user => user.role_id === parseInt(roleFilter));
+        }
+
         setFilteredUsers(filtered);
-    }, [users, searchTerm]);
+    }, [users, searchTerm, roleFilter]);
 
     // Hàm lấy danh sách users từ API
     const loadUsers = async () => {
@@ -52,6 +64,11 @@ const ManageUser = () => {
     // Xử lý thay đổi từ khóa tìm kiếm
     const handleSearchChange = (e) => {
         setSearchTerm(e.target.value);
+    };
+
+    // Xử lý thay đổi lọc vai trò
+    const handleRoleFilterChange = (e) => {
+        setRoleFilter(e.target.value);
     };
 
     // Mở modal tạo người dùng mới
@@ -85,24 +102,28 @@ const ManageUser = () => {
             alert('✅ Cập nhật thông tin thành công!');
         } catch (err) {
             console.error('Error updating user:', err);
-            alert('❌ Có lỗi xảy ra khi cập nhật thông tin');
+            // Throw lại error để UserEditModal có thể bắt và hiển thị
+            throw err;
         }
     };
 
-    // Xử lý xóa user
-    const handleDelete = async (user) => {
-        const confirmDelete = window.confirm(
-            `⚠️ Bạn có chắc chắn muốn xóa người dùng "${user.full_name}"?\n\nHành động này không thể hoàn tác!`
+    // Xử lý khóa/mở khóa user
+    const handleToggleStatus = async (user) => {
+        const newStatus = user.status === 'active' ? 'inactive' : 'active';
+        const action = newStatus === 'inactive' ? 'khóa' : 'mở khóa';
+
+        const confirmAction = window.confirm(
+            `⚠️ Bạn có chắc chắn muốn ${action} tài khoản "${user.full_name}"?`
         );
 
-        if (confirmDelete) {
+        if (confirmAction) {
             try {
-                await deleteUser(user.id);
+                await updateUser(user.id, { ...user, status: newStatus });
                 await loadUsers();
-                alert('✅ Xóa người dùng thành công!');
+                alert(`✅ ${action.charAt(0).toUpperCase() + action.slice(1)} tài khoản thành công!`);
             } catch (err) {
-                console.error('Error deleting user:', err);
-                alert('❌ Có lỗi xảy ra khi xóa người dùng');
+                console.error('Error toggling user status:', err);
+                alert(`❌ Có lỗi xảy ra khi ${action} tài khoản`);
             }
         }
     };
@@ -122,40 +143,47 @@ const ManageUser = () => {
                 {/* Hiển thị lỗi nếu có */}
                 {error && <Alert variant="danger" className="mb-3">{error}</Alert>}
 
-                {/* Filter Section tìm kiếm theo tên */}
-                <div className="filter-section-wrapper">
-                    <div className="filter-section">
-                        <Form>
-                            <InputGroup>
-                                <InputGroup.Text>
-                                    <i className="bi bi-search"></i>
-                                </InputGroup.Text>
-                                <Form.Control
-                                    type="text"
-                                    placeholder="Tìm kiếm theo tên, username, email, số điện thoại..."
-                                    value={searchTerm}
-                                    onChange={handleSearchChange}
-                                />
-                                {searchTerm && (
-                                    <Button
-                                        variant="outline-secondary"
-                                        onClick={() => setSearchTerm('')}
-                                    >
-                                        <i className="bi bi-x-lg"></i>
-                                    </Button>
-                                )}
-                            </InputGroup>
-                        </Form>
+                {/* Filter Section: search + role filter + add user button trên cùng 1 hàng */}
+                <Form className="mb-3">
+                    <div className="d-flex gap-3 align-items-center flex-wrap">
+                        <InputGroup style={{ maxWidth: 350 }}>
+                            <InputGroup.Text>
+                                <i className="bi bi-search"></i>
+                            </InputGroup.Text>
+                            <Form.Control
+                                type="text"
+                                placeholder="Tìm kiếm theo tên, username, email, số điện thoại..."
+                                value={searchTerm}
+                                onChange={handleSearchChange}
+                            />
+                            {searchTerm && (
+                                <Button
+                                    variant="outline-secondary"
+                                    onClick={() => setSearchTerm('')}
+                                >
+                                    <i className="bi bi-x-lg"></i>
+                                </Button>
+                            )}
+                        </InputGroup>
+                        <Form.Select
+                            value={roleFilter}
+                            onChange={handleRoleFilterChange}
+                            style={{ minWidth: 180, maxWidth: 220 }}
+                        >
+                            <option value="all">Tất cả vai trò</option>
+                            <option value="1">Admin</option>
+                            <option value="2">User</option>
+                        </Form.Select>
+                        <Button
+                            variant="primary"
+                            onClick={handleCreateUser}
+                            className="btn-create-user ms-auto"
+                        >
+                            <i className="bi bi-person-plus-fill me-2"></i>
+                            Thêm người dùng
+                        </Button>
                     </div>
-                    <Button
-                        variant="primary"
-                        onClick={handleCreateUser}
-                        className="btn-create-user"
-                    >
-                        <i className="bi bi-person-plus-fill me-2"></i>
-                        Thêm người dùng
-                    </Button>
-                </div>
+                </Form>
 
                 {/* Hiển thị loading spinner */}
                 {loading ? (
@@ -174,13 +202,15 @@ const ManageUser = () => {
                                     <th>Tên</th>
                                     <th>Điện thoại</th>
                                     <th>Email</th>
+                                    <th>Vai trò</th>
+                                    <th>Trạng thái</th>
                                     <th>Thao tác</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {filteredUsers.length === 0 ? (
                                     <tr>
-                                        <td colSpan="6">
+                                        <td colSpan="8">
                                             <div className="no-data-container">
                                                 <i className="bi bi-inbox"></i>
                                                 <h5>Không tìm thấy dữ liệu</h5>
@@ -208,6 +238,12 @@ const ManageUser = () => {
                                             </td>
                                             <td>{user.phone}</td>
                                             <td className="text-start">{user.email}</td>
+                                            <td className="text-start">{getRoleName(user.role_id)}</td>
+                                            <td>
+                                                <span className={`status-badge ${user.status === 'active' ? 'status-active' : 'status-inactive'}`}>
+                                                    {user.status === 'active' ? 'Hoạt động' : 'Bị khóa'}
+                                                </span>
+                                            </td>
                                             <td>
                                                 <Button
                                                     size="sm"
@@ -227,11 +263,11 @@ const ManageUser = () => {
                                                 </Button>
                                                 <Button
                                                     size="sm"
-                                                    className="action-btn btn-delete"
-                                                    onClick={() => handleDelete(user)}
-                                                    title="Xóa"
+                                                    className={`action-btn ${user.status === 'active' ? 'btn-lock' : 'btn-unlock'}`}
+                                                    onClick={() => handleToggleStatus(user)}
+                                                    title={user.status === 'active' ? 'Khóa tài khoản' : 'Mở khóa tài khoản'}
                                                 >
-                                                    <i className="bi bi-trash"></i>
+                                                    <i className={`bi ${user.status === 'active' ? 'bi-lock-fill' : 'bi-unlock-fill'}`}></i>
                                                 </Button>
                                             </td>
                                         </tr>
