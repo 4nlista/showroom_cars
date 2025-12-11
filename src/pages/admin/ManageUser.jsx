@@ -4,8 +4,7 @@ import AdminLayout from '../../layouts/admin/AdminLayout';
 import UserDetailModal from './UserDetailModal';
 import UserEditModal from './UserEditModal';
 import CreateUserModal from './CreateUserModal';
-import { fetchAllUsers } from '../../services/userApi';
-import { updateUser, deleteUser, filterUsers } from '../../services/userService';
+import { fetchAllUsers, updateUser, deleteUser, filterUsers } from '../../services/userService';
 // Không dùng CSS custom, chỉ dùng Bootstrap thuần
 
 const ManageUser = () => {
@@ -225,12 +224,11 @@ const ManageUser = () => {
                                     filteredUsers.map((user, index) => (
                                         <tr key={user.id} style={{ height: 26 }}>
                                             <td style={{ textAlign: 'left', verticalAlign: 'middle', padding: '8px 6px' }}>{index + 1}</td>
-                                            <td style={{ textAlign: 'left', verticalAlign: 'middle', padding: '8px 6px' }}>
+                                            <td style={{ textAlign: 'left', verticalAlign: 'middle', padding: '8px 6px', borderRadius: '0%!important' }}>
                                                 <Image
                                                     src={user.avatar || 'https://via.placeholder.com/50'}
                                                     alt={user.full_name}
-                                                    roundedCircle
-                                                    style={{ width: 26, height: 26, objectFit: 'cover' }}
+                                                    style={{ width: 40, height: 30, objectFit: 'cover' }}
                                                 />
                                             </td>
                                             <td style={{ textAlign: 'left', verticalAlign: 'middle', padding: '8px 6px' }}>{user.full_name}</td>
