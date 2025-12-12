@@ -198,6 +198,78 @@ export const createNewUser = async (formData) => {
     }
 };
 
+// Validate password change data
+export const validatePasswordChange = (currentPassword, newPassword, confirmPassword) => {
+    const errors = {};
+
+    // Validate current password
+    if (!currentPassword?.trim()) {
+        errors.currentPassword = 'Vui lòng nhập mật khẩu hiện tại';
+    }
+
+    // Validate new password
+    if (!newPassword?.trim()) {
+        errors.newPassword = 'Vui lòng nhập mật khẩu mới';
+    } else if (newPassword.length < 6) {
+        errors.newPassword = 'Mật khẩu phải có ít nhất 6 ký tự';
+    } else if (/\s/.test(newPassword)) {
+        errors.newPassword = 'Mật khẩu không được chứa khoảng trắng';
+    }
+
+    // Validate confirm password
+    if (!confirmPassword?.trim()) {
+        errors.confirmPassword = 'Vui lòng nhập lại mật khẩu mới';
+    } else if (newPassword !== confirmPassword) {
+        errors.confirmPassword = 'Mật khẩu xác nhận không khớp';
+    }
+
+    return errors;
+};
+
+// Change password
+export const changePassword = async (userId, currentPassword, newPassword, confirmPassword) => {
+    // Validation
+    const errors = validatePasswordChange(currentPassword, newPassword, confirmPassword);
+
+    if (Object.keys(errors).length > 0) {
+        throw { validationErrors: errors };
+    }
+
+    try {
+        // Get current user data
+        const userResponse = await axios.get(`${API_BASE_URL}/users/${userId}`);
+        const currentUser = userResponse.data;
+
+        // Verify current password
+        if (currentUser.password !== currentPassword) {
+            throw { validationErrors: { currentPassword: 'Mật khẩu hiện tại không đúng' } };
+        }
+
+        // Check if new password is different from current
+        if (currentPassword === newPassword) {
+            throw { validationErrors: { newPassword: 'Mật khẩu mới phải khác mật khẩu hiện tại' } };
+        }
+
+        // Update password
+        const updatedUser = {
+            ...currentUser,
+            password: newPassword
+        };
+
+        const response = await axios.put(`${API_BASE_URL}/users/${userId}`, updatedUser);
+        console.log('Password changed:', response.data);
+        return response.data;
+    } catch (error) {
+        // If validation error, throw it
+        if (error.validationErrors) {
+            throw error;
+        }
+        // Other errors
+        console.error('Error changing password:', error);
+        throw { message: 'Không thể đổi mật khẩu' };
+    }
+};
+
 export default {
     getUserById,
     updateUser,
