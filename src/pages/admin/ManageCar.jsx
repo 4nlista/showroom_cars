@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Table, Button, Image, Spinner, Alert, Form, InputGroup, Pagination } from 'react-bootstrap';
 import AdminLayout from '../../layouts/admin/AdminLayout';
-import { getCars, applyAllFilters, getMinMaxPrice } from '../../services/carsApi';
+import { getCars, applyAllFilters, getMinMaxPrice, deleteCar } from '../../services/carsApi';
 import { getCategory } from '../../services/categoryApi';
 import CreateCarModal from './CreateCarModal';
+import CarDetailModal from './CarDetailModal';
+import CarEditModal from './CarEditModal';
 
 const ManageCar = () => {
     // State quản lý danh sách xe
@@ -25,6 +27,12 @@ const ManageCar = () => {
 
     // Modal state
     const [showCreateModal, setShowCreateModal] = useState(false);
+    const [showDetailModal, setShowDetailModal] = useState(false);
+    const [showEditModal, setShowEditModal] = useState(false);
+    const [selectedCar, setSelectedCar] = useState(null);
+
+    // Success message state
+    const [successMessage, setSuccessMessage] = useState('');
 
     // Load danh sách xe khi component mount
     useEffect(() => {
@@ -76,6 +84,53 @@ const ManageCar = () => {
     // Xử lý khi tạo xe thành công
     const handleCarCreated = () => {
         loadCars(); // Reload danh sách xe
+    };
+
+    // Xử lý xem chi tiết xe
+    const handleViewDetail = (car) => {
+        setSelectedCar(car);
+        setShowDetailModal(true);
+    };
+
+    // Xử lý chỉnh sửa xe
+    const handleEditCar = (car) => {
+        setSelectedCar(car);
+        setShowEditModal(true);
+    };
+
+    // Xử lý khi cập nhật xe thành công
+    const handleCarUpdated = () => {
+        loadCars(); // Reload danh sách xe
+    };
+
+    // Xử lý xóa xe
+    const handleDeleteCar = async (car) => {
+        // Confirm dialog
+        const confirmDelete = window.confirm(
+            `Bạn có thật sự muốn xóa xe "${car.name}" (ID: ${car.id}) không?`
+        );
+
+        if (!confirmDelete) {
+            return; // User chọn "Không" - không làm gì cả
+        }
+
+        try {
+            // Gọi API xóa xe
+            await deleteCar(car.id);
+
+            // Hiển thị success message
+            setSuccessMessage(`✅ Xóa xe "${car.name}" thành công!`);
+
+            // Reload danh sách xe
+            loadCars();
+
+            // Tự động ẩn message sau 2 giây
+            setTimeout(() => {
+                setSuccessMessage('');
+            }, 2000);
+        } catch (error) {
+            alert(error.message || 'Có lỗi xảy ra khi xóa xe');
+        }
     };
 
     // Xử lý thay đổi từ khóa tìm kiếm
@@ -176,6 +231,13 @@ const ManageCar = () => {
                 </div>
 
                 {error && <Alert variant="danger" className="mb-3">{error}</Alert>}
+
+                {/* Success Message */}
+                {successMessage && (
+                    <Alert variant="success" className="mb-3">
+                        {successMessage}
+                    </Alert>
+                )}
 
                 <Form className="mb-3">
                     <div className="row g-2 align-items-center">
@@ -329,7 +391,7 @@ const ManageCar = () => {
                                                     <Image
                                                         src={car.image || 'https://via.placeholder.com/50'}
                                                         alt={car.name}
-                                                        style={{ width: '70%', height: '70%', objectFit: 'cover', display: 'block' }}
+                                                        style={{ width: '70%', height: '92%', objectFit: 'cover', display: 'block' }}
                                                     />
                                                 </td>
                                                 <td style={{ textAlign: 'left', verticalAlign: 'middle', padding: '4px 6px' }}>{car.name}</td>
@@ -352,8 +414,8 @@ const ManageCar = () => {
                                                         size="sm"
                                                         variant="info"
                                                         className="me-1"
-                                                        disabled
-                                                        title="Xem chi tiết (Phần 2)"
+                                                        onClick={() => handleViewDetail(car)}
+                                                        title="Xem chi tiết"
                                                     >
                                                         <i className="bi bi-eye"></i>
                                                     </Button>
@@ -361,16 +423,16 @@ const ManageCar = () => {
                                                         size="sm"
                                                         variant="warning"
                                                         className="me-1"
-                                                        disabled
-                                                        title="Chỉnh sửa (Phần 2)"
+                                                        onClick={() => handleEditCar(car)}
+                                                        title="Chỉnh sửa"
                                                     >
                                                         <i className="bi bi-pencil-square"></i>
                                                     </Button>
                                                     <Button
                                                         size="sm"
                                                         variant="danger"
-                                                        disabled
-                                                        title="Xóa (Phần 2)"
+                                                        onClick={() => handleDeleteCar(car)}
+                                                        title="Xóa"
                                                     >
                                                         <i className="bi bi-trash-fill"></i>
                                                     </Button>
@@ -421,6 +483,22 @@ const ManageCar = () => {
                 show={showCreateModal}
                 onHide={() => setShowCreateModal(false)}
                 onCarCreated={handleCarCreated}
+            />
+
+            {/* Car Detail Modal */}
+            <CarDetailModal
+                show={showDetailModal}
+                onHide={() => setShowDetailModal(false)}
+                car={selectedCar}
+                categories={categories}
+            />
+
+            {/* Car Edit Modal */}
+            <CarEditModal
+                show={showEditModal}
+                onHide={() => setShowEditModal(false)}
+                car={selectedCar}
+                onCarUpdated={handleCarUpdated}
             />
         </AdminLayout>
     );

@@ -182,14 +182,65 @@ export const createNewCar = async (formData) => {
   }
 };
 
-//4. xóa 1 loại xe theo ID
 
 
+//5. Cập nhật thông tin loại xe theo ID -- chỉ sửa ảnh, thông tin , giá cả... 
+export const updateCar = async (carId, formData) => {
+  // Validation - sử dụng lại validateCarData
+  const errors = validateCarData(formData);
 
-//5. cập nhât thông tin loại xe theo ID -- chỉ sửa ảnh, thông tin , giá cả... CarEditModal.jsx
-// (Validate dữ liệu , giá cả, thông tin, hình ảnh...)
+  // Nếu có lỗi validation, throw error
+  if (Object.keys(errors).length > 0) {
+    throw { validationErrors: errors };
+  }
+
+  try {
+    // Tạo car object để update
+    const updatedCar = {
+      id: carId, // Giữ nguyên ID
+      name: formData.name.trim(),
+      description: formData.description.trim(),
+      price: String(formData.price),
+      stock: parseInt(formData.stock),
+      image: formData.image, // Base64 hoặc URL
+      imageDetail: formData.imageDetail || [],
+      transmission: formData.transmission,
+      fuel_type: formData.fuel_type,
+      seats: parseInt(formData.seats),
+      doors: parseInt(formData.doors),
+      category_id: parseInt(formData.category_id),
+      // Giữ nguyên rating, reviews, view nếu có
+      rating: formData.rating || null,
+      reviews: formData.reviews || null,
+      view: formData.view || null
+    };
+
+    const response = await axios.put(`${API_BASE_URL}/cars/${carId}`, updatedCar);
+    console.log('Car updated:', response.data);
+    return response.data;
+  } catch (error) {
+    // Nếu là lỗi validation đã throw, throw lại
+    if (error.validationErrors) {
+      throw error;
+    }
+    // Nếu là lỗi khác
+    console.error('Error updating car:', error);
+    throw { message: 'Không thể cập nhật xe' };
+  }
+};
 
 
+//4. Xóa 1 loại xe theo ID
+export const deleteCar = async (carId) => {
+  try {
+    const response = await axios.delete(`${API_BASE_URL}/cars/${carId}`);
+    console.log('Car deleted:', carId);
+    return response.data;
+  } catch (error) {
+    console.error('Error deleting car:', error);
+    throw { message: 'Không thể xóa xe' };
+  }
+};
 
 
 //6. Lọc xe theo từ khóa tìm kiếm (tên xe)
