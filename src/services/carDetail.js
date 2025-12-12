@@ -2,6 +2,7 @@ import axios from 'axios';
 
 const API_BASE_URL = 'http://localhost:9999';
 
+// lấy thông tin chi tiết 1 loại cars
 export const getCarDetail = async (productId) => {
   try {
     const response = await axios.get(`${API_BASE_URL}/cars/${productId}`);
