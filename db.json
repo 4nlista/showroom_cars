@@ -119,9 +119,7 @@
       "price": "2000000000",
       "stock": 5,
       "image": "Images/mecerdes-benz/SUV/gle.png",
-      "imageDetail": [
-        ""
-      ],
+      "imageDetail": [""],
       "transmission": "Automatic",
       "fuel_type": "diesel",
       "seats": 4,
@@ -138,9 +136,7 @@
       "price": "10000000000",
       "stock": 5,
       "image": "Images/mecerdes-benz/SUV/G63.avif",
-      "imageDetail": [
-        ""
-      ],
+      "imageDetail": [""],
       "transmission": "Manual",
       "fuel_type": "gasoline",
       "seats": 4,
@@ -157,9 +153,7 @@
       "price": "11000000000",
       "stock": 2,
       "image": "/Images/mecerdes-benz/sedan/s-class.png",
-      "imageDetail": [
-        ""
-      ],
+      "imageDetail": [""],
       "transmission": "Automatic",
       "fuel_type": "gasoline",
       "seats": 4,
@@ -176,9 +170,7 @@
       "price": "3500000000",
       "stock": 2,
       "image": "/Images/mecerdes-benz/sedan/e-class.png",
-      "imageDetail": [
-        ""
-      ],
+      "imageDetail": [""],
       "transmission": "Automatic",
       "fuel_type": "diesel",
       "seats": 4,
@@ -195,9 +187,7 @@
       "price": "8900000000",
       "stock": 2,
       "image": "/Images/mecerdes-benz/SUV/gls.png",
-      "imageDetail": [
-        ""
-      ],
+      "imageDetail": [""],
       "transmission": "Automatic",
       "fuel_type": "diesel",
       "seats": 7,
@@ -214,9 +204,7 @@
       "price": "3500000000",
       "stock": 2,
       "image": "/Images/mecerdes-benz/SUV/glc.png",
-      "imageDetail": [
-        ""
-      ],
+      "imageDetail": [""],
       "transmission": "Manual",
       "fuel_type": "hybrid",
       "seats": 5,
@@ -233,9 +221,7 @@
       "price": "15300000000",
       "stock": 2,
       "image": "/Images/AMG/SUV/g-class.png",
-      "imageDetail": [
-        ""
-      ],
+      "imageDetail": [""],
       "transmission": "Automatic",
       "fuel_type": "gasoline",
       "seats": 4,
@@ -251,9 +237,7 @@
       "price": "4000000000",
       "stock": 2,
       "image": "/Images/AMG/Sedan/a-class.png",
-      "imageDetail": [
-        ""
-      ],
+      "imageDetail": [""],
       "transmission": "Automatic",
       "fuel_type": "hybrid",
       "seats": 4,
@@ -269,9 +253,7 @@
       "price": "5500000000",
       "stock": 2,
       "image": "Images/mecerdes-benz/SUV/glc.png",
-      "imageDetail": [
-        ""
-      ],
+      "imageDetail": [""],
       "transmission": "Automatic",
       "fuel_type": "diesel",
       "seats": 5,
@@ -287,9 +269,7 @@
       "price": "2330000000",
       "stock": 2,
       "image": "/Images/AMG/sedan/a-class.png",
-      "imageDetail": [
-        ""
-      ],
+      "imageDetail": [""],
       "transmission": "Manual",
       "fuel_type": "gasoline",
       "seats": 4,
@@ -305,9 +285,7 @@
       "price": "4400000000",
       "stock": 2,
       "image": "/Images/AMG/sedan/c-class.png",
-      "imageDetail": [
-        ""
-      ],
+      "imageDetail": [""],
       "transmission": "Automatic",
       "fuel_type": "gasoline",
       "seats": 4,
@@ -323,9 +301,7 @@
       "price": "6400000000",
       "stock": 2,
       "image": "/Images/AMG/suv/gla.png",
-      "imageDetail": [
-        ""
-      ],
+      "imageDetail": [""],
       "transmission": "Manual",
       "fuel_type": "gasoline",
       "seats": 4,
@@ -341,9 +317,7 @@
       "price": "7500000000",
       "stock": 2,
       "image": "/Images/AMG/suv/glb.png",
-      "imageDetail": [
-        ""
-      ],
+      "imageDetail": [""],
       "transmission": "Automatic",
       "fuel_type": "gasoline",
       "seats": 7,
@@ -359,9 +333,7 @@
       "price": "2000000000",
       "stock": 2,
       "image": "/Images/AMG/suv/gle.png",
-      "imageDetail": [
-        ""
-      ],
+      "imageDetail": [""],
       "transmission": "Manual",
       "fuel_type": "gasoline",
       "seats": 7,
@@ -377,9 +349,7 @@
       "price": "8500000000",
       "stock": 1,
       "image": "/Images/AMG/cabriolet/cabriolet.avif",
-      "imageDetail": [
-        ""
-      ],
+      "imageDetail": [""],
       "transmission": "Automatic",
       "fuel_type": "gasoline",
       "seats": 2,
@@ -395,9 +365,7 @@
       "price": "20000000000",
       "stock": 2,
       "image": "/Images/MAYBACH/sedan/s-class.png",
-      "imageDetail": [
-        ""
-      ],
+      "imageDetail": [""],
       "transmission": "Automatic",
       "fuel_type": "gasoline",
       "seats": 4,
@@ -413,9 +381,7 @@
       "price": "13000000000",
       "stock": 2,
       "image": "/Images/MAYBACH/SUV/eqs.avif",
-      "imageDetail": [
-        ""
-      ],
+      "imageDetail": [""],
       "transmission": "Automatic",
       "fuel_type": "electric",
       "seats": 4,
@@ -431,9 +397,7 @@
       "price": "16000000000",
       "stock": 1,
       "image": "/Images/MAYBACH/SUV/gls.png",
-      "imageDetail": [
-        ""
-      ],
+      "imageDetail": [""],
       "transmission": "Automatic",
       "fuel_type": "diesel",
       "seats": 7,
@@ -593,7 +557,7 @@
       "quantity": 1,
       "order_date": "2025-12-05T14:20:00",
       "status": "completed",
-      "note": "Khách hàng muốn giao vào buổi sáng"
+      "note": "Tôi muốn mua con xe này"
     },
     {
       "id": "2",
@@ -602,7 +566,7 @@
       "quantity": 1,
       "order_date": "2025-12-09T10:15:00",
       "status": "completed",
-      "note": "Đã giao xe G-Class thành công"
+      "note": "Tôi muốn mua con xe này"
     },
     {
       "id": "3",
@@ -611,7 +575,7 @@
       "quantity": 1,
       "order_date": "2025-12-10T16:45:00",
       "status": "pending",
-      "note": "Cần tư vấn thêm về bảo hiểm"
+      "note": "Tôi muốn mua con xe này"
     },
     {
       "id": "4",
@@ -620,34 +584,7 @@
       "quantity": 1,
       "order_date": "2025-12-11T09:30:00",
       "status": "pending",
-      "note": "Khách hàng muốn xem xe trực tiếp trước khi nhận"
-    },
-    {
-      "id": "5",
-      "user_id": "2",
-      "car_id": "5",
-      "quantity": 1,
-      "order_date": "2025-12-08T11:20:00",
-      "status": "completed",
-      "note": "Giao xe E-Class tại showroom"
-    },
-    {
-      "id": "6",
-      "user_id": "3",
-      "car_id": "18",
-      "quantity": 1,
-      "order_date": "2025-12-07T15:30:00",
-      "status": "cancelled",
-      "note": "Khách hàng hủy do chưa đủ ngân sách"
-    },
-    {
-      "id": "7",
-      "user_id": "2",
-      "car_id": "4",
-      "quantity": 1,
-      "order_date": "2025-12-11T13:00:00",
-      "status": "pending",
-      "note": "Đặt cọc 200 triệu, hẹn nhận xe tuần sau"
+      "note": "Tôi muốn mua con xe này"
     }
   ]
 }
