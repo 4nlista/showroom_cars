@@ -15,14 +15,13 @@
     {
       "id": "2",
       "username": "Tuan",
-      "full_name": "Nguyen Tuan",
       "password": "tuandaumoi2004",
+      "full_name": "Nguyen Tuan",
       "email": "tuan@gmail.com",
-      "phone": "0987654321",
-      "birth_date": "2004-05-20",
+      "phone": "0973637643",
+      "address": "",
       "role_id": 2,
-      "avatar": "https://i.pravatar.cc/320",
-      "status": "active"
+      "avatar": "https://i.pravatar.cc/320"
     },
     {
       "id": "3",
@@ -40,11 +39,11 @@
     {
       "id": "827c",
       "username": "tt",
-      "full_name": "tyr",
-      "phone": "0973637643",
-      "email": "nguyenductuan922004@gmail.com",
-      "address": "Vinh, Nghệ An",
       "password": "333333",
+      "full_name": "Nguyễn Đức Tuấn",
+      "email": "nguyenductuan922004@gmail.com",
+      "phone": "0973637643",
+      "address": "Vinh, Nghệ An",
       "role_id": 2,
       "avatar": "https://i.pravatar.cc/300?u=1765436849383"
     }

@@ -11,52 +11,6 @@ export const fetchAllUsers = async () => {
     }
 };
 
-export const fetchUserById = async (userId) => {
-    try {
-        const response = await axios.get(`${API_BASE_URL}/users/${userId}`);
-        return response.data;
-    } catch (error) {
-        console.error('Error fetching user detail:', error);
-        throw new Error('Không thể tải thông tin người dùng');
-    }
-};
-
-export const createUser = async (userData) => {
-    try {
-        const response = await axios.post(`${API_BASE_URL}/users`, userData);
-        return response.data;
-    } catch (error) {
-        console.error('Error creating user:', error);
-        throw new Error('Không thể tạo người dùng mới');
-    }
-};
-
-// Cập nhật thông tin người dùng
-export const updateUserById = async (userId, userData) => {
-    try {
-        const response = await axios.put(`${API_BASE_URL}/users/${userId}`, userData);
-        return response.data;
-    } catch (error) {
-        console.error('Error updating user:', error);
-        throw new Error('Không thể cập nhật thông tin người dùng');
-    }
-};
-
-// Xóa người dùng
-export const deleteUserById = async (userId) => {
-    try {
-        const response = await axios.delete(`${API_BASE_URL}/users/${userId}`);
-        return response.data;
-    } catch (error) {
-        console.error('Error deleting user:', error);
-        throw new Error('Không thể xóa người dùng');
-    }
-};
-
 export default {
     fetchAllUsers,
-    fetchUserById,
-    createUser,
-    updateUserById,
-    deleteUserById
 };
