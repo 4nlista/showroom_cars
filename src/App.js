@@ -14,7 +14,7 @@ const ManageUser = lazy(() => import("./pages/admin/ManageUser"));
 const ManageCar = lazy(() => import("./pages/admin/ManageCar"));
 const Profile = lazy(() => import("./pages/admin/Profile"));
 const ChangePassword = lazy(() => import("./pages/admin/ChanePassword"));
-
+const ProcessOrder = lazy(() => import("./pages/admin/ProcessOrder"));
 function App() {
   return (
     <BrowserRouter>
@@ -31,6 +31,7 @@ function App() {
           <Route path="/admin/quan-tri" element={<Dashboard />} />
           <Route path="/admin/quan-ly-nguoi-dung" element={<ManageUser />} />
           <Route path="/admin/quan-ly-xe" element={<ManageCar />} />
+          <Route path="/admin/process-orders" element={<ProcessOrder />} />
           <Route path="/admin/ho-so-ca-nhan" element={<Profile />} />
           <Route path="/admin/doi-mat-khau" element={<ChangePassword />} />
         </Routes>

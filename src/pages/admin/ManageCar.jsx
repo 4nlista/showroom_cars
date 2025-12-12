@@ -295,8 +295,8 @@ const ManageCar = () => {
                                 <thead className="table-light">
                                     <tr>
                                         <th style={{ textAlign: 'left', padding: '4px 6px', width: '5%' }}>STT</th>
-                                        <th style={{ textAlign: 'left', padding: '4px 6px', width: '15%' }}>Ảnh</th>
-                                        <th style={{ textAlign: 'left', padding: '4px 6px', width: '25%' }}>Tên</th>
+                                        <th style={{ textAlign: 'left', padding: '4px 6px', width: '12%' }}>Ảnh</th>
+                                        <th style={{ textAlign: 'left', padding: '4px 6px', width: '28%' }}>Tên</th>
                                         <th style={{ textAlign: 'left', padding: '4px 6px', width: '10%' }}>Dòng xe</th>
                                         <th style={{ textAlign: 'left', padding: '4px 6px', width: '15%' }}>Bảng giá</th>
                                         <th style={{ textAlign: 'left', padding: '4px 6px', width: '10%' }}>Số lượng</th>

@@ -6,6 +6,7 @@ const menuItems = [
     { label: 'Hồ sơ cá nhân', path: '/admin/ho-so-ca-nhan' },
     { label: 'Quản lí người dùng', path: '/admin/quan-ly-nguoi-dung' },
     { label: 'Quản lí mẫu xe', path: '/admin/quan-ly-xe' },
+    { label: 'Xử lý đơn hàng', path: '/admin/process-orders' },
     { label: 'Đổi mật khẩu', path: '/admin/doi-mat-khau' },
     { label: 'Đăng xuất', path: '/dang-nhap' },
 ];
