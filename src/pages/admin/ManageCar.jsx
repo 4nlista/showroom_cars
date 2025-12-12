@@ -3,6 +3,7 @@ import { Table, Button, Image, Spinner, Alert, Form, InputGroup, Pagination } fr
 import AdminLayout from '../../layouts/admin/AdminLayout';
 import { getCars, applyAllFilters, getMinMaxPrice } from '../../services/carsApi';
 import { getCategory } from '../../services/categoryApi';
+import CreateCarModal from './CreateCarModal';
 
 const ManageCar = () => {
     // State quản lý danh sách xe
@@ -20,7 +21,10 @@ const ManageCar = () => {
 
     // Pagination state
     const [currentPage, setCurrentPage] = useState(1);
-    const itemsPerPage = 10;
+    const itemsPerPage = 7;
+
+    // Modal state
+    const [showCreateModal, setShowCreateModal] = useState(false);
 
     // Load danh sách xe khi component mount
     useEffect(() => {
@@ -67,6 +71,11 @@ const ManageCar = () => {
         } finally {
             setLoading(false);
         }
+    };
+
+    // Xử lý khi tạo xe thành công
+    const handleCarCreated = () => {
+        loadCars(); // Reload danh sách xe
     };
 
     // Xử lý thay đổi từ khóa tìm kiếm
@@ -257,12 +266,11 @@ const ManageCar = () => {
                             </div>
                         </div>
 
-                        {/* Nút thêm xe (để sau) */}
+                        {/* Nút thêm xe */}
                         <div className="col ms-auto text-end">
                             <Button
                                 variant="primary"
-                                disabled
-                                title="Chức năng sẽ được thêm sau"
+                                onClick={() => setShowCreateModal(true)}
                             >
                                 <i className="bi bi-plus-circle-fill me-2"></i>
                                 Thêm loại xe
@@ -407,6 +415,13 @@ const ManageCar = () => {
                     </>
                 )}
             </div>
+
+            {/* Create Car Modal */}
+            <CreateCarModal
+                show={showCreateModal}
+                onHide={() => setShowCreateModal(false)}
+                onCarCreated={handleCarCreated}
+            />
         </AdminLayout>
     );
 };

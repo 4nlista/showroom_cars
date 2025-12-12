@@ -28,9 +28,159 @@ export const getCarById = async (carId) => {
 };
 
 
-//3. tạo 1 loại xe mới (Validate dữ liệu , giá cả, thông tin, ảnh...), dùng cho CreateCarModal.jsx
+//3. Tạo 1 loại xe mới (Validate dữ liệu , giá cả, thông tin, ảnh...), dùng cho CreateCarModal.jsx
 
+// Generate next car ID
+export const generateNextCarId = async () => {
+  try {
+    const cars = await getCars();
+    if (cars.length === 0) return "1";
 
+    const maxId = Math.max(...cars.map(car => parseInt(car.id)));
+    return String(maxId + 1);
+  } catch (error) {
+    console.error('Error generating car ID:', error);
+    throw error;
+  }
+};
+
+// Validate car image file
+export const validateCarImageFile = (file) => {
+  if (!file) return null;
+
+  // Validate kích thước file (max 2MB cho ảnh xe)
+  if (file.size > 2 * 1024 * 1024) {
+    return 'Kích thước ảnh không được vượt quá 2MB';
+  }
+
+  // Validate định dạng file
+  if (!file.type.startsWith('image/')) {
+    return 'Vui lòng chọn file ảnh hợp lệ';
+  }
+
+  return null;
+};
+
+// Xử lý upload image và tạo preview
+export const handleCarImageUpload = (file, callback) => {
+  if (!file) return;
+
+  const reader = new FileReader();
+  reader.onloadend = () => {
+    callback(reader.result);
+  };
+  reader.readAsDataURL(file);
+};
+
+// Validate car data
+export const validateCarData = (formData) => {
+  const errors = {};
+
+  // Validate tên xe
+  if (!formData.name?.trim()) {
+    errors.name = 'Vui lòng nhập tên xe';
+  }
+
+  // Validate mô tả
+  if (!formData.description?.trim()) {
+    errors.description = 'Vui lòng nhập mô tả';
+  } else if (formData.description.trim().length < 20) {
+    errors.description = 'Mô tả phải có ít nhất 20 ký tự';
+  }
+
+  // Validate giá
+  if (!formData.price) {
+    errors.price = 'Vui lòng nhập giá xe';
+  } else if (parseFloat(formData.price) <= 0) {
+    errors.price = 'Giá xe phải lớn hơn 0';
+  }
+
+  // Validate số lượng
+  if (!formData.stock) {
+    errors.stock = 'Vui lòng nhập số lượng';
+  } else if (parseInt(formData.stock) < 1) {
+    errors.stock = 'Số lượng phải ít nhất là 1';
+  }
+
+  // Validate ảnh chính
+  if (!formData.image) {
+    errors.image = 'Vui lòng chọn ảnh chính cho xe';
+  }
+
+  // Validate transmission
+  if (!formData.transmission) {
+    errors.transmission = 'Vui lòng chọn loại hộp số';
+  }
+
+  // Validate fuel type
+  if (!formData.fuel_type) {
+    errors.fuel_type = 'Vui lòng chọn loại nhiên liệu';
+  }
+
+  // Validate số chỗ ngồi
+  if (!formData.seats) {
+    errors.seats = 'Vui lòng chọn số chỗ ngồi';
+  }
+
+  // Validate số cửa
+  if (!formData.doors) {
+    errors.doors = 'Vui lòng chọn số cửa';
+  }
+
+  // Validate category
+  if (!formData.category_id) {
+    errors.category_id = 'Vui lòng chọn dòng xe';
+  }
+
+  return errors;
+};
+
+// Create new car
+export const createNewCar = async (formData) => {
+  // Validation
+  const errors = validateCarData(formData);
+
+  // Nếu có lỗi validation, throw error
+  if (Object.keys(errors).length > 0) {
+    throw { validationErrors: errors };
+  }
+
+  try {
+    // Generate next ID
+    const nextId = await generateNextCarId();
+
+    // Tạo car object mới
+    const newCar = {
+      id: nextId,
+      name: formData.name.trim(),
+      description: formData.description.trim(),
+      price: String(formData.price),
+      stock: parseInt(formData.stock),
+      image: formData.image, // Base64 hoặc URL
+      imageDetail: formData.imageDetail || [],
+      transmission: formData.transmission,
+      fuel_type: formData.fuel_type,
+      seats: parseInt(formData.seats),
+      doors: parseInt(formData.doors),
+      category_id: parseInt(formData.category_id),
+      rating: null,
+      reviews: null,
+      view: null
+    };
+
+    const response = await axios.post(`${API_BASE_URL}/cars`, newCar);
+    console.log('Car created:', response.data);
+    return response.data;
+  } catch (error) {
+    // Nếu là lỗi validation đã throw, throw lại
+    if (error.validationErrors) {
+      throw error;
+    }
+    // Nếu là lỗi khác
+    console.error('Error creating car:', error);
+    throw { message: 'Không thể tạo xe mới' };
+  }
+};
 
 //4. xóa 1 loại xe theo ID
 
