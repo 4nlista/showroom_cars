@@ -29,7 +29,7 @@ export const getCarById = async (carId) => {
 };
 
 
-//3. thêm 1 loại xe mới (Validate dữ liệu , giá cả, thông tin, hình ảnh...)
+//3. tạo 1 loại xe mới (Validate dữ liệu , giá cả, thông tin, ảnh...), dùng cho CreateCarModal.jsx
 
 
 
@@ -37,7 +37,7 @@ export const getCarById = async (carId) => {
 
 
 
-//5. cập nhât thông tin loại xe theo ID -- chỉ sửa ảnh, thông tin , giá cả... 
+//5. cập nhât thông tin loại xe theo ID -- chỉ sửa ảnh, thông tin , giá cả... CarEditModal.jsx
 // (Validate dữ liệu , giá cả, thông tin, hình ảnh...)
 
 
