@@ -4,7 +4,10 @@ import AdminLayout from '../../layouts/admin/AdminLayout';
 import UserDetailModal from './UserDetailModal';
 import UserEditModal from './UserEditModal';
 import CreateUserModal from './CreateUserModal';
-import { fetchAllUsers, updateUser, deleteUser, filterUsers } from '../../services/userService';
+import { updateUser, filterUsers } from '../../services/userService';
+import { fetchAllUsers } from '../../services/userApi';
+
+
 // Không dùng CSS custom, chỉ dùng Bootstrap thuần
 
 const ManageUser = () => {

@@ -2,21 +2,6 @@
 import axios from 'axios';
 import API_BASE_URL from '../config';
 
-// Lấy danh sách tất cả người dùng
-export const getAllUsers = async () => {
-    try {
-        const response = await axios.get(`${API_BASE_URL}/users`);
-        console.log('List Users:', response.data);
-        return response.data;
-    } catch (error) {
-        console.error('Error fetching users:', error);
-        throw error;
-    }
-};
-
-// Alias cho getAllUsers (tương thích với code cũ)
-export const fetchAllUsers = getAllUsers;
-
 // Lấy thông tin chi tiết một người dùng theo ID
 export const getUserById = async (userId) => {
     try {
@@ -41,17 +26,6 @@ export const updateUser = async (userId, userData) => {
     }
 };
 
-// Xóa người dùng
-export const deleteUser = async (userId) => {
-    try {
-        const response = await axios.delete(`${API_BASE_URL}/users/${userId}`);
-        console.log('User deleted:', userId);
-        return response.data;
-    } catch (error) {
-        console.error('Error deleting user:', error);
-        throw error;
-    }
-};
 
 // Validate thông tin người dùng
 export const validateUserData = (formData) => {
@@ -225,10 +199,8 @@ export const createNewUser = async (formData) => {
 };
 
 export default {
-    getAllUsers,
     getUserById,
     updateUser,
-    deleteUser,
     validateUserData,
     validateAvatarFile,
     filterUsers,
