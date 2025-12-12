@@ -96,7 +96,7 @@ const ManageCar = () => {
         setTempPriceRange(prev => ({ ...prev, max: value }));
     };
 
-    // Apply price filter khi thả chuột - với validation
+    // Apply price filter khi kéo - với validation
     const handlePriceRangeChange = () => {
         console.log('Price range change triggered:', tempPriceRange);
 
@@ -162,10 +162,8 @@ const ManageCar = () => {
             <div className="container py-4">
                 <div className="mb-4 border-bottom pb-2">
                     <h2 className="fw-bold mb-1">
-                        <i className="bi bi-car-front-fill me-2"></i>
                         Quản lý mẫu xe
                     </h2>
-                    <div className="text-muted">Quản lý thông tin các loại xe trong hệ thống</div>
                 </div>
 
                 {error && <Alert variant="danger" className="mb-3">{error}</Alert>}
@@ -288,13 +286,13 @@ const ManageCar = () => {
                             <Table bordered hover style={{ fontSize: 14 }}>
                                 <thead className="table-light">
                                     <tr>
-                                        <th style={{ textAlign: 'left', padding: '4px 6px' }}>STT</th>
-                                        <th style={{ textAlign: 'left', padding: '4px 6px' }}>Ảnh</th>
-                                        <th style={{ textAlign: 'left', padding: '4px 6px' }}>Tên</th>
-                                        <th style={{ textAlign: 'left', padding: '4px 6px' }}>Dòng xe</th>
-                                        <th style={{ textAlign: 'left', padding: '4px 6px' }}>Bảng giá</th>
-                                        <th style={{ textAlign: 'left', padding: '4px 6px' }}>Số lượng</th>
-                                        <th style={{ textAlign: 'left', padding: '4px 6px' }}>Thao tác</th>
+                                        <th style={{ textAlign: 'left', padding: '4px 6px', width: '5%' }}>STT</th>
+                                        <th style={{ textAlign: 'left', padding: '4px 6px', width: '15%' }}>Ảnh</th>
+                                        <th style={{ textAlign: 'left', padding: '4px 6px', width: '25%' }}>Tên</th>
+                                        <th style={{ textAlign: 'left', padding: '4px 6px', width: '10%' }}>Dòng xe</th>
+                                        <th style={{ textAlign: 'left', padding: '4px 6px', width: '15%' }}>Bảng giá</th>
+                                        <th style={{ textAlign: 'left', padding: '4px 6px', width: '10%' }}>Số lượng</th>
+                                        <th style={{ textAlign: 'left', padding: '4px 6px', width: '20%' }}>Thao tác</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -323,7 +321,7 @@ const ManageCar = () => {
                                                     <Image
                                                         src={car.image || 'https://via.placeholder.com/50'}
                                                         alt={car.name}
-                                                        style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+                                                        style={{ width: '70%', height: '70%', objectFit: 'cover', display: 'block' }}
                                                     />
                                                 </td>
                                                 <td style={{ textAlign: 'left', verticalAlign: 'middle', padding: '4px 6px' }}>{car.name}</td>

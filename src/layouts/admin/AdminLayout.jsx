@@ -6,7 +6,7 @@ const AdminLayout = ({ children }) => {
     return (
         <div style={{ display: 'flex', minHeight: '100vh' }}>
             <Sidebar />
-            <main style={{ flex: 1, padding: '32px' }}>
+            <main style={{ flex: 1 }}>
                 {children}
             </main>
         </div>
