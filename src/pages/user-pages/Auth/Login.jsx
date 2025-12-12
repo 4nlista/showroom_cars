@@ -50,7 +50,8 @@ const Login = () => {
         setError("Tên đăng nhập hoặc mật khẩu không đúng");
       }
     } catch (error) {
-      setError("Tên đăng nhập hoặc mật khẩu không đúng");
+      // Hiển thị thông báo lỗi từ API (bao gồm cả lỗi tài khoản bị vô hiệu hóa)
+      setError(error.message || "Tên đăng nhập hoặc mật khẩu không đúng");
     }
   }
 
@@ -78,7 +79,8 @@ const Login = () => {
         setError(result.message || 'Tên đăng nhập hoặc mật khẩu không đúng')
       }
     } catch (err) {
-      setError('Tên đăng nhập hoặc mật khẩu không đúng')
+      // Hiển thị thông báo lỗi từ API (bao gồm cả lỗi tài khoản bị vô hiệu hóa)
+      setError(err.message || 'Tên đăng nhập hoặc mật khẩu không đúng')
     }
   }
 

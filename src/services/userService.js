@@ -14,6 +14,9 @@ export const getAllUsers = async () => {
     }
 };
 
+// Alias cho getAllUsers (tương thích với code cũ)
+export const fetchAllUsers = getAllUsers;
+
 // Lấy thông tin chi tiết một người dùng theo ID
 export const getUserById = async (userId) => {
     try {
