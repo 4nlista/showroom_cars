@@ -25,7 +25,7 @@ import {
 } from '@mui/icons-material';
 import { GiCarDoor } from "react-icons/gi";
 import { MdOutlineAddShoppingCart } from "react-icons/md";
-
+import Toast from '../../../components/user-components/Toast';
 
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { FreeMode, Thumbs, Navigation, Pagination } from 'swiper/modules';
@@ -38,16 +38,22 @@ import 'swiper/css/pagination';
 
 import getCarDetail from '../../../services/carDetail';
 import { useCars } from '../../../hooks/useCars';
+import { useCart } from '../../../hooks/useCart';
 
 const ProductDetail = () => {
   const { name } = useParams();
   const location = useLocation();
-  const navigate = useNavigate();
   const [product, setProduct] = useState(null);
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
   const [loading, setLoading] = useState(false);
   const [tabValue, setTabValue] = useState(0);
   const { cars } = useCars();
+  const { addItem } = useCart();
+
+  const [toastOpen, setToastOpen] = useState(false);
+  const [toastMessage, setToastMessage] = useState('');
+  const [toastSeverity, setToastSeverity] = useState('success');
+
 
   const productId = location.state?.productId;
 
@@ -110,8 +116,43 @@ const ProductDetail = () => {
     }).format(price);
   };
 
+  const handleAddToCart = async () => {
+    try {
+      const result = await addItem(product.id, 1);
+
+      if (result.success) {
+        if (result.isUpdate) {
+          setToastMessage('Đã thêm xe vào giỏ hàng thành công!');
+        } else {
+          setToastMessage('Đã thêm xe vào giỏ hàng thành công!');
+        }
+        setToastSeverity('success');
+      } else {
+        setToastMessage('Có lỗi xảy ra khi thêm vào giỏ hàng!');
+        setToastSeverity('error');
+      }
+    } catch (error) {
+      console.error('Error adding to cart:', error);
+      setToastMessage('Có lỗi xảy ra khi thêm vào giỏ hàng!');
+      setToastSeverity('error');
+    }
+
+    setToastOpen(true);
+  };
+  const handleCloseToast = () => {
+    setToastOpen(false);
+  }
+
+
+
   return (
     <MainLayout>
+      <Toast
+        open={toastOpen}
+        message={toastMessage}
+        severity={toastSeverity}
+        onClose={handleCloseToast}
+      />
       <Box sx={{
         pt: { xs: 12, md: 15 },
         pb: 8,
@@ -450,6 +491,7 @@ const ProductDetail = () => {
                         variant="outlined"
                         size="large"
                         fullWidth
+                        onClick={handleAddToCart}
                         sx={{
                           color: '#1a1a1a',
                           borderColor: '#1a1a1a',
@@ -468,7 +510,7 @@ const ProductDetail = () => {
                           transition: 'all 0.3s ease',
                         }}
                       >
-                        <MdOutlineAddShoppingCart onClick={() => navigate('/gio-hang')} style={{ marginRight: '10px' }} />
+                        <MdOutlineAddShoppingCart style={{ marginRight: '10px' }} />
                         Thêm vào giỏ hàng
                       </Button>
                     </Grid>

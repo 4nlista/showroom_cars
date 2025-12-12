@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import MainLayout from '../../../layouts/user-layouts/MainLayout';
-import {formatVND, parseCarPrice} from '../../../utils/formatters';
 import {
     Box,
     Container,
@@ -26,33 +25,33 @@ import {
     FavoriteBorder,
     ArrowForward,
 } from '@mui/icons-material';
+import { useCart } from '../../../hooks/useCart';
 
-const CartShopping = () => {
+const CartShopee = () => {
     const navigate = useNavigate();
-    const [items, setItems] = useState([
-        {
-            id: 1,
-            name: 'Mercedes-Benz C-Class',
-            image: '/Images/mecerdes-benz/sedan/c-class.png',
-            price: 1590000000,
-            quantity: 1,
-            selected: true,
-        },
-        {
-            id: 2,
-            name: 'Mercedes-Benz E-Class',
-            image: '/Images/mecerdes-benz/sedan/e-class.png',
-            price: 2390000000,
-            quantity: 1,
-            selected: false,
-        },
-    ]);
+
+    const {
+        cartItems,
+        loading,
+        updateItemQuantity,
+        removeItem,
+        toggleItemSelection,
+        toggleAllSelection,
+        removeSelectedItems,
+        getSelectedCount,
+        getSelectedTotal,
+        isAllSelected,
+    } = useCart();
+
+    const items = cartItems;
+
+
 
     const recommendedCars = [
         {
             id: 4,
             name: 'Mercedes-Benz S-Class',
-            image: '/Images/mecerdes-benz/sedan/s-class.png',
+            image: '/proj_images/mecerdes-benz/sedan/s-class.png',
             price: 11000000000,
             transmission: 'Automatic',
             seats: 4,
@@ -60,7 +59,7 @@ const CartShopping = () => {
         {
             id: 6,
             name: 'Mercedes-Benz GLS',
-            image: '/Images/mecerdes-benz/SUV/gls.png',
+            image: '/proj_images/mecerdes-benz/SUV/gls.png',
             price: 8900000000,
             transmission: 'Automatic',
             seats: 7,
@@ -68,7 +67,7 @@ const CartShopping = () => {
         {
             id: 3,
             name: 'Mercedes-Benz G-Class',
-            image: '/Images/mecerdes-benz/SUV/G63.avif',
+            image: '/proj_images/mecerdes-benz/SUV/G63.avif',
             price: 10000000000,
             transmission: 'Manual',
             seats: 4,
@@ -76,7 +75,7 @@ const CartShopping = () => {
         {
             id: 2,
             name: 'Mercedes-Benz GLE',
-            image: '/Images/mecerdes-benz/SUV/gle.png',
+            image: '/proj_images/mecerdes-benz/SUV/gle.png',
             price: 2000000000,
             transmission: 'Automatic',
             seats: 4,
@@ -84,7 +83,7 @@ const CartShopping = () => {
         {
             id: 9,
             name: 'Mercedes-Benz GLC',
-            image: '/Images/mecerdes-benz/SUV/glc.png',
+            image: '/proj_images/mecerdes-benz/SUV/glc.png',
             price: 5500000000,
             transmission: 'Automatic',
             seats: 5,
@@ -92,45 +91,38 @@ const CartShopping = () => {
         {
             id: 15,
             name: 'Mercedes-AMG SL Roadster',
-            image: '/Images/AMG/cabriolet/cabriolet.avif',
+            image: '/proj_images/AMG/cabriolet/cabriolet.avif',
             price: 8500000000,
             transmission: 'Automatic',
             seats: 2,
         },
     ];
 
-    const formatPrice = formatVND;
 
-    const allChecked = items.length > 0 && items.every((i) => i.selected);
-    const selectedCount = items.filter((i) => i.selected).length;
-    const total = items
-        .filter((i) => i.selected)
-        .reduce((s, i) => s + i.price * i.quantity, 0);
+    const formatPrice = (p) => new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(p);
+
+    const allChecked = isAllSelected();
+    const selectedCount = getSelectedCount();
+    const total = getSelectedTotal();
 
     const handleToggleAll = (checked) => {
-        setItems((prev) => prev.map((i) => ({ ...i, selected: checked })));
+        toggleAllSelection(checked);
     };
 
     const handleToggleOne = (id, checked) => {
-        setItems((prev) =>
-            prev.map((i) => (i.id === id ? { ...i, selected: checked } : i)),
-        );
+        toggleItemSelection(id, checked);
     };
 
-    const handleQtyChange = (id, qty) => {
-        setItems((prev) =>
-            prev.map((i) =>
-                i.id === id ? { ...i, quantity: Math.max(1, qty || 1) } : i,
-            ),
-        );
+    const handleQtyChange = async (id, qty) => {
+        await updateItemQuantity(id, Math.max(1, qty || 1));
     };
 
-    const handleRemoveOne = (id) => {
-        setItems((prev) => prev.filter((i) => i.id !== id));
+    const handleRemoveOne = async (id) => {
+        await removeItem(id);
     };
 
-    const handleRemoveSelected = () => {
-        setItems((prev) => prev.filter((i) => !i.selected));
+    const handleRemoveSelected = async () => {
+        await removeSelectedItems();
     };
 
     const handleCarClick = (car) => {
@@ -140,6 +132,7 @@ const CartShopping = () => {
 
     return (
         <MainLayout>
+
             <Box
                 sx={{
                     pt: { xs: 15, md: 20 },
@@ -647,4 +640,4 @@ const CartShopping = () => {
     );
 };
 
-export default CartShopping;
+export default CartShopee;
