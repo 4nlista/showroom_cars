@@ -1,6 +1,5 @@
 import axios from 'axios';
-
-const API_BASE_URL = 'http://localhost:9999';
+import API_BASE_URL from '../config';
 
 
 // lấy toàn bộ danh sách các xe

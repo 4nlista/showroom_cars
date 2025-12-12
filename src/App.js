@@ -9,7 +9,6 @@ const AboutDetail = lazy(() => import("./pages/user-pages/AboutUsDetail/AboutUsD
 const ListCars = lazy(() => import("./pages/user-pages/ListCars/ListCars"));
 const ProductDetail = lazy(() => import("./pages/user-pages/ProductDetail/productDetail"));
 
-// Admin pages
 const Dashboard = lazy(() => import("./pages/admin/Dashboard"));
 const ManageUser = lazy(() => import("./pages/admin/ManageUser"));
 const ManageCar = lazy(() => import("./pages/admin/ManageCar"));
@@ -29,7 +28,6 @@ function App() {
           <Route path="/san-pham/:name" element={<ProductDetail />} />
           <Route path="/gio-hang" element={<ShoppingCart />} />
 
-          {/* Admin routes */}
           <Route path="/admin/quan-tri" element={<Dashboard />} />
           <Route path="/admin/quan-ly-nguoi-dung" element={<ManageUser />} />
           <Route path="/admin/quan-ly-xe" element={<ManageCar />} />
