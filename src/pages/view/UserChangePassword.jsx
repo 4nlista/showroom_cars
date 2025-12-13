@@ -40,8 +40,14 @@ const UserChangePassword = () => {
                 formData.newPassword,
                 formData.confirmPassword
             );
-            setSuccessMessage('✅ Đổi mật khẩu thành công!');
+            setSuccessMessage('✅ Đổi mật khẩu thành công! Đang đăng xuất...');
             setFormData({ currentPassword: '', newPassword: '', confirmPassword: '' });
+            // Auto logout and redirect after 2 seconds
+            setTimeout(() => {
+                localStorage.removeItem('user');
+                localStorage.removeItem('token'); // if you have token
+                window.location.href = 'http://localhost:3000/';
+            }, 2000);
         } catch (error) {
             if (error.validationErrors) {
                 setErrors(error.validationErrors);

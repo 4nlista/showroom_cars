@@ -1,18 +1,71 @@
 import axios from 'axios';
 import API_BASE_URL from '../config';
 
+
+// Lấy doanh thu từ các đơn hàng completed
+export const getRevenueStats = async () => {
+    const [ordersRes, carsRes] = await Promise.all([
+        axios.get(`${API_BASE_URL}/orders`),
+        axios.get(`${API_BASE_URL}/cars`)
+    ]);
+    const orders = ordersRes.data;
+    const cars = carsRes.data;
+    let totalRevenue = 0;
+    let monthlyRevenue = {};
+    orders.forEach(order => {
+        if (order.status === 'completed') {
+            const car = cars.find(c => c.id === order.car_id);
+            if (car) {
+                totalRevenue += Number(car.price) || 0;
+                // Tính doanh thu theo tháng
+                const date = new Date(order.created_at || order.date || order.createdDate);
+                const month = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}`;
+                if (!monthlyRevenue[month]) monthlyRevenue[month] = 0;
+                monthlyRevenue[month] += Number(car.price) || 0;
+            }
+        }
+    });
+    return { totalRevenue, monthlyRevenue };
+};
+
+// Lấy top N xe đắt nhất
+export const getTopExpensiveCars = async (topN = 5) => {
+    const carsRes = await axios.get(`${API_BASE_URL}/cars`);
+    const cars = carsRes.data;
+    return cars
+        .sort((a, b) => (Number(b.price) || 0) - (Number(a.price) || 0))
+        .slice(0, topN);
+};
+
+// Lấy thống kê user theo role
+export const getUserRoleStats = async () => {
+    const usersRes = await axios.get(`${API_BASE_URL}/users`);
+    const users = usersRes.data;
+    const adminCount = users.filter(u => u.role_id === 1).length;
+    const userCount = users.filter(u => u.role_id === 2).length;
+    return { adminCount, userCount, total: users.length };
+};
+
+
 export const getDashboardStats = async () => {
-    const [usersRes, carsRes, categoriesRes, postsRes] = await Promise.all([
+    const [usersRes, carsRes, categoriesRes, postsRes, revenueStats, userRoleStats, topCars] = await Promise.all([
         axios.get(`${API_BASE_URL}/users`),
         axios.get(`${API_BASE_URL}/cars`),
         axios.get(`${API_BASE_URL}/categories`),
-        axios.get(`${API_BASE_URL}/posts`)
+        axios.get(`${API_BASE_URL}/posts`),
+        getRevenueStats(),
+        getUserRoleStats(),
+        getTopExpensiveCars(5)
     ]);
     return {
         totalUsers: usersRes.data.length,
         totalCars: carsRes.data.length,
         totalCategories: categoriesRes.data.length,
         totalPosts: postsRes.data.length,
+        totalRevenue: revenueStats.totalRevenue,
+        monthlyRevenue: revenueStats.monthlyRevenue,
+        userRoleStats,
+        topCars,
     };
 };
 
