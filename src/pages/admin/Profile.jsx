@@ -4,6 +4,7 @@ import AdminLayout from '../../layouts/admin/AdminLayout';
 import { Row, Col, Form, Button, Image, Alert, Spinner } from 'react-bootstrap';
 import { getUserById, updateUser, validateUserData, validateAvatarFile, handleAvatarUpload } from '../../services/userService';
 
+
 const CURRENT_USER_ID = 1; // TODO: lấy userId thực tế từ context/auth
 
 const Profile = () => {
@@ -104,10 +105,16 @@ const Profile = () => {
             return;
         }
         try {
-            let updatedData = { ...formData };
-            if (avatarFile && avatarPreview) {
-                updatedData.avatar = avatarPreview;
-            }
+            // Lấy user hiện tại để giữ lại password và các trường không sửa
+            const currentUser = await getUserById(formData.id);
+            let updatedData = {
+                ...currentUser,
+                full_name: formData.full_name,
+                email: formData.email,
+                phone: formData.phone,
+                address: formData.address,
+                avatar: avatarFile && avatarPreview ? avatarPreview : currentUser.avatar
+            };
             await updateUser(formData.id, updatedData);
             setSubmitSuccess('Cập nhật hồ sơ thành công!');
         } catch (err) {

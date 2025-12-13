@@ -2,6 +2,8 @@ import React, { Suspense, lazy } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import CarProgressLoading from "./components/all-components/CarProgressLoading";
 import ShoppingCart from "./pages/user-pages/Cart/ShoppingCart";
+
+
 const HomePage = lazy(() => import("./pages/user-pages/Home/HomePage"));
 const Login = lazy(() => import("./pages/user-pages/Auth/Login"));
 const Signup = lazy(() => import("./pages/user-pages/Auth/Signup"));
@@ -15,6 +17,10 @@ const ManageCar = lazy(() => import("./pages/admin/ManageCar"));
 const Profile = lazy(() => import("./pages/admin/Profile"));
 const ChangePassword = lazy(() => import("./pages/admin/ChanePassword"));
 const ProcessOrder = lazy(() => import("./pages/admin/ProcessOrder"));
+const ProfileUser = lazy(() => import("./pages/view/ProfileUser"));
+const HistoryOrder = lazy(() => import("./pages/view/HistoryOrder"));
+
+
 function App() {
   return (
     <BrowserRouter>
@@ -27,6 +33,8 @@ function App() {
           <Route path="/danh-sach-san-pham" element={<ListCars />} />
           <Route path="/san-pham/:name" element={<ProductDetail />} />
           <Route path="/gio-hang" element={<ShoppingCart />} />
+          <Route path="/profile" element={<ProfileUser />} />
+          <Route path="/history-order" element={<HistoryOrder />} />
 
           <Route path="/admin/quan-tri" element={<Dashboard />} />
           <Route path="/admin/quan-ly-nguoi-dung" element={<ManageUser />} />
