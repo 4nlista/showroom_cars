@@ -19,6 +19,7 @@ const ChangePassword = lazy(() => import("./pages/admin/ChanePassword"));
 const ProcessOrder = lazy(() => import("./pages/admin/ProcessOrder"));
 const ProfileUser = lazy(() => import("./pages/view/ProfileUser"));
 const HistoryOrder = lazy(() => import("./pages/view/HistoryOrder"));
+const UserChangePassword = lazy(() => import("./pages/view/UserChangePassword"));
 
 
 function App() {
@@ -35,6 +36,7 @@ function App() {
           <Route path="/gio-hang" element={<ShoppingCart />} />
           <Route path="/profile" element={<ProfileUser />} />
           <Route path="/history-order" element={<HistoryOrder />} />
+          <Route path="/user-change-password" element={<UserChangePassword />} />
 
           <Route path="/admin/quan-tri" element={<Dashboard />} />
           <Route path="/admin/quan-ly-nguoi-dung" element={<ManageUser />} />

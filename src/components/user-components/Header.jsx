@@ -306,7 +306,7 @@ const Header = () => {
 
 
                 <MenuItem
-                  onClick={() => { handleMenuClose(); window.location.href = "/order-history"; }}
+                  onClick={() => { handleMenuClose(); window.location.href = "/user-change-password"; }}
                   sx={{
                     borderRadius: 2,
                     py: 1.5,

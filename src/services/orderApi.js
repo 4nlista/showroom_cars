@@ -36,7 +36,7 @@ export const getCarById = async (carId) => {
     }
 };
 
-// 4. Lấy danh sách đơn hàng với thông tin join (user + car)
+// 4. Lấy danh sách đơn hàng với thông tin join (user + car) dành cho Admin
 export const getOrdersWithDetails = async () => {
     try {
         // Lấy tất cả orders, users, cars song song
@@ -69,7 +69,7 @@ export const getOrdersWithDetails = async () => {
     }
 };
 
-// 4.1. Lấy chi tiết đơn hàng theo ID với đầy đủ thông tin join (user + car + category)
+// 4.1. Lấy chi tiết đơn hàng theo ID với đầy đủ thông tin (userId + car + category) dành cho User
 export const getOrderDetailById = async (orderId) => {
     try {
         // Lấy order, users, cars, categories song song
