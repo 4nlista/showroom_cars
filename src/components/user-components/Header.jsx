@@ -280,6 +280,56 @@ const Header = () => {
 
                   Hồ sơ cá nhân
                 </MenuItem>
+
+
+                <MenuItem
+                  onClick={() => { handleMenuClose(); window.location.href = "/history-order"; }}
+                  sx={{
+                    borderRadius: 2,
+                    py: 1.5,
+                    px: 2,
+                    fontWeight: 500,
+                    fontSize: 16,
+                    color: "#222",
+                    gap: 1.5,
+                    transition: "background 0.2s",
+                    "&:hover": {
+                      background: "linear-gradient(90deg, #ffeaea 60%, #fff 100%)",
+                      color: "#d32f2f"
+                    }
+                  }}
+                >
+
+                  Lịch sử đơn hàng
+                </MenuItem>
+
+
+
+                <MenuItem
+                  onClick={() => { handleMenuClose(); window.location.href = "/order-history"; }}
+                  sx={{
+                    borderRadius: 2,
+                    py: 1.5,
+                    px: 2,
+                    fontWeight: 500,
+                    fontSize: 16,
+                    color: "#222",
+                    gap: 1.5,
+                    transition: "background 0.2s",
+                    "&:hover": {
+                      background: "linear-gradient(90deg, #ffeaea 60%, #fff 100%)",
+                      color: "#d32f2f"
+                    }
+                  }}
+                >
+
+                  Đổi mật khẩu
+                </MenuItem>
+
+
+
+
+
                 <MenuItem
                   onClick={handleLogout}
                   sx={{
