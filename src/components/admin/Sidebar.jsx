@@ -8,7 +8,7 @@ const menuItems = [
     { label: 'Quản lí mẫu xe', path: '/admin/quan-ly-xe' },
     { label: 'Xử lý đơn hàng', path: '/admin/process-orders' },
     { label: 'Đổi mật khẩu', path: '/admin/doi-mat-khau' },
-    { label: 'Đăng xuất', path: '/dang-nhap' },
+    { label: 'Đăng xuất', path: '/' },
 ];
 
 const Sidebar = () => {

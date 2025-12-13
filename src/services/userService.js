@@ -16,11 +16,36 @@ export const getUserById = async (userId) => {
 
 // Cập nhật thông tin người dùng
 export const updateUser = async (userId, userData) => {
+    // Kiểm tra trùng email, phone với user khác
     try {
-        const response = await axios.put(`${API_BASE_URL}/users/${userId}`, userData);
+        const usersResponse = await axios.get(`${API_BASE_URL}/users`);
+        const users = usersResponse.data;
+        let validationErrors = {};
+        const emailExists = users.some(u => u.id !== userId && u.email === userData.email);
+        if (emailExists) {
+            validationErrors.email = 'Email đã được sử dụng';
+        }
+        const phoneExists = users.some(u => u.id !== userId && u.phone === userData.phone);
+        if (phoneExists) {
+            validationErrors.phone = 'Số điện thoại đã được sử dụng';
+        }
+        if (Object.keys(validationErrors).length > 0) {
+            throw { validationErrors };
+        }
+
+        // Giữ nguyên status cũ nếu userData không truyền status
+        let dataToUpdate = { ...userData };
+        if (typeof userData.status === 'undefined') {
+            // Lấy user hiện tại để lấy status
+            const userDetailRes = await axios.get(`${API_BASE_URL}/users/${userId}`);
+            dataToUpdate.status = userDetailRes.data.status;
+        }
+
+        const response = await axios.put(`${API_BASE_URL}/users/${userId}`, dataToUpdate);
         console.log('User updated:', response.data);
         return response.data;
     } catch (error) {
+        if (error.validationErrors) throw error;
         console.error('Error updating user:', error);
         throw error;
     }
@@ -147,29 +172,25 @@ export const createNewUser = async (formData) => {
     }
 
     try {
-        // Kiểm tra username đã tồn tại chưa
+        // Kiểm tra username, email, phone đã tồn tại chưa
         const usersResponse = await axios.get(`${API_BASE_URL}/users`);
         const users = usersResponse.data;
-
+        let validationErrors = {};
         const usernameExists = users.some(user => user.username === formData.username);
         if (usernameExists) {
-            throw {
-                validationErrors: {
-                    username: 'Tên đăng nhập đã tồn tại'
-                }
-            };
+            validationErrors.username = 'Tên đăng nhập đã tồn tại';
         }
-
-        // Kiểm tra email đã được sử dụng chưa
         const emailExists = users.some(user => user.email === formData.email);
         if (emailExists) {
-            throw {
-                validationErrors: {
-                    email: 'Email đã được sử dụng'
-                }
-            };
+            validationErrors.email = 'Email đã được sử dụng';
         }
-
+        const phoneExists = users.some(user => user.phone === formData.phone);
+        if (phoneExists) {
+            validationErrors.phone = 'Số điện thoại đã được sử dụng';
+        }
+        if (Object.keys(validationErrors).length > 0) {
+            throw { validationErrors };
+        }
         // Tạo user mới
         const newUser = {
             username: formData.username,

@@ -93,42 +93,23 @@ const UserEditModal = ({ show, onHide, user, onUpdate }) => {
     };    // Xử lý submit form
     const handleSubmit = async (e) => {
         e.preventDefault();
-
         // Validate form
         if (!validateForm()) {
             return;
         }
-
         setIsSubmitting(true);
-
         try {
-            // Tạo data để cập nhật
             let updatedData = { ...formData };
-
-            // Nếu có upload ảnh mới, sử dụng preview (hoặc upload lên server)
             if (avatarFile) {
-                // Ở đây đang dùng preview, trong thực tế nên upload lên server
                 updatedData.avatar = avatarPreview;
             }
-
-            // Gọi hàm update từ parent component
             await onUpdate(user.id, updatedData);
-
-            // Reset form và đóng modal
             onHide();
         } catch (error) {
-            console.error('Error updating user:', error);
-            // Hiển thị lỗi cụ thể từ server
-            const errorMessage = error.message || 'Có lỗi xảy ra khi cập nhật thông tin';
-
-            // Kiểm tra xem có phải lỗi trùng lặp không
-            if (errorMessage.includes('Email')) {
-                setErrors({ email: errorMessage });
-            } else if (errorMessage.includes('Số điện thoại')) {
-                setErrors({ phone: errorMessage });
-            } else if (errorMessage.includes('Tên đăng nhập')) {
-                setErrors({ username: errorMessage });
+            if (error.validationErrors) {
+                setErrors(error.validationErrors);
             } else {
+                const errorMessage = error.message || 'Có lỗi xảy ra khi cập nhật thông tin';
                 setErrors({ submit: errorMessage });
             }
         } finally {

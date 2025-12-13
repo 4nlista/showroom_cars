@@ -69,19 +69,13 @@ const CreateUserModal = ({ show, onHide, onUserCreated }) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setSubmitError('');
-
         setIsSubmitting(true);
-
         try {
-            // Gọi hàm createNewUser từ userService
             await createNewUser(formData);
-
-            // Thành công - gọi callback và đóng modal
             onUserCreated();
             handleClose();
             alert('✅ Tạo người dùng mới thành công!');
         } catch (error) {
-            // Xử lý lỗi
             if (error.validationErrors) {
                 setErrors(error.validationErrors);
             } else {
