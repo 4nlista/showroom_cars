@@ -44,7 +44,6 @@ const signup = async (username, full_name, phone, email, address, password) => {
             address,
             password,
             role_id: 2,
-            avatar: `https://i.pravatar.cc/300?u=${Date.now()}`
         });
 
         return response.data;

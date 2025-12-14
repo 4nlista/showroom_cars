@@ -13,6 +13,10 @@ export const useCart = () => {
         try {
             const cartData = await getCart();
 
+            // Lấy danh sách ID đã chọn từ localStorage
+            const selectedIdsStr = localStorage.getItem('selectedCartItems');
+            const selectedIds = selectedIdsStr ? JSON.parse(selectedIdsStr) : [];
+
             const itemsWithDetails = await Promise.all(
                 cartData.map(async (cartItem) => {
                     try {
@@ -28,7 +32,7 @@ export const useCart = () => {
                             fuel_type: productDetail.fuel_type,
                             seats: productDetail.seats,
                             doors: productDetail.doors,
-                            selected: false,
+                            selected: selectedIds.includes(cartItem.id), // Khôi phục trạng thái selected
                         };
                     } catch (err) {
                         console.error(`Error fetching product ${cartItem.car_id}:`, err);
@@ -114,15 +118,25 @@ export const useCart = () => {
     }, [cartItems]);
 
     const toggleItemSelection = useCallback((cartItemId, selected) => {
-        setCartItems(prev =>
-            prev.map(item =>
+        setCartItems(prev => {
+            const updated = prev.map(item =>
                 item.id === cartItemId ? { ...item, selected } : item
-            )
-        );
+            );
+            // Lưu danh sách ID đã chọn vào localStorage
+            const selectedIds = updated.filter(item => item.selected).map(item => item.id);
+            localStorage.setItem('selectedCartItems', JSON.stringify(selectedIds));
+            return updated;
+        });
     }, []);
 
     const toggleAllSelection = useCallback((selected) => {
-        setCartItems(prev => prev.map(item => ({ ...item, selected })));
+        setCartItems(prev => {
+            const updated = prev.map(item => ({ ...item, selected }));
+            // Lưu danh sách ID đã chọn vào localStorage
+            const selectedIds = selected ? updated.map(item => item.id) : [];
+            localStorage.setItem('selectedCartItems', JSON.stringify(selectedIds));
+            return updated;
+        });
     }, []);
 
     const removeSelectedItems = useCallback(async () => {
@@ -165,6 +179,10 @@ export const useCart = () => {
         return cartItems.length > 0 && cartItems.every(item => item.selected);
     }, [cartItems]);
 
+    const getSelectedItems = useCallback(() => {
+        return cartItems.filter(item => item.selected);
+    }, [cartItems]);
+
     useEffect(() => {
         fetchCart();
     }, [fetchCart]);
@@ -197,5 +215,6 @@ export const useCart = () => {
         getSelectedCount,
         getSelectedTotal,
         isAllSelected,
+        getSelectedItems,
     };
 };

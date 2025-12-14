@@ -34,7 +34,6 @@ const Header = () => {
   const { cartItems, getUniqueItemCount } = useCart();
   const countCart = getUniqueItemCount();
 
-  // Debug: kiểm tra giá trị
   console.log('Cart Items:', cartItems);
   console.log('Count Cart:', countCart);
 
@@ -325,11 +324,6 @@ const Header = () => {
 
                   Đổi mật khẩu
                 </MenuItem>
-
-
-
-
-
                 <MenuItem
                   onClick={handleLogout}
                   sx={{

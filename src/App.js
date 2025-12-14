@@ -2,6 +2,7 @@ import React, { Suspense, lazy } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import CarProgressLoading from "./components/all-components/CarProgressLoading";
 import ShoppingCart from "./pages/user-pages/Cart/ShoppingCart";
+import CarBooking from "./pages/Booking/CarBooking";
 
 
 const HomePage = lazy(() => import("./pages/user-pages/Home/HomePage"));
@@ -37,6 +38,7 @@ function App() {
           <Route path="/profile" element={<ProfileUser />} />
           <Route path="/history-order" element={<HistoryOrder />} />
           <Route path="/user-change-password" element={<UserChangePassword />} />
+          <Route path="/booking" element={<CarBooking />} />
 
           <Route path="/admin/quan-tri" element={<Dashboard />} />
           <Route path="/admin/quan-ly-nguoi-dung" element={<ManageUser />} />

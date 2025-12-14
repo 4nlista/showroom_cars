@@ -19,7 +19,7 @@ import {
 import { GiCarDoor } from "react-icons/gi";
 import ButtonLink from './ButtonLink';
 
-const CarCard = ({ car, favorites, onToggleFavorite, formatVND }) => {
+const CarCard = ({ car, formatVND }) => {
     return (
         <Card
             sx={{
@@ -81,29 +81,7 @@ const CarCard = ({ car, favorites, onToggleFavorite, formatVND }) => {
                     }}
                 />
 
-                <IconButton
-                    onClick={() => onToggleFavorite(car.id)}
-                    sx={{
-                        position: 'absolute',
-                        top: 16,
-                        right: 16,
-                        width: 44,
-                        height: 44,
-                        backgroundColor: 'rgba(255, 255, 255, 0.95)',
-                        backdropFilter: 'blur(10px)',
-                        zIndex: 10,
-                        transition: 'all 0.3s ease',
-                        '&:hover': {
-                            backgroundColor: 'rgba(255, 255, 255, 1)',
-                            transform: 'scale(1.1)',
-                        }
-                    }}
-                >
-                    {favorites.has(car.id) ?
-                        <Favorite sx={{ color: '#f44336', fontSize: 22 }} /> :
-                        <FavoriteBorder sx={{ color: '#1a1a1a', fontSize: 22 }} />
-                    }
-                </IconButton>
+            
             </Box>
 
             <CardContent sx={{

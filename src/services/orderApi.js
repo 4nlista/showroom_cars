@@ -14,6 +14,18 @@ export const getOrders = async () => {
     }
 };
 
+// 1.1. Tạo đơn hàng mới
+export const createOrder = async (orderData) => {
+    try {
+        const response = await axios.post(`${API_BASE_URL}/orders`, orderData);
+        console.log('Order created:', response.data);
+        return response.data;
+    } catch (error) {
+        console.error('Error creating order:', error);
+        throw error;
+    }
+};
+
 // 2. Lấy thông tin user theo ID
 export const getUserById = async (userId) => {
     try {
@@ -49,11 +61,31 @@ export const getOrdersWithDetails = async () => {
         const users = usersResponse.data;
         const cars = carsResponse.data;
 
-        // Join data
+        // Join data - Xử lý cả 2 cấu trúc: cũ (car_id) và mới (items array)
         const ordersWithDetails = orders.data.map(order => {
             const user = users.find(u => u.id === order.user_id);
-            const car = cars.find(c => c.id === order.car_id);
 
+            // Cấu trúc mới: có items array
+            if (order.items && Array.isArray(order.items)) {
+                // Lấy tên tất cả các xe và nối bằng dấu phẩy
+                const carNames = order.items.map(item => {
+                    const car = cars.find(c => c.id === item.car_id);
+                    return car ? car.name : 'Unknown Car';
+                }).join(', ');
+
+                const totalItems = order.items.reduce((sum, item) => sum + item.quantity, 0);
+
+                return {
+                    ...order,
+                    user_name: user ? user.full_name : 'Unknown User',
+                    car_name: carNames,
+                    quantity: totalItems,
+                    order_date: order.pickup_date || order.created_at
+                };
+            }
+
+            // Cấu trúc cũ: có car_id trực tiếp
+            const car = cars.find(c => c.id === order.car_id);
             return {
                 ...order,
                 user_name: user ? user.full_name : 'Unknown User',
@@ -85,8 +117,42 @@ export const getOrderDetailById = async (orderId) => {
         const cars = carsResponse.data;
         const categories = categoriesResponse.data;
 
-        // Find related data
+        // Find user
         const user = users.find(u => u.id === order.user_id);
+
+        // Cấu trúc mới: có items array
+        if (order.items && Array.isArray(order.items)) {
+            // Enrich items với thông tin chi tiết của từng xe
+            const enrichedItems = order.items.map(item => {
+                const car = cars.find(c => c.id === item.car_id);
+                const category = car ? categories.find(cat => cat.id === String(car.category_id)) : null;
+
+                return {
+                    ...item,
+                    car_name: car ? car.name : 'Unknown Car',
+                    car_price: car ? car.price : 0,
+                    car_image: car ? car.image : '',
+                    car_transmission: car ? car.transmission : 'N/A',
+                    car_fuel_type: car ? car.fuel_type : 'N/A',
+                    car_seats: car ? car.seats : 'N/A',
+                    car_doors: car ? car.doors : 'N/A',
+                    category_name: category ? category.name : 'Unknown Category'
+                };
+            });
+
+            return {
+                ...order,
+                user_name: user ? user.full_name : 'Unknown User',
+                user_email: user ? user.email : 'N/A',
+                user_phone: user ? user.phone : 'N/A',
+                user_address: user ? user.address : 'N/A',
+                items: enrichedItems,
+                order_date: order.pickup_date || order.created_at,
+                note: order.notes || order.note
+            };
+        }
+
+        // Cấu trúc cũ: có car_id trực tiếp
         const car = cars.find(c => c.id === order.car_id);
         const category = car ? categories.find(cat => cat.id === String(car.category_id)) : null;
 
@@ -221,6 +287,7 @@ export const applyOrderFilters = (orders, filters) => {
 
 export default {
     getOrders,
+    createOrder,
     getUserById,
     getCarById,
     getOrdersWithDetails,

@@ -12,27 +12,18 @@ import {
     TextField,
     Divider,
     Grid,
-    Card,
-    CardMedia,
-    CardContent,
 } from '@mui/material';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
-import {
-    Speed,
-    Person,
-    FavoriteBorder,
-    ArrowForward,
-} from '@mui/icons-material';
 import { useCart } from '../../../hooks/useCart';
+import CarCard from '../../../components/user-components/ListCars/CarCard';
 
 const CartShopee = () => {
     const navigate = useNavigate();
 
     const {
         cartItems,
-        loading,
         updateItemQuantity,
         removeItem,
         toggleItemSelection,
@@ -45,13 +36,11 @@ const CartShopee = () => {
 
     const items = cartItems;
 
-
-
     const recommendedCars = [
         {
             id: 4,
             name: 'Mercedes-Benz S-Class',
-            image: '/proj_images/mecerdes-benz/sedan/s-class.png',
+            image: '/Images/mecerdes-benz/sedan/s-class.png',
             price: 11000000000,
             transmission: 'Automatic',
             seats: 4,
@@ -59,7 +48,7 @@ const CartShopee = () => {
         {
             id: 6,
             name: 'Mercedes-Benz GLS',
-            image: '/proj_images/mecerdes-benz/SUV/gls.png',
+            image: '/Images/mecerdes-benz/SUV/gls.png',
             price: 8900000000,
             transmission: 'Automatic',
             seats: 7,
@@ -67,7 +56,7 @@ const CartShopee = () => {
         {
             id: 3,
             name: 'Mercedes-Benz G-Class',
-            image: '/proj_images/mecerdes-benz/SUV/G63.avif',
+            image: '/Images/mecerdes-benz/SUV/G63.avif',
             price: 10000000000,
             transmission: 'Manual',
             seats: 4,
@@ -75,7 +64,7 @@ const CartShopee = () => {
         {
             id: 2,
             name: 'Mercedes-Benz GLE',
-            image: '/proj_images/mecerdes-benz/SUV/gle.png',
+            image: '/Images/mecerdes-benz/SUV/gle.png',
             price: 2000000000,
             transmission: 'Automatic',
             seats: 4,
@@ -83,7 +72,7 @@ const CartShopee = () => {
         {
             id: 9,
             name: 'Mercedes-Benz GLC',
-            image: '/proj_images/mecerdes-benz/SUV/glc.png',
+            image: '/Images/mecerdes-benz/SUV/glc.png',
             price: 5500000000,
             transmission: 'Automatic',
             seats: 5,
@@ -91,7 +80,7 @@ const CartShopee = () => {
         {
             id: 15,
             name: 'Mercedes-AMG SL Roadster',
-            image: '/proj_images/AMG/cabriolet/cabriolet.avif',
+            image: '/Images/AMG/cabriolet/cabriolet.avif',
             price: 8500000000,
             transmission: 'Automatic',
             seats: 2,
@@ -124,12 +113,6 @@ const CartShopee = () => {
     const handleRemoveSelected = async () => {
         await removeSelectedItems();
     };
-
-    const handleCarClick = (car) => {
-        const carSlug = car.name.toLowerCase().replace(/\s+/g, '-');
-        navigate(`/san-pham/${carSlug}`, { state: { productId: car.id } });
-    };
-
     return (
         <MainLayout>
 
@@ -402,6 +385,7 @@ const CartShopee = () => {
                                         </Typography>
                                     </Box>
                                     <Button
+                                        onClick ={() => {navigate('/booking')}}
                                         variant="contained"
                                         disabled={selectedCount === 0}
                                         sx={{
@@ -443,191 +427,10 @@ const CartShopee = () => {
                         <Grid container spacing={3}>
                             {recommendedCars.map((car) => (
                                 <Grid size={4} key={car.id}>
-                                    <Card
-                                        sx={{
-                                            height: 510,
-                                            borderRadius: 4,
-                                            background: 'linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%)',
-                                            color: 'white',
-                                            transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
-                                            overflow: 'hidden',
-                                            position: 'relative',
-                                            border: 'none',
-                                            boxShadow: '0 4px 20px rgba(0, 0, 0, 0.3)',
-                                            '&:hover': {
-                                                transform: 'translateY(-8px)',
-                                                boxShadow: '0 12px 40px rgba(0, 0, 0, 0.5)',
-                                            },
-                                            '&::before': {
-                                                content: '""',
-                                                position: 'absolute',
-                                                top: 0,
-                                                left: 0,
-                                                right: 0,
-                                                height: '2px',
-                                                background: 'linear-gradient(90deg, transparent, #fff, transparent)',
-                                                opacity: 0.1
-                                            }
-                                        }}
-                                    >
-                                        <Box sx={{
-                                            position: 'relative',
-                                            background: 'linear-gradient(180deg, #f5f5f5 0%, #e8e8e8 100%)',
-                                            p: 2.5,
-                                            height: 280
-                                        }}>
-                                            <CardMedia
-                                                component="img"
-                                                image={car.image}
-                                                alt={car.name}
-                                                sx={{
-                                                    height: '100%',
-                                                    objectFit: 'contain',
-                                                    filter: 'drop-shadow(0 10px 30px rgba(0,0,0,0.2))',
-                                                    transition: 'transform 0.4s ease',
-                                                    '&:hover': {
-                                                        transform: 'scale(1.05)'
-                                                    }
-                                                }}
-                                            />
-
-                                            <Box
-                                                sx={{
-                                                    position: 'absolute',
-                                                    bottom: 0,
-                                                    left: 0,
-                                                    right: 0,
-                                                    height: '60%',
-                                                    background: 'linear-gradient(to top, rgba(26, 26, 26, 0.4), transparent)',
-                                                    pointerEvents: 'none'
-                                                }}
-                                            />
-
-                                            <IconButton
-                                                sx={{
-                                                    position: 'absolute',
-                                                    top: 16,
-                                                    right: 16,
-                                                    width: 44,
-                                                    height: 44,
-                                                    backgroundColor: 'rgba(255, 255, 255, 0.95)',
-                                                    backdropFilter: 'blur(10px)',
-                                                    zIndex: 10,
-                                                    transition: 'all 0.3s ease',
-                                                    '&:hover': {
-                                                        backgroundColor: 'rgba(255, 255, 255, 1)',
-                                                        transform: 'scale(1.1)',
-                                                    }
-                                                }}
-                                            >
-                                                <FavoriteBorder sx={{ color: '#1a1a1a', fontSize: 22 }} />
-                                            </IconButton>
-                                        </Box>
-
-                                        <CardContent sx={{
-                                            p: 3,
-                                            pt: 2.5,
-                                            display: 'flex',
-                                            flexDirection: 'column',
-                                            gap: 2
-                                        }}>
-                                            <Typography
-                                                variant="h6"
-                                                fontWeight={700}
-                                                sx={{
-                                                    color: '#ffffff',
-                                                    fontSize: '1.2rem',
-                                                    letterSpacing: '0.5px',
-                                                    lineHeight: 1.3
-                                                }}
-                                            >
-                                                {car.name}
-                                            </Typography>
-
-                                            <Box
-                                                display="flex"
-                                                alignItems="center"
-                                                gap={2.5}
-                                                sx={{
-                                                    pb: 2,
-                                                    borderBottom: '1px solid rgba(255, 255, 255, 0.08)'
-                                                }}
-                                            >
-                                                <Box display="flex" alignItems="center" gap={0.8}>
-                                                    <Person sx={{ fontSize: 18, color: 'rgba(255, 255, 255, 0.7)' }} />
-                                                    <Typography variant="body2" sx={{ color: 'rgba(255, 255, 255, 0.9)', fontWeight: 500 }}>
-                                                        {car.seats}
-                                                    </Typography>
-                                                </Box>
-                                                <Box display="flex" alignItems="center" gap={0.8}>
-                                                    <Speed sx={{ fontSize: 18, color: 'rgba(255, 255, 255, 0.7)' }} />
-                                                    <Typography
-                                                        variant="body2"
-                                                        sx={{
-                                                            color: 'rgba(255, 255, 255, 0.9)',
-                                                            textTransform: 'capitalize',
-                                                            fontWeight: 500,
-                                                            fontSize: '0.875rem'
-                                                        }}
-                                                    >
-                                                        {car.transmission}
-                                                    </Typography>
-                                                </Box>
-                                            </Box>
-
-                                            <Box display="flex" alignItems="flex-end" justifyContent="space-between">
-                                                <Box>
-                                                    <Typography
-                                                        variant="body2"
-                                                        sx={{
-                                                            color: 'rgba(255, 255, 255, 0.6)',
-                                                            fontSize: '0.95rem',
-                                                            mb: 0.5,
-                                                            textTransform: 'uppercase',
-                                                            letterSpacing: '1px',
-                                                            fontWeight: 600
-                                                        }}
-                                                    >
-                                                        Giá
-                                                    </Typography>
-                                                    <Typography
-                                                        fontWeight={700}
-                                                        fontSize={20}
-                                                        sx={{
-                                                            color: '#ffffff',
-                                                            letterSpacing: '0.5px'
-                                                        }}
-                                                    >
-                                                        {formatPrice(car.price)}
-                                                    </Typography>
-                                                </Box>
-
-                                                <Button
-                                                    variant="contained"
-                                                    onClick={() => handleCarClick(car)}
-                                                    endIcon={<ArrowForward />}
-                                                    sx={{
-                                                        background: 'linear-gradient(135deg, #ffffff 0%, #f0f0f0 100%)',
-                                                        color: '#1a1a1a',
-                                                        px: 2.5,
-                                                        py: 1,
-                                                        borderRadius: 2,
-                                                        fontWeight: 600,
-                                                        textTransform: 'none',
-                                                        boxShadow: '0 4px 12px rgba(255, 255, 255, 0.2)',
-                                                        transition: 'all 0.3s ease',
-                                                        '&:hover': {
-                                                            background: 'linear-gradient(135deg, #f0f0f0 0%, #e0e0e0 100%)',
-                                                            transform: 'translateY(-2px)',
-                                                            boxShadow: '0 6px 16px rgba(255, 255, 255, 0.3)',
-                                                        }
-                                                    }}
-                                                >
-                                                    Chi tiết
-                                                </Button>
-                                            </Box>
-                                        </CardContent>
-                                    </Card>
+                                    <CarCard
+                                    car={car}
+                                    formatVND={formatPrice}
+                                    />
                                 </Grid>
                             ))}
                         </Grid>

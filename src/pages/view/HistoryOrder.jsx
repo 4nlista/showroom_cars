@@ -178,180 +178,286 @@ const HistoryOrder = () => {
                         ) : detailError ? (
                             <Alert variant="danger">{detailError}</Alert>
                         ) : orderDetail ? (
-                            <Row>
-                                {/* Cột trái: Ảnh xe */}
-                                <Col md={4}>
-                                    <Form.Group className="mb-3">
-                                        <Form.Label className="fw-semibold text-secondary">Ảnh xe</Form.Label>
-                                        <div className="text-center">
-                                            <img
-                                                src={orderDetail.car_image || 'https://via.placeholder.com/300x200?text=No+Image'}
-                                                alt={orderDetail.car_name}
-                                                style={{ width: '100%', height: 140, objectFit: 'cover' }}
-                                                className="border rounded"
-                                            />
+                            <div>
+                                {/* Thông tin user */}
+                                <Row className="mb-3">
+                                    <Col md={12}>
+                                        <h6 className="fw-bold text-secondary mb-2">Thông tin khách hàng</h6>
+                                        <div className="p-3 bg-light rounded">
+                                            <p className="mb-1"><strong>Tên:</strong> {orderDetail.user_name}</p>
+                                            <p className="mb-1"><strong>Email:</strong> {orderDetail.user_email}</p>
+                                            <p className="mb-1"><strong>SĐT:</strong> {orderDetail.user_phone}</p>
+                                            <p className="mb-0"><strong>Địa chỉ:</strong> {orderDetail.user_address}</p>
                                         </div>
-                                    </Form.Group>
-                                </Col>
-                                {/* Cột phải: Thông tin đơn hàng */}
-                                <Col md={8}>
-                                    <Row className="mb-3">
-                                        <Col md={6}>
-                                            <Form.Group>
-                                                <Form.Label className="fw-semibold text-secondary">Mã đơn hàng</Form.Label>
-                                                <Form.Control
-                                                    type="text"
-                                                    value={orderDetail.id}
-                                                    disabled
-                                                    readOnly
-                                                    className="form-control-detail"
-                                                />
-                                            </Form.Group>
-                                        </Col>
-                                        <Col md={6}>
-                                            <Form.Group>
-                                                <Form.Label className="fw-semibold text-secondary">Ngày đặt</Form.Label>
-                                                <Form.Control
-                                                    type="text"
-                                                    value={formatOrderDate(orderDetail.order_date)}
-                                                    disabled
-                                                    readOnly
-                                                    className="form-control-detail"
-                                                />
-                                            </Form.Group>
-                                        </Col>
-                                    </Row>
-                                    <Row className="mb-3">
-                                        <Col md={12}>
-                                            <Form.Group>
-                                                <Form.Label className="fw-semibold text-secondary">Tên xe</Form.Label>
-                                                <Form.Control
-                                                    type="text"
-                                                    value={orderDetail.car_name}
-                                                    disabled
-                                                    readOnly
-                                                    className="form-control-detail"
-                                                />
-                                            </Form.Group>
-                                        </Col>
-                                    </Row>
-                                    <Row className="mb-3">
+                                    </Col>
+                                </Row>
+
+                                {/* Danh sách xe - Cấu trúc mới (items array) */}
+                                {orderDetail.items && Array.isArray(orderDetail.items) ? (
+                                    <div>
+                                        <h6 className="fw-bold text-secondary mb-2">Danh sách xe đặt mua</h6>
+                                        {orderDetail.items.map((item, index) => (
+                                            <Row key={index} className="mb-3 border rounded p-3">
+                                                <Col md={4}>
+                                                    <img
+                                                        src={item.car_image || 'https://via.placeholder.com/300x200?text=No+Image'}
+                                                        alt={item.car_name}
+                                                        style={{ width: '100%', height: 120, objectFit: 'cover' }}
+                                                        className="border rounded"
+                                                    />
+                                                </Col>
+                                                <Col md={8}>
+                                                    <h6 className="fw-bold">{item.car_name}</h6>
+                                                    <p className="mb-1 text-muted small">{item.category_name}</p>
+                                                    <Row>
+                                                        <Col xs={6}>
+                                                            <small><strong>Giá:</strong> {item.car_price?.toLocaleString('vi-VN')}₫</small>
+                                                        </Col>
+                                                        <Col xs={6}>
+                                                            <small><strong>Số lượng:</strong> {item.quantity}</small>
+                                                        </Col>
+                                                        <Col xs={6}>
+                                                            <small><strong>Hộp số:</strong> {item.car_transmission}</small>
+                                                        </Col>
+                                                        <Col xs={6}>
+                                                            <small><strong>Nhiên liệu:</strong> {item.car_fuel_type}</small>
+                                                        </Col>
+                                                    </Row>
+                                                </Col>
+                                            </Row>
+                                        ))}
+
+                                        {/* Thông tin đơn hàng */}
+                                        <Row className="mt-3">
+                                            <Col md={6}>
+                                                <Form.Group>
+                                                    <Form.Label className="fw-semibold text-secondary">Ngày nhận xe</Form.Label>
+                                                    <Form.Control
+                                                        type="text"
+                                                        value={formatOrderDate(orderDetail.order_date)}
+                                                        disabled
+                                                        readOnly
+                                                    />
+                                                </Form.Group>
+                                            </Col>
+                                            <Col md={6}>
+                                                <Form.Group>
+                                                    <Form.Label className="fw-semibold text-secondary">Tổng tiền</Form.Label>
+                                                    <Form.Control
+                                                        type="text"
+                                                        value={orderDetail.total_amount?.toLocaleString('vi-VN') + '₫'}
+                                                        disabled
+                                                        readOnly
+                                                        className="fw-bold text-danger"
+                                                    />
+                                                </Form.Group>
+                                            </Col>
+                                        </Row>
+
+                                        <Row className="mt-3">
+                                            <Col md={12}>
+                                                <Form.Group>
+                                                    <Form.Label className="fw-semibold text-secondary">Trạng thái</Form.Label>
+                                                    <div>
+                                                        <span className={`badge ${getStatusBadgeClass(orderDetail.status)} fs-6`}>
+                                                            {getStatusLabel(orderDetail.status)}
+                                                        </span>
+                                                    </div>
+                                                </Form.Group>
+                                            </Col>
+                                        </Row>
+
+                                        <Row className="mt-3">
+                                            <Col md={12}>
+                                                <Form.Group>
+                                                    <Form.Label className="fw-semibold text-secondary">Ghi chú</Form.Label>
+                                                    <Form.Control
+                                                        as="textarea"
+                                                        rows={2}
+                                                        value={orderDetail.note || 'Không có ghi chú'}
+                                                        disabled
+                                                        readOnly
+                                                    />
+                                                </Form.Group>
+                                            </Col>
+                                        </Row>
+                                    </div>
+                                ) : (
+                                    /* Cấu trúc cũ - Hiển thị 1 xe */
+                                    <Row>
                                         <Col md={4}>
-                                            <Form.Group>
-                                                <Form.Label className="fw-semibold text-secondary">Dòng xe</Form.Label>
-                                                <Form.Control
-                                                    type="text"
-                                                    value={orderDetail.category_name}
-                                                    disabled
-                                                    readOnly
-                                                    className="form-control-detail"
-                                                />
-                                            </Form.Group>
-                                        </Col>
-                                        <Col md={4}>
-                                            <Form.Group>
-                                                <Form.Label className="fw-semibold text-secondary">Giá xe</Form.Label>
-                                                <Form.Control
-                                                    type="text"
-                                                    value={orderDetail.car_price ? orderDetail.car_price.toLocaleString('vi-VN') + '₫' : ''}
-                                                    disabled
-                                                    readOnly
-                                                    className="form-control-detail"
-                                                />
-                                            </Form.Group>
-                                        </Col>
-                                        <Col md={4}>
-                                            <Form.Group>
-                                                <Form.Label className="fw-semibold text-secondary">Số lượng</Form.Label>
-                                                <Form.Control
-                                                    type="text"
-                                                    value={orderDetail.quantity}
-                                                    disabled
-                                                    readOnly
-                                                    className="form-control-detail"
-                                                />
-                                            </Form.Group>
-                                        </Col>
-                                    </Row>
-                                    <Row className="mb-3">
-                                        <Col md={3}>
-                                            <Form.Group>
-                                                <Form.Label className="fw-semibold text-secondary">Hộp số</Form.Label>
-                                                <Form.Control
-                                                    type="text"
-                                                    value={orderDetail.car_transmission}
-                                                    disabled
-                                                    readOnly
-                                                    className="form-control-detail"
-                                                />
-                                            </Form.Group>
-                                        </Col>
-                                        <Col md={3}>
-                                            <Form.Group>
-                                                <Form.Label className="fw-semibold text-secondary">Nhiên liệu</Form.Label>
-                                                <Form.Control
-                                                    type="text"
-                                                    value={orderDetail.car_fuel_type}
-                                                    disabled
-                                                    readOnly
-                                                    className="form-control-detail"
-                                                />
-                                            </Form.Group>
-                                        </Col>
-                                        <Col md={3}>
-                                            <Form.Group>
-                                                <Form.Label className="fw-semibold text-secondary">Số chỗ</Form.Label>
-                                                <Form.Control
-                                                    type="text"
-                                                    value={orderDetail.car_seats}
-                                                    disabled
-                                                    readOnly
-                                                    className="form-control-detail"
-                                                />
-                                            </Form.Group>
-                                        </Col>
-                                        <Col md={3}>
-                                            <Form.Group>
-                                                <Form.Label className="fw-semibold text-secondary">Số cửa</Form.Label>
-                                                <Form.Control
-                                                    type="text"
-                                                    value={orderDetail.car_doors}
-                                                    disabled
-                                                    readOnly
-                                                    className="form-control-detail"
-                                                />
-                                            </Form.Group>
-                                        </Col>
-                                    </Row>
-                                    <Row className="mb-3">
-                                        <Col md={12}>
-                                            <Form.Group>
-                                                <Form.Label className="fw-semibold text-secondary">Trạng thái</Form.Label>
-                                                <div>
-                                                    <span className={`badge ${getStatusBadgeClass(orderDetail.status)} fs-6`}>
-                                                        {getStatusLabel(orderDetail.status)}
-                                                    </span>
+                                            <Form.Group className="mb-3">
+                                                <Form.Label className="fw-semibold text-secondary">Ảnh xe</Form.Label>
+                                                <div className="text-center">
+                                                    <img
+                                                        src={orderDetail.car_image || 'https://via.placeholder.com/300x200?text=No+Image'}
+                                                        alt={orderDetail.car_name}
+                                                        style={{ width: '100%', height: 140, objectFit: 'cover' }}
+                                                        className="border rounded"
+                                                    />
                                                 </div>
                                             </Form.Group>
                                         </Col>
-                                    </Row>
-                                    <Row className="mb-3">
-                                        <Col md={12}>
-                                            <Form.Group>
-                                                <Form.Label className="fw-semibold text-secondary">Ghi chú</Form.Label>
-                                                <Form.Control
-                                                    as="textarea"
-                                                    rows={3}
-                                                    value={orderDetail.note || 'Không có ghi chú'}
-                                                    disabled
-                                                    readOnly
-                                                    className="form-control-detail"
-                                                />
-                                            </Form.Group>
+                                        <Col md={8}>
+                                            <Row className="mb-3">
+                                                <Col md={6}>
+                                                    <Form.Group>
+                                                        <Form.Label className="fw-semibold text-secondary">Mã đơn hàng</Form.Label>
+                                                        <Form.Control
+                                                            type="text"
+                                                            value={orderDetail.id}
+                                                            disabled
+                                                            readOnly
+                                                            className="form-control-detail"
+                                                        />
+                                                    </Form.Group>
+                                                </Col>
+                                                <Col md={6}>
+                                                    <Form.Group>
+                                                        <Form.Label className="fw-semibold text-secondary">Ngày đặt</Form.Label>
+                                                        <Form.Control
+                                                            type="text"
+                                                            value={formatOrderDate(orderDetail.order_date)}
+                                                            disabled
+                                                            readOnly
+                                                            className="form-control-detail"
+                                                        />
+                                                    </Form.Group>
+                                                </Col>
+                                            </Row>
+                                            <Row className="mb-3">
+                                                <Col md={12}>
+                                                    <Form.Group>
+                                                        <Form.Label className="fw-semibold text-secondary">Tên xe</Form.Label>
+                                                        <Form.Control
+                                                            type="text"
+                                                            value={orderDetail.car_name}
+                                                            disabled
+                                                            readOnly
+                                                            className="form-control-detail"
+                                                        />
+                                                    </Form.Group>
+                                                </Col>
+                                            </Row>
+                                            <Row className="mb-3">
+                                                <Col md={4}>
+                                                    <Form.Group>
+                                                        <Form.Label className="fw-semibold text-secondary">Dòng xe</Form.Label>
+                                                        <Form.Control
+                                                            type="text"
+                                                            value={orderDetail.category_name}
+                                                            disabled
+                                                            readOnly
+                                                            className="form-control-detail"
+                                                        />
+                                                    </Form.Group>
+                                                </Col>
+                                                <Col md={4}>
+                                                    <Form.Group>
+                                                        <Form.Label className="fw-semibold text-secondary">Giá xe</Form.Label>
+                                                        <Form.Control
+                                                            type="text"
+                                                            value={orderDetail.car_price ? orderDetail.car_price.toLocaleString('vi-VN') + '₫' : ''}
+                                                            disabled
+                                                            readOnly
+                                                            className="form-control-detail"
+                                                        />
+                                                    </Form.Group>
+                                                </Col>
+                                                <Col md={4}>
+                                                    <Form.Group>
+                                                        <Form.Label className="fw-semibold text-secondary">Số lượng</Form.Label>
+                                                        <Form.Control
+                                                            type="text"
+                                                            value={orderDetail.quantity}
+                                                            disabled
+                                                            readOnly
+                                                            className="form-control-detail"
+                                                        />
+                                                    </Form.Group>
+                                                </Col>
+                                            </Row>
+                                            <Row className="mb-3">
+                                                <Col md={3}>
+                                                    <Form.Group>
+                                                        <Form.Label className="fw-semibold text-secondary">Hộp số</Form.Label>
+                                                        <Form.Control
+                                                            type="text"
+                                                            value={orderDetail.car_transmission}
+                                                            disabled
+                                                            readOnly
+                                                            className="form-control-detail"
+                                                        />
+                                                    </Form.Group>
+                                                </Col>
+                                                <Col md={3}>
+                                                    <Form.Group>
+                                                        <Form.Label className="fw-semibold text-secondary">Nhiên liệu</Form.Label>
+                                                        <Form.Control
+                                                            type="text"
+                                                            value={orderDetail.car_fuel_type}
+                                                            disabled
+                                                            readOnly
+                                                            className="form-control-detail"
+                                                        />
+                                                    </Form.Group>
+                                                </Col>
+                                                <Col md={3}>
+                                                    <Form.Group>
+                                                        <Form.Label className="fw-semibold text-secondary">Số chỗ</Form.Label>
+                                                        <Form.Control
+                                                            type="text"
+                                                            value={orderDetail.car_seats}
+                                                            disabled
+                                                            readOnly
+                                                            className="form-control-detail"
+                                                        />
+                                                    </Form.Group>
+                                                </Col>
+                                                <Col md={3}>
+                                                    <Form.Group>
+                                                        <Form.Label className="fw-semibold text-secondary">Số cửa</Form.Label>
+                                                        <Form.Control
+                                                            type="text"
+                                                            value={orderDetail.car_doors}
+                                                            disabled
+                                                            readOnly
+                                                            className="form-control-detail"
+                                                        />
+                                                    </Form.Group>
+                                                </Col>
+                                            </Row>
+                                            <Row className="mb-3">
+                                                <Col md={12}>
+                                                    <Form.Group>
+                                                        <Form.Label className="fw-semibold text-secondary">Trạng thái</Form.Label>
+                                                        <div>
+                                                            <span className={`badge ${getStatusBadgeClass(orderDetail.status)} fs-6`}>
+                                                                {getStatusLabel(orderDetail.status)}
+                                                            </span>
+                                                        </div>
+                                                    </Form.Group>
+                                                </Col>
+                                            </Row>
+                                            <Row className="mb-3">
+                                                <Col md={12}>
+                                                    <Form.Group>
+                                                        <Form.Label className="fw-semibold text-secondary">Ghi chú</Form.Label>
+                                                        <Form.Control
+                                                            as="textarea"
+                                                            rows={3}
+                                                            value={orderDetail.note || 'Không có ghi chú'}
+                                                            disabled
+                                                            readOnly
+                                                            className="form-control-detail"
+                                                        />
+                                                    </Form.Group>
+                                                </Col>
+                                            </Row>
                                         </Col>
                                     </Row>
-                                </Col>
-                            </Row>
+                                )}
+                            </div>
                         ) : (
                             <Alert variant="warning">Không tìm thấy thông tin đơn hàng</Alert>
                         )}
