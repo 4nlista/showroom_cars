@@ -146,11 +146,11 @@ const CartShopee = () => {
                                 onChange={(e) => handleToggleAll(e.target.checked)}
                             />
                         </Box>
-                        <Typography variant="body2">Sản phẩm</Typography>
-                        <Typography variant="body2">Đơn giá</Typography>
-                        <Typography variant="body2">Số lượng</Typography>
+                        <Typography variant="body2">Product</Typography>
+                        <Typography variant="body2">Unit price</Typography>
+                        <Typography variant="body2">Quantity</Typography>
                         <Typography variant="body2" sx={{ textAlign: 'right' }}>
-                            Thao tác
+                            Actions
                         </Typography>
                     </Box>
 
@@ -323,7 +323,7 @@ const CartShopee = () => {
                                 onClick={handleRemoveSelected}
                                 sx={{ textTransform: 'none' }}
                             >
-                                Xóa {selectedCount} sản phẩm đã chọn
+                                Remove {selectedCount} selected items
                             </Button>
                         </Box>
                     )}
@@ -358,7 +358,7 @@ const CartShopee = () => {
                                         onChange={(e) => handleToggleAll(e.target.checked)}
                                     />
                                     <Typography variant="body2">
-                                        Chọn tất cả ({items.length})
+                                        Select all ({items.length})
                                     </Typography>
                                 </Box>
 
@@ -372,7 +372,7 @@ const CartShopee = () => {
                                 >
                                     <Box sx={{ textAlign: 'right' }}>
                                         <Typography variant="body2" color="text.secondary">
-                                            Tổng thanh toán ({selectedCount} sản phẩm):
+                                            Total payment ({selectedCount} items):
                                         </Typography>
                                         <Typography
                                             variant="h6"
@@ -405,7 +405,7 @@ const CartShopee = () => {
                                             },
                                         }}
                                     >
-                                        Mua hàng
+                                        Checkout
                                     </Button>
                                 </Box>
                             </Box>
@@ -420,8 +420,8 @@ const CartShopee = () => {
                                 mb: 3,
                                 color: '#1a1a1a',
                             }}
-                        >
-                            Các Mẫu Xe Bạn Có Thể Thích
+                                >
+                            Cars You May Like
                         </Typography>
 
                         <Grid container spacing={3}>

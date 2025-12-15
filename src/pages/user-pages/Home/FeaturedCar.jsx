@@ -10,11 +10,13 @@ import {
     Typography,
     Fade,
     Skeleton
-} from '@mui/material'
-import React, { useEffect, useState, useCallback } from 'react'
-import { getFeatureCars } from '../../../services/featureCarApi'
+} from '@mui/material';
+import React, { useEffect, useState, useCallback } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { getFeatureCars } from '../../../services/featureCarApi';
 
 const FeaturedCar = () => {
+    const navigate = useNavigate();
     const [cars, setCars] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
@@ -58,16 +60,32 @@ const FeaturedCar = () => {
         );
     }
 
+    const handleViewDetails = (car) => {
+        if (!car) return;
+        const slug = (car.name || 'car')
+            .toLowerCase()
+            .trim()
+            .replace(/\s+/g, '-');
+
+        navigate(`/product/${slug}`, {
+            state: { productId: car.id }
+        });
+    };
+
+    const handleBookTestDrive = () => {
+        navigate('/booking');
+    };
+
     if (error) {
         return (
             <Box sx={{ py: { xs: 6, md: 8 } }}>
                 <Container maxWidth="xl">
                     <Typography variant="h5" textAlign="center" color="error">
-                        Không thể tải dữ liệu xe. Vui lòng thử lại sau.
+                        Unable to load car data. Please try again later.
                     </Typography>
                     <Box textAlign="center" mt={2}>
                         <Button variant="contained" onClick={fetchCars}>
-                            Thử lại
+                            Retry
                         </Button>
                     </Box>
                 </Container>
@@ -80,7 +98,7 @@ const FeaturedCar = () => {
             <Box sx={{ py: { xs: 6, md: 8 } }}>
                 <Container maxWidth="xl">
                     <Typography variant="h5" textAlign="center">
-                        Hiện tại chưa có xe nào được hiển thị.
+                        There are currently no cars to display.
                     </Typography>
                 </Container>
             </Box>
@@ -101,7 +119,7 @@ const FeaturedCar = () => {
                             fontSize: { xs: '2rem', md: '2.5rem' }
                         }}
                     >
-                        Danh Sách Xe Nổi Bật
+                        Featured Cars
                     </Typography>
                     <Typography
                         variant='body1'
@@ -113,7 +131,7 @@ const FeaturedCar = () => {
                             mx: 'auto'
                         }}
                     >
-                        Khám phá những mẫu xe ưu chuộng nhất hiện nay, mang đến trải nghiệm lái đỉnh cao và phong cách sang trọng
+                        Discover the most popular models today, offering an exceptional driving experience and luxurious style.
                     </Typography>
                 </Box>
 
@@ -185,7 +203,7 @@ const FeaturedCar = () => {
                                                 lineHeight: 1.3
                                             }}
                                         >
-                                            {car.name || 'Tên xe không có'}
+                                            {car.name || 'Car name not available'}
                                         </Typography>
 
                                         <Box
@@ -206,7 +224,7 @@ const FeaturedCar = () => {
                                                     lineHeight: 1.6,
                                                 }}
                                             >
-                                                {car.description || 'Mô tả sản phẩm sẽ được cập nhật sớm. Xe này mang đến trải nghiệm lái tuyệt vời với thiết kế hiện đại và công nghệ tiên tiến.'}
+                                                {car.description || 'Product description will be updated soon. This car delivers an excellent driving experience with modern design and advanced technology.'}
                                             </Typography>
                                         </Box>
 
@@ -226,8 +244,9 @@ const FeaturedCar = () => {
                                                         boxShadow: '0 4px 16px rgba(0,0,0,0.13)'
                                                     }
                                                 }}
+                                                onClick={() => handleViewDetails(car)}
                                             >
-                                                Xem chi tiết
+                                                View details
                                             </Button>
 
                                             <Button
@@ -247,8 +266,9 @@ const FeaturedCar = () => {
                                                         borderColor: '#1565c0'
                                                     }
                                                 }}
+                                                onClick={handleBookTestDrive}
                                             >
-                                                Đăng ký lái thử
+                                                Book a test drive
                                             </Button>
 
                                         </CardActions>

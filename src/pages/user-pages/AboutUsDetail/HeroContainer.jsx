@@ -62,7 +62,7 @@ const HeroContainer = () => {
                   textShadow: '2px 2px 4px rgba(0,0,0,0.7)',
                 }}
               >
-                Định nghĩa về xe luôn thay đổi, nhưng đẳng cấp thì không.
+                The definition of a car is always changing, but true class never does.
               </Typography>
 
               <Typography
@@ -75,7 +75,7 @@ const HeroContainer = () => {
                   marginBottom: { xs: 2, md: 9 }
                 }}
               >
-                Khi đó là Mercedes-Benz.
+                That is Mercedes-Benz.
               </Typography>
               <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
                 <Button
@@ -94,7 +94,7 @@ const HeroContainer = () => {
                     },
                   }}
                 >
-                  Khám phá những điểm nổi bật
+                  Discover the highlights
                 </Button>
                 <Button
                   variant="contained"
@@ -112,7 +112,7 @@ const HeroContainer = () => {
                     },
                   }}
                 >
-                  Liên hệ
+                  Contact us
                 </Button>
               </Box>
             </Box>

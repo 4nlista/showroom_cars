@@ -13,7 +13,7 @@ import LanguageIcon from "@mui/icons-material/Language";
 import { useNavigate } from "react-router-dom";
 
 const HeaderAuth = () => {
-    const menus = ["Đăng nhập", "Đăng ký"];
+    const menus = ["Login", "Sign up"];
 
     const navigate = useNavigate();
 
@@ -60,8 +60,8 @@ const HeaderAuth = () => {
                                 },
                             }}
                             onClick={() => {
-                                if (item === "Đăng nhập") navigate("/dang-nhap");
-                                if (item === "Đăng ký") navigate("/dang-ky");
+                                if (item === "Login") navigate("/login");
+                                if (item === "Sign up") navigate("/signup");
                             }}
                         >
                             {item}

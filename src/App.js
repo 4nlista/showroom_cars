@@ -4,7 +4,7 @@ import CarProgressLoading from "./components/all-components/CarProgressLoading";
 import ProtectedRoute from "./components/ProtectedRoute";
 import ShoppingCart from "./pages/user-pages/Cart/ShoppingCart";
 import CarBooking from "./pages/Booking/CarBooking";
-
+import ScrollToTop from "./components/ScrollToTop";
 
 const HomePage = lazy(() => import("./pages/user-pages/Home/HomePage"));
 const Login = lazy(() => import("./pages/user-pages/Auth/Login"));
@@ -27,19 +27,20 @@ const UserChangePassword = lazy(() => import("./pages/view/UserChangePassword"))
 function App() {
   return (
     <BrowserRouter>
+      <ScrollToTop />
       <Suspense fallback={<CarProgressLoading />}>
         <Routes>
           {/* Public routes */}
-          <Route path="/dang-nhap" element={<Login />} />
+          <Route path="/login" element={<Login />} />
           <Route path="/" element={<HomePage />} />
-          <Route path="/dang-ky" element={<Signup />} />
-          <Route path="/ve-chung-toi" element={<AboutDetail />} />
-          <Route path="/danh-sach-san-pham" element={<ListCars />} />
-          <Route path="/san-pham/:name" element={<ProductDetail />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/about-us" element={<AboutDetail />} />
+          <Route path="/car-list" element={<ListCars />} />
+          <Route path="/product/:name" element={<ProductDetail />} />
 
           {/* Protected user routes */}
           <Route
-            path="/gio-hang"
+            path="/cart"
             element={
               <ProtectedRoute>
                 <ShoppingCart />

@@ -39,7 +39,7 @@ const IntroSection = () => {
                                     lineHeight: 1.2
                                 }}
                             >
-                                Về Chúng Tôi
+                                About Us
                             </Typography>
 
                             <Typography
@@ -51,7 +51,7 @@ const IntroSection = () => {
                                     mb: 4
                                 }}
                             >
-                                CarShow tự hào là hệ thống phân phối xe hơi chính hãng hàng đầu Việt Nam, đồng hành cùng hơn 10.000 khách hàng trong hành trình tìm kiếm chiếc xe mơ ước.
+                                CarShow is proud to be a leading official car distribution system in Vietnam, accompanying more than 10,000 customers on their journey to find their dream car.
                             </Typography>
 
                             <Typography
@@ -64,7 +64,7 @@ const IntroSection = () => {
                                     lineHeight: 1.3
                                 }}
                             >
-                                CarShow - Nơi Khởi Đầu Những Hành Trình
+                                CarShow - Where Journeys Begin
                             </Typography>
 
                             <Typography
@@ -75,7 +75,7 @@ const IntroSection = () => {
                                     mb: 3
                                 }}
                             >
-                                Với hơn 15 năm kinh nghiệm trong ngành ô tô, chúng tôi tự hào là đối tác tin cậy của hàng nghìn gia đình Việt Nam.
+                                With over 15 years of experience in the automotive industry, we are proud to be a trusted partner of thousands of families.
                             </Typography>
 
                             <Typography
@@ -86,7 +86,7 @@ const IntroSection = () => {
                                     mb: 4
                                 }}
                             >
-                                Không chỉ là nơi mua bán xe, chúng tôi cam kết mang đến trải nghiệm hoàn hảo với dịch vụ chuyên nghiệp toàn quốc.
+                                More than just a place to buy and sell cars, we are committed to delivering a perfect experience with professional nationwide service.
                             </Typography>
 
                             <Button
@@ -106,7 +106,7 @@ const IntroSection = () => {
                                     }
                                 }}
                             >
-                                Tìm hiểu thêm
+                                Learn more
                             </Button>
                         </Box>
                     </Grid>
@@ -166,7 +166,7 @@ const IntroSection = () => {
                                                     fontSize: '1rem'
                                                 }}
                                             >
-                                                Năm kinh nghiệm
+                                                Years of experience
                                             </Typography>
                                         </Paper>
                                     </Grid>
@@ -218,7 +218,7 @@ const IntroSection = () => {
                                                     fontSize: '1rem'
                                                 }}
                                             >
-                                                Khách hàng tin tưởng
+                                                Trusted customers
                                             </Typography>
                                         </Paper>
                                     </Grid>
@@ -270,7 +270,7 @@ const IntroSection = () => {
                                                     fontSize: '1rem'
                                                 }}
                                             >
-                                                Xe đã giao thành công
+                                                Successfully delivered cars
                                             </Typography>
                                         </Paper>
                                     </Grid>
@@ -322,7 +322,7 @@ const IntroSection = () => {
                                                     fontSize: '1rem'
                                                 }}
                                             >
-                                                Showroom toàn quốc
+                                                Showrooms nationwide
                                             </Typography>
                                         </Paper>
                                     </Grid>
@@ -343,7 +343,7 @@ const IntroSection = () => {
                             fontSize: { xs: '2rem', md: '2.5rem' }
                         }}
                     >
-                        Tại Sao Chọn Chúng Tôi?
+                        Why Choose Us?
                     </Typography>
 
                     <Grid container spacing={6} justifyContent={"center"}>
@@ -372,13 +372,13 @@ const IntroSection = () => {
                                             fontSize: '1.6rem'
                                         }}
                                     >
-                                        Uy tín & Chất lượng
+                                        Prestige & Quality
                                     </Typography>
                                     <Typography
                                         variant="body1"
                                         sx={{ fontSize: '1.2rem', lineHeight: 1.7 }}
                                     >
-                                        Cam kết 100% xe chính hãng, đảm bảo chất lượng và nguồn gốc rõ ràng.
+                                        100% genuine vehicles with guaranteed quality and clear origin.
                                     </Typography>
                                 </Box>
                             </Box>
@@ -412,13 +412,13 @@ const IntroSection = () => {
                                             fontSize: '1.6rem'
                                         }}
                                     >
-                                        Hỗ trợ toàn diện
+                                        Comprehensive support
                                     </Typography>
                                     <Typography
                                         variant="body1"
                                         sx={{ fontSize: '1.2rem', lineHeight: 1.7 }}
                                     >
-                                        Tư vấn 24/7, hỗ trợ tài chính và dịch vụ hậu mãi trọn đời.
+                                        24/7 consultation, financial support, and lifelong after-sales service.
                                     </Typography>
                                 </Box>
                             </Box>
@@ -449,13 +449,13 @@ const IntroSection = () => {
                                             fontSize: '1.6rem'
                                         }}
                                     >
-                                        Quy trình minh bạch
+                                        Transparent process
                                     </Typography>
                                     <Typography
                                         variant="body1"
                                         sx={{ fontSize: '1.2rem', lineHeight: 1.7 }}
                                     >
-                                        Thủ tục nhanh gọn, giá cả minh bạch, không phí ẩn.
+                                        Fast procedures, transparent pricing, and no hidden fees.
                                     </Typography>
                                 </Box>
                             </Box>

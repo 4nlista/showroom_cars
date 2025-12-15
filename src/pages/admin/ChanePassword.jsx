@@ -73,7 +73,7 @@ const ChangePassword = () => {
                 localStorage.removeItem('token'); // if you have token
 
                 // Redirect to home page
-                window.location.href = 'http://localhost:3000/';
+                window.location.href = '/';
             }, 2000);
         } catch (error) {
             // Handle validation errors

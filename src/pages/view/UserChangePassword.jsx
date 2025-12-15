@@ -46,7 +46,7 @@ const UserChangePassword = () => {
             setTimeout(() => {
                 localStorage.removeItem('user');
                 localStorage.removeItem('token'); // if you have token
-                window.location.href = 'http://localhost:3000/';
+                window.location.href = '/';
             }, 2000);
         } catch (error) {
             if (error.validationErrors) {

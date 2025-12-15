@@ -12,11 +12,11 @@ const ProtectedRoute = ({ children, adminOnly = false }) => {
     }
 
     if (!isAuthenticated) {
-        // Lưu đường dẫn hiện tại để redirect sau khi đăng nhập
-        return <Navigate to="/dang-nhap" state={{ from: location }} replace />;
+        // Save current path to redirect after login
+        return <Navigate to="/login" state={{ from: location }} replace />;
     }
 
-    // Kiểm tra quyền admin nếu route yêu cầu
+    // Check admin permission if route requires it
     if (adminOnly && user?.role_id !== 1) {
         return <Navigate to="/" replace />;
     }
