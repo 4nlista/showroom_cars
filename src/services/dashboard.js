@@ -1,9 +1,11 @@
 import axios from 'axios';
 import API_BASE_URL from '../config';
 
+// --- DASHBOARD STATS SECTION ---
 
-// Lấy doanh thu từ các đơn hàng completed
+// Get revenue from completed orders
 export const getRevenueStats = async () => {
+    // Fetch orders and cars in parallel
     const [ordersRes, carsRes] = await Promise.all([
         axios.get(`${API_BASE_URL}/orders`),
         axios.get(`${API_BASE_URL}/cars`)
@@ -12,14 +14,18 @@ export const getRevenueStats = async () => {
     const cars = carsRes.data;
     let totalRevenue = 0;
     let monthlyRevenue = {};
+
     orders.forEach(order => {
         if (order.status === 'completed') {
             const car = cars.find(c => c.id === order.car_id);
             if (car) {
-                totalRevenue += Number(car.price) || 0;
-                // Tính doanh thu theo tháng
+                // Assuming revenue comes from car price in the old structure
+                totalRevenue += Number(car.price) || 0; 
+                
+                // Calculate monthly revenue
                 const date = new Date(order.created_at || order.date || order.createdDate);
                 const month = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}`;
+                
                 if (!monthlyRevenue[month]) monthlyRevenue[month] = 0;
                 monthlyRevenue[month] += Number(car.price) || 0;
             }
@@ -28,7 +34,7 @@ export const getRevenueStats = async () => {
     return { totalRevenue, monthlyRevenue };
 };
 
-// Lấy top N xe đắt nhất
+// Get top N most expensive cars
 export const getTopExpensiveCars = async (topN = 5) => {
     const carsRes = await axios.get(`${API_BASE_URL}/cars`);
     const cars = carsRes.data;
@@ -37,12 +43,12 @@ export const getTopExpensiveCars = async (topN = 5) => {
         .slice(0, topN);
 };
 
-// Lấy thống kê user theo role
+// Get user statistics by role
 export const getUserRoleStats = async () => {
     const usersRes = await axios.get(`${API_BASE_URL}/users`);
     const users = usersRes.data;
-    const adminCount = users.filter(u => u.role_id === 1).length;
-    const userCount = users.filter(u => u.role_id === 2).length;
+    const adminCount = users.filter(u => u.role_id === 1).length; // role_id 1 is Admin
+    const userCount = users.filter(u => u.role_id === 2).length;  // role_id 2 is Regular User
     return { adminCount, userCount, total: users.length };
 };
 
@@ -70,4 +76,4 @@ export const getDashboardStats = async () => {
 };
 
 export default getDashboardStats;
-// trang thống kê của Admin
+// Admin dashboard statistics page
