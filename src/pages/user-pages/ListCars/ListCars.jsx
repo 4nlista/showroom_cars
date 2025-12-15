@@ -130,8 +130,8 @@ const ListCars = () => {
                             }}
                         >
                             {searchKeyword.trim()
-                                ? `Tất cả kết quả cho "${searchKeyword}" (${totalResults} kết quả)`
-                                : `Tất cả kết quả (${totalResults} kết quả)`}
+                                ? `All results for "${searchKeyword}" (${totalResults} results)`
+                                : `All results (${totalResults} results)`}
                         </Typography>
                     </Box>
                     <Grid container spacing={3}>
@@ -154,7 +154,7 @@ const ListCars = () => {
                             <Box display="flex" alignItems="center" justifyContent="end" mb={4}>
                                 <Box display="flex" alignItems="center" gap={2}>
                                     <Typography sx={{ color: '#000000ff', fontSize: '17px', fontWeight: 500 }}>
-                                        Xếp theo:
+                                        Sort by:
                                     </Typography>
                                     <TextField
                                         select
@@ -175,9 +175,9 @@ const ListCars = () => {
                                             }
                                         }}
                                     >
-                                        <MenuItem value="most-popular">Tất cả mẫu xe</MenuItem>
-                                        <MenuItem value="price-low">Giá: Thấp đến Cao</MenuItem>
-                                        <MenuItem value="price-high">Giá: Cao đến Thấp</MenuItem>
+                                        <MenuItem value="most-popular">All models</MenuItem>
+                                        <MenuItem value="price-low">Price: Low to High</MenuItem>
+                                        <MenuItem value="price-high">Price: High to Low</MenuItem>
                                     </TextField>
                                 </Box>
                             </Box>

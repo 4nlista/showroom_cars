@@ -33,7 +33,7 @@ const HistoryOrder = () => {
             setError('');
             try {
                 if (!user || !user.id) {
-                    setError('Không xác định được người dùng. Vui lòng đăng nhập lại.');
+                    setError('Unable to identify user. Please log in again.');
                     setOrders([]);
                     return;
                 }
@@ -42,7 +42,7 @@ const HistoryOrder = () => {
                 const userOrders = allOrders.filter(order => order.user_id === user.id);
                 setOrders(userOrders);
             } catch (err) {
-                setError('Không thể tải danh sách đơn hàng');
+                setError('Unable to load order list');
             } finally {
                 setLoading(false);
             }
@@ -87,31 +87,31 @@ const HistoryOrder = () => {
                 <div className="mb-4 border-bottom pb-2">
                     <h2 className="fw-bold mb-1">
                         <i className="bi bi-clock-history me-2"></i>
-                        Lịch sử đơn hàng
+                        Order history
                     </h2>
                 </div>
                 <div className="mb-3">
                     <Row className="g-2 align-items-end">
                         <Col md={3}>
                             <Form.Group>
-                                <Form.Label>Trạng thái</Form.Label>
+                                <Form.Label>Status</Form.Label>
                                 <Form.Select value={statusFilter} onChange={e => setStatusFilter(e.target.value)}>
-                                    <option value="all">Tất cả</option>
-                                    <option value="pending">Đang xử lý</option>
-                                    <option value="completed">Đã xử lý</option>
-                                    <option value="cancelled">Đã từ chối</option>
+                                    <option value="all">All</option>
+                                    <option value="pending">Pending</option>
+                                    <option value="completed">Completed</option>
+                                    <option value="cancelled">Cancelled</option>
                                 </Form.Select>
                             </Form.Group>
                         </Col>
                         <Col md={3}>
                             <Form.Group>
-                                <Form.Label>Từ ngày</Form.Label>
+                                <Form.Label>From date</Form.Label>
                                 <Form.Control type="date" value={fromDate} onChange={e => setFromDate(e.target.value)} />
                             </Form.Group>
                         </Col>
                         <Col md={3}>
                             <Form.Group>
-                                <Form.Label>Đến ngày</Form.Label>
+                                <Form.Label>To date</Form.Label>
                                 <Form.Control type="date" value={toDate} onChange={e => setToDate(e.target.value)} />
                             </Form.Group>
                         </Col>
@@ -126,18 +126,18 @@ const HistoryOrder = () => {
                     <Table bordered hover responsive className="align-middle mt-3">
                         <thead className="table-light">
                             <tr>
-                                <th style={{ width: '4%' }}>STT</th>
-                                <th style={{ width: '23%' }}>Tên xe</th>
-                                <th style={{ width: '10%' }}>Số lượng</th>
-                                <th style={{ width: '15%' }}>Ngày đặt</th>
-                                <th style={{ width: '15%' }}>Trạng thái</th>
+                                <th style={{ width: '4%' }}>No.</th>
+                                <th style={{ width: '23%' }}>Car name</th>
+                                <th style={{ width: '10%' }}>Quantity</th>
+                                <th style={{ width: '15%' }}>Order date</th>
+                                <th style={{ width: '15%' }}>Status</th>
                                 <th style={{ width: '9%' }}></th>
                             </tr>
                         </thead>
                         <tbody>
                             {filteredOrders.length === 0 ? (
                                 <tr>
-                                    <td colSpan={6} className="text-center text-muted">Không có đơn hàng nào</td>
+                                    <td colSpan={6} className="text-center text-muted">No orders found</td>
                                 </tr>
                             ) : (
                                 filteredOrders.map((order, idx) => (
@@ -161,7 +161,7 @@ const HistoryOrder = () => {
                     </Table>
                 )}
 
-                {/* Modal xem chi tiết đơn hàng - giao diện giống admin */}
+                        {/* Order detail modal - same layout as admin */}
                 <Modal show={showDetailModal} onHide={handleCloseDetailModal} size="lg" style={{ marginTop: '30px' }} centered>
                     <Modal.Header closeButton className="border-bottom">
                         <Modal.Title className="text-primary fw-bold">
@@ -179,23 +179,23 @@ const HistoryOrder = () => {
                             <Alert variant="danger">{detailError}</Alert>
                         ) : orderDetail ? (
                             <div>
-                                {/* Thông tin user */}
+                                {/* User information */}
                                 <Row className="mb-3">
                                     <Col md={12}>
-                                        <h6 className="fw-bold text-secondary mb-2">Thông tin khách hàng</h6>
+                                        <h6 className="fw-bold text-secondary mb-2">Customer information</h6>
                                         <div className="p-3 bg-light rounded">
-                                            <p className="mb-1"><strong>Tên:</strong> {orderDetail.user_name}</p>
+                                            <p className="mb-1"><strong>Name:</strong> {orderDetail.user_name}</p>
                                             <p className="mb-1"><strong>Email:</strong> {orderDetail.user_email}</p>
-                                            <p className="mb-1"><strong>SĐT:</strong> {orderDetail.user_phone}</p>
-                                            <p className="mb-0"><strong>Địa chỉ:</strong> {orderDetail.user_address}</p>
+                                            <p className="mb-1"><strong>Phone:</strong> {orderDetail.user_phone}</p>
+                                            <p className="mb-0"><strong>Address:</strong> {orderDetail.user_address}</p>
                                         </div>
                                     </Col>
                                 </Row>
 
-                                {/* Danh sách xe - Cấu trúc mới (items array) */}
+                                {/* Car list - new structure (items array) */}
                                 {orderDetail.items && Array.isArray(orderDetail.items) ? (
                                     <div>
-                                        <h6 className="fw-bold text-secondary mb-2">Danh sách xe đặt mua</h6>
+                                        <h6 className="fw-bold text-secondary mb-2">Ordered cars</h6>
                                         {orderDetail.items.map((item, index) => (
                                             <Row key={index} className="mb-3 border rounded p-3">
                                                 <Col md={4}>
@@ -211,16 +211,16 @@ const HistoryOrder = () => {
                                                     <p className="mb-1 text-muted small">{item.category_name}</p>
                                                     <Row>
                                                         <Col xs={6}>
-                                                            <small><strong>Giá:</strong> {item.car_price?.toLocaleString('vi-VN')}₫</small>
+                                                            <small><strong>Price:</strong> {item.car_price?.toLocaleString('vi-VN')}₫</small>
                                                         </Col>
                                                         <Col xs={6}>
-                                                            <small><strong>Số lượng:</strong> {item.quantity}</small>
+                                                            <small><strong>Quantity:</strong> {item.quantity}</small>
                                                         </Col>
                                                         <Col xs={6}>
-                                                            <small><strong>Hộp số:</strong> {item.car_transmission}</small>
+                                                            <small><strong>Transmission:</strong> {item.car_transmission}</small>
                                                         </Col>
                                                         <Col xs={6}>
-                                                            <small><strong>Nhiên liệu:</strong> {item.car_fuel_type}</small>
+                                                            <small><strong>Fuel type:</strong> {item.car_fuel_type}</small>
                                                         </Col>
                                                     </Row>
                                                 </Col>
@@ -231,7 +231,7 @@ const HistoryOrder = () => {
                                         <Row className="mt-3">
                                             <Col md={6}>
                                                 <Form.Group>
-                                                    <Form.Label className="fw-semibold text-secondary">Ngày nhận xe</Form.Label>
+                                                    <Form.Label className="fw-semibold text-secondary">Pickup date</Form.Label>
                                                     <Form.Control
                                                         type="text"
                                                         value={formatOrderDate(orderDetail.order_date)}
@@ -242,7 +242,7 @@ const HistoryOrder = () => {
                                             </Col>
                                             <Col md={6}>
                                                 <Form.Group>
-                                                    <Form.Label className="fw-semibold text-secondary">Tổng tiền</Form.Label>
+                                                    <Form.Label className="fw-semibold text-secondary">Total amount</Form.Label>
                                                     <Form.Control
                                                         type="text"
                                                         value={orderDetail.total_amount?.toLocaleString('vi-VN') + '₫'}
@@ -257,7 +257,7 @@ const HistoryOrder = () => {
                                         <Row className="mt-3">
                                             <Col md={12}>
                                                 <Form.Group>
-                                                    <Form.Label className="fw-semibold text-secondary">Trạng thái</Form.Label>
+                                                    <Form.Label className="fw-semibold text-secondary">Status</Form.Label>
                                                     <div>
                                                         <span className={`badge ${getStatusBadgeClass(orderDetail.status)} fs-6`}>
                                                             {getStatusLabel(orderDetail.status)}
@@ -270,11 +270,11 @@ const HistoryOrder = () => {
                                         <Row className="mt-3">
                                             <Col md={12}>
                                                 <Form.Group>
-                                                    <Form.Label className="fw-semibold text-secondary">Ghi chú</Form.Label>
+                                                    <Form.Label className="fw-semibold text-secondary">Note</Form.Label>
                                                     <Form.Control
                                                         as="textarea"
                                                         rows={2}
-                                                        value={orderDetail.note || 'Không có ghi chú'}
+                                                        value={orderDetail.note || 'No notes'}
                                                         disabled
                                                         readOnly
                                                     />
@@ -283,11 +283,11 @@ const HistoryOrder = () => {
                                         </Row>
                                     </div>
                                 ) : (
-                                    /* Cấu trúc cũ - Hiển thị 1 xe */
+                                    /* Old structure - display single car */
                                     <Row>
                                         <Col md={4}>
                                             <Form.Group className="mb-3">
-                                                <Form.Label className="fw-semibold text-secondary">Ảnh xe</Form.Label>
+                                                <Form.Label className="fw-semibold text-secondary">Car image</Form.Label>
                                                 <div className="text-center">
                                                     <img
                                                         src={orderDetail.car_image || 'https://via.placeholder.com/300x200?text=No+Image'}
@@ -302,7 +302,7 @@ const HistoryOrder = () => {
                                             <Row className="mb-3">
                                                 <Col md={6}>
                                                     <Form.Group>
-                                                        <Form.Label className="fw-semibold text-secondary">Mã đơn hàng</Form.Label>
+                                                        <Form.Label className="fw-semibold text-secondary">Order ID</Form.Label>
                                                         <Form.Control
                                                             type="text"
                                                             value={orderDetail.id}
@@ -314,7 +314,7 @@ const HistoryOrder = () => {
                                                 </Col>
                                                 <Col md={6}>
                                                     <Form.Group>
-                                                        <Form.Label className="fw-semibold text-secondary">Ngày đặt</Form.Label>
+                                                        <Form.Label className="fw-semibold text-secondary">Order date</Form.Label>
                                                         <Form.Control
                                                             type="text"
                                                             value={formatOrderDate(orderDetail.order_date)}
@@ -328,7 +328,7 @@ const HistoryOrder = () => {
                                             <Row className="mb-3">
                                                 <Col md={12}>
                                                     <Form.Group>
-                                                        <Form.Label className="fw-semibold text-secondary">Tên xe</Form.Label>
+                                                        <Form.Label className="fw-semibold text-secondary">Car name</Form.Label>
                                                         <Form.Control
                                                             type="text"
                                                             value={orderDetail.car_name}
@@ -342,7 +342,7 @@ const HistoryOrder = () => {
                                             <Row className="mb-3">
                                                 <Col md={4}>
                                                     <Form.Group>
-                                                        <Form.Label className="fw-semibold text-secondary">Dòng xe</Form.Label>
+                                                        <Form.Label className="fw-semibold text-secondary">Category</Form.Label>
                                                         <Form.Control
                                                             type="text"
                                                             value={orderDetail.category_name}
@@ -354,7 +354,7 @@ const HistoryOrder = () => {
                                                 </Col>
                                                 <Col md={4}>
                                                     <Form.Group>
-                                                        <Form.Label className="fw-semibold text-secondary">Giá xe</Form.Label>
+                                                        <Form.Label className="fw-semibold text-secondary">Car price</Form.Label>
                                                         <Form.Control
                                                             type="text"
                                                             value={orderDetail.car_price ? orderDetail.car_price.toLocaleString('vi-VN') + '₫' : ''}
@@ -366,7 +366,7 @@ const HistoryOrder = () => {
                                                 </Col>
                                                 <Col md={4}>
                                                     <Form.Group>
-                                                        <Form.Label className="fw-semibold text-secondary">Số lượng</Form.Label>
+                                                        <Form.Label className="fw-semibold text-secondary">Quantity</Form.Label>
                                                         <Form.Control
                                                             type="text"
                                                             value={orderDetail.quantity}
@@ -380,7 +380,7 @@ const HistoryOrder = () => {
                                             <Row className="mb-3">
                                                 <Col md={3}>
                                                     <Form.Group>
-                                                        <Form.Label className="fw-semibold text-secondary">Hộp số</Form.Label>
+                                                        <Form.Label className="fw-semibold text-secondary">Transmission</Form.Label>
                                                         <Form.Control
                                                             type="text"
                                                             value={orderDetail.car_transmission}
@@ -392,7 +392,7 @@ const HistoryOrder = () => {
                                                 </Col>
                                                 <Col md={3}>
                                                     <Form.Group>
-                                                        <Form.Label className="fw-semibold text-secondary">Nhiên liệu</Form.Label>
+                                                        <Form.Label className="fw-semibold text-secondary">Fuel type</Form.Label>
                                                         <Form.Control
                                                             type="text"
                                                             value={orderDetail.car_fuel_type}
@@ -404,7 +404,7 @@ const HistoryOrder = () => {
                                                 </Col>
                                                 <Col md={3}>
                                                     <Form.Group>
-                                                        <Form.Label className="fw-semibold text-secondary">Số chỗ</Form.Label>
+                                                        <Form.Label className="fw-semibold text-secondary">Seats</Form.Label>
                                                         <Form.Control
                                                             type="text"
                                                             value={orderDetail.car_seats}
@@ -416,7 +416,7 @@ const HistoryOrder = () => {
                                                 </Col>
                                                 <Col md={3}>
                                                     <Form.Group>
-                                                        <Form.Label className="fw-semibold text-secondary">Số cửa</Form.Label>
+                                                        <Form.Label className="fw-semibold text-secondary">Doors</Form.Label>
                                                         <Form.Control
                                                             type="text"
                                                             value={orderDetail.car_doors}
@@ -430,7 +430,7 @@ const HistoryOrder = () => {
                                             <Row className="mb-3">
                                                 <Col md={12}>
                                                     <Form.Group>
-                                                        <Form.Label className="fw-semibold text-secondary">Trạng thái</Form.Label>
+                                                        <Form.Label className="fw-semibold text-secondary">Status</Form.Label>
                                                         <div>
                                                             <span className={`badge ${getStatusBadgeClass(orderDetail.status)} fs-6`}>
                                                                 {getStatusLabel(orderDetail.status)}
@@ -442,11 +442,11 @@ const HistoryOrder = () => {
                                             <Row className="mb-3">
                                                 <Col md={12}>
                                                     <Form.Group>
-                                                        <Form.Label className="fw-semibold text-secondary">Ghi chú</Form.Label>
+                                                        <Form.Label className="fw-semibold text-secondary">Note</Form.Label>
                                                         <Form.Control
                                                             as="textarea"
                                                             rows={3}
-                                                            value={orderDetail.note || 'Không có ghi chú'}
+                                                            value={orderDetail.note || 'No notes'}
                                                             disabled
                                                             readOnly
                                                             className="form-control-detail"
@@ -459,13 +459,13 @@ const HistoryOrder = () => {
                                 )}
                             </div>
                         ) : (
-                            <Alert variant="warning">Không tìm thấy thông tin đơn hàng</Alert>
+                            <Alert variant="warning">Order information not found</Alert>
                         )}
                     </Modal.Body>
                     <Modal.Footer className="border-top">
                         <Button variant="secondary" onClick={handleCloseDetailModal}>
                             <i className="bi bi-x-circle me-2"></i>
-                            Đóng
+                            Close
                         </Button>
                     </Modal.Footer>
                 </Modal>

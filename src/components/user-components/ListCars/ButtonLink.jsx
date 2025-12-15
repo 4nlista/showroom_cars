@@ -10,7 +10,7 @@ const ButtonLink = ({ car }) => {
     const navigate = useNavigate();
 
     const handleClick = () => {
-        navigate(`/san-pham/${car.name.toLowerCase().replace(/\s+/g, '-')}`,
+        navigate(`/product/${car.name.toLowerCase().replace(/\s+/g, '-')}`,
             { state: { productId: car.id } });
     };
     return (
@@ -36,7 +36,7 @@ const ButtonLink = ({ car }) => {
                 }}
                 onClick={handleClick}
             >
-                Chi tiết
+                Details
             </Button>
         </div>
     )

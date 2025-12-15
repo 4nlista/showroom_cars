@@ -3,18 +3,18 @@ import React, { useState } from 'react';
 import { Modal, Button, Form, Row, Col, Image, Carousel } from 'react-bootstrap';
 
 const CarDetailModal = ({ show, onHide, car, categories }) => {
-    // State cho mô tả
+    // State for description
     const [showFullDescription, setShowFullDescription] = useState(false);
 
     if (!car) return null;
 
-    // Helper function để lấy tên category
+    // Helper function to get category name
     const getCategoryName = (categoryId) => {
         const category = categories?.find(cat => cat.id === String(categoryId));
         return category ? category.name : 'Unknown';
     };
 
-    // Format giá tiền
+    // Format price
     const formatPrice = (price) => {
         return new Intl.NumberFormat('vi-VN', {
             style: 'currency',
@@ -22,9 +22,9 @@ const CarDetailModal = ({ show, onHide, car, categories }) => {
         }).format(price);
     };
 
-    // Xử lý mô tả dài
+    // Handle long description
     const renderDescription = () => {
-        if (!car.description) return 'Không có mô tả';
+        if (!car.description) return 'No description';
 
         const maxLength = 150;
         if (car.description.length <= maxLength || showFullDescription) {
@@ -40,7 +40,7 @@ const CarDetailModal = ({ show, onHide, car, categories }) => {
                     className="p-0 ms-1"
                     onClick={() => setShowFullDescription(true)}
                 >
-                    xem thêm
+                    see more
                 </Button>
             </>
         );
@@ -56,13 +56,13 @@ const CarDetailModal = ({ show, onHide, car, categories }) => {
             </Modal.Header>
 
             <Modal.Body>
-                <Row>
-                    {/* Cột bên trái: Ảnh */}
+                        <Row>
+                    {/* Left column: Images */}
                     <Col md={4}>
-                        {/* Ảnh chính */}
+                        {/* Main image */}
                         <div className="mb-3">
                             <Form.Label className="fw-semibold text-secondary">
-                                Ảnh chính
+                                Main image
                             </Form.Label>
                             <Image
                                 src={car.image || 'https://via.placeholder.com/200x150?text=No+Image'}
@@ -72,11 +72,11 @@ const CarDetailModal = ({ show, onHide, car, categories }) => {
                             />
                         </div>
 
-                        {/* Carousel ảnh chi tiết */}
+                        {/* Detail image carousel */}
                         {car.imageDetail && car.imageDetail.length > 0 && (
                             <div>
                                 <Form.Label className="fw-semibold text-secondary">
-                                    Ảnh chi tiết
+                                    Detail images
                                 </Form.Label>
                                 <Carousel
                                     interval={null}
@@ -102,7 +102,7 @@ const CarDetailModal = ({ show, onHide, car, categories }) => {
                                                 }}
                                             >
                                                 <p className="mb-0 small">
-                                                    Ảnh {index + 1} / {car.imageDetail.length}
+                                                Image {index + 1} / {car.imageDetail.length}
                                                 </p>
                                             </Carousel.Caption>
                                         </Carousel.Item>
@@ -112,7 +112,7 @@ const CarDetailModal = ({ show, onHide, car, categories }) => {
                         )}
                     </Col>
 
-                    {/* Cột bên phải: Thông tin */}
+                    {/* Right column: Information */}
                     <Col md={8}>
                         <Row className="mb-3">
                             {/* ID */}
@@ -128,10 +128,10 @@ const CarDetailModal = ({ show, onHide, car, categories }) => {
                                     />
                                 </Form.Group>
                             </Col>
-                            {/* Tên xe */}
+                            {/* Car name */}
                             <Col md={6}>
                                 <Form.Group>
-                                    <Form.Label className="fw-semibold text-secondary">Tên xe</Form.Label>
+                                    <Form.Label className="fw-semibold text-secondary">Car name</Form.Label>
                                     <Form.Control
                                         type="text"
                                         value={car.name}
@@ -144,10 +144,10 @@ const CarDetailModal = ({ show, onHide, car, categories }) => {
                         </Row>
 
                         <Row className="mb-3">
-                            {/* Mô tả */}
+                            {/* Description */}
                             <Col md={12}>
                                 <Form.Group>
-                                    <Form.Label className="fw-semibold text-secondary">Mô tả</Form.Label>
+                                    <Form.Label className="fw-semibold text-secondary">Description</Form.Label>
                                     <div
                                         className="form-control form-control-detail"
                                         style={{
@@ -163,10 +163,10 @@ const CarDetailModal = ({ show, onHide, car, categories }) => {
                         </Row>
 
                         <Row className="mb-3">
-                            {/* Giá */}
+                            {/* Price */}
                             <Col md={6}>
                                 <Form.Group>
-                                    <Form.Label className="fw-semibold text-secondary">Giá (VNĐ)</Form.Label>
+                                    <Form.Label className="fw-semibold text-secondary">Price (VND)</Form.Label>
                                     <Form.Control
                                         type="text"
                                         value={formatPrice(car.price)}
@@ -176,10 +176,10 @@ const CarDetailModal = ({ show, onHide, car, categories }) => {
                                     />
                                 </Form.Group>
                             </Col>
-                            {/* Số lượng */}
+                            {/* Stock */}
                             <Col md={6}>
                                 <Form.Group>
-                                    <Form.Label className="fw-semibold text-secondary">Số lượng</Form.Label>
+                                    <Form.Label className="fw-semibold text-secondary">Stock</Form.Label>
                                     <Form.Control
                                         type="text"
                                         value={car.stock}
@@ -192,10 +192,10 @@ const CarDetailModal = ({ show, onHide, car, categories }) => {
                         </Row>
 
                         <Row className="mb-3">
-                            {/* Hộp số */}
+                            {/* Transmission */}
                             <Col md={6}>
                                 <Form.Group>
-                                    <Form.Label className="fw-semibold text-secondary">Hộp số</Form.Label>
+                                    <Form.Label className="fw-semibold text-secondary">Transmission</Form.Label>
                                     <Form.Control
                                         type="text"
                                         value={car.transmission}
@@ -205,10 +205,10 @@ const CarDetailModal = ({ show, onHide, car, categories }) => {
                                     />
                                 </Form.Group>
                             </Col>
-                            {/* Nhiên liệu */}
+                            {/* Fuel type */}
                             <Col md={6}>
                                 <Form.Group>
-                                    <Form.Label className="fw-semibold text-secondary">Nhiên liệu</Form.Label>
+                                    <Form.Label className="fw-semibold text-secondary">Fuel type</Form.Label>
                                     <Form.Control
                                         type="text"
                                         value={car.fuel_type}
@@ -221,36 +221,36 @@ const CarDetailModal = ({ show, onHide, car, categories }) => {
                         </Row>
 
                         <Row className="mb-3">
-                            {/* Số chỗ */}
+                            {/* Seats */}
                             <Col md={4}>
                                 <Form.Group>
-                                    <Form.Label className="fw-semibold text-secondary">Số chỗ</Form.Label>
+                                    <Form.Label className="fw-semibold text-secondary">Seats</Form.Label>
                                     <Form.Control
                                         type="text"
-                                        value={`${car.seats} chỗ`}
+                                        value={`${car.seats} seats`}
                                         disabled
                                         readOnly
                                         className="form-control-detail"
                                     />
                                 </Form.Group>
                             </Col>
-                            {/* Số cửa */}
+                            {/* Doors */}
                             <Col md={4}>
                                 <Form.Group>
-                                    <Form.Label className="fw-semibold text-secondary">Số cửa</Form.Label>
+                                    <Form.Label className="fw-semibold text-secondary">Doors</Form.Label>
                                     <Form.Control
                                         type="text"
-                                        value={`${car.doors} cánh`}
+                                        value={`${car.doors} doors`}
                                         disabled
                                         readOnly
                                         className="form-control-detail"
                                     />
                                 </Form.Group>
                             </Col>
-                            {/* Dòng xe */}
+                            {/* Category */}
                             <Col md={4}>
                                 <Form.Group>
-                                    <Form.Label className="fw-semibold text-secondary">Dòng xe</Form.Label>
+                                    <Form.Label className="fw-semibold text-secondary">Category</Form.Label>
                                     <Form.Control
                                         type="text"
                                         value={getCategoryName(car.category_id)}
@@ -262,15 +262,15 @@ const CarDetailModal = ({ show, onHide, car, categories }) => {
                             </Col>
                         </Row>
 
-                        {/* Thông tin bổ sung */}
+                        {/* Additional information */}
                         <Row className="mb-3">
                             {/* Rating */}
                             <Col md={4}>
                                 <Form.Group>
-                                    <Form.Label className="fw-semibold text-secondary">Đánh giá</Form.Label>
+                                    <Form.Label className="fw-semibold text-secondary">Rating</Form.Label>
                                     <Form.Control
                                         type="text"
-                                        value={car.rating ? `${car.rating} ⭐` : 'Chưa có'}
+                                        value={car.rating ? `${car.rating} ⭐` : 'No rating'}
                                         disabled
                                         readOnly
                                         className="form-control-detail"
@@ -280,10 +280,10 @@ const CarDetailModal = ({ show, onHide, car, categories }) => {
                             {/* Reviews */}
                             <Col md={4}>
                                 <Form.Group>
-                                    <Form.Label className="fw-semibold text-secondary">Số đánh giá</Form.Label>
+                                    <Form.Label className="fw-semibold text-secondary">Number of reviews</Form.Label>
                                     <Form.Control
                                         type="text"
-                                        value={car.reviews || 'Chưa có'}
+                                        value={car.reviews || 'No reviews'}
                                         disabled
                                         readOnly
                                         className="form-control-detail"
@@ -293,10 +293,10 @@ const CarDetailModal = ({ show, onHide, car, categories }) => {
                             {/* Views */}
                             <Col md={4}>
                                 <Form.Group>
-                                    <Form.Label className="fw-semibold text-secondary">Lượt xem</Form.Label>
+                                    <Form.Label className="fw-semibold text-secondary">Views</Form.Label>
                                     <Form.Control
                                         type="text"
-                                        value={car.view ? car.view.toLocaleString() : 'Chưa có'}
+                                        value={car.view ? car.view.toLocaleString() : 'No views'}
                                         disabled
                                         readOnly
                                         className="form-control-detail"
@@ -311,7 +311,7 @@ const CarDetailModal = ({ show, onHide, car, categories }) => {
             <Modal.Footer className="border-top">
                 <Button variant="secondary" onClick={onHide}>
                     <i className="bi bi-x-circle me-2"></i>
-                    Đóng
+                    Close
                 </Button>
             </Modal.Footer>
         </Modal>

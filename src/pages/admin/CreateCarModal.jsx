@@ -190,11 +190,11 @@ const CreateCarModal = ({ show, onHide, onCarCreated }) => {
             handleClose();
             alert('✅ Tạo xe mới thành công!');
         } catch (error) {
-            // Xử lý lỗi
+            // Handle errors
             if (error.validationErrors) {
                 setErrors(error.validationErrors);
             } else {
-                setSubmitError(error.message || 'Có lỗi xảy ra khi tạo xe mới');
+                setSubmitError(error.message || 'An error occurred while creating the car');
             }
         } finally {
             setIsSubmitting(false);
@@ -219,25 +219,25 @@ const CreateCarModal = ({ show, onHide, onCarCreated }) => {
 
                 <Form onSubmit={handleSubmit}>
                     <Row>
-                        {/* Cột bên trái: Ảnh */}
+                        {/* Left column: Images */}
                         <Col md={4}>
-                            {/* Ảnh chính */}
+                            {/* Main image */}
                             <Form.Group className="mb-3">
                                 <Form.Label className="fw-semibold text-secondary">
-                                    Ảnh chính <span className="text-danger">*</span>
+                                    Main image <span className="text-danger">*</span>
                                 </Form.Label>
                                 <div className="text-center">
                                     <div className="mb-3">
                                         <Image
-                                            src={mainImagePreview || 'https://via.placeholder.com/200x150?text=Chọn+ảnh'}
+                                            src={mainImagePreview || 'https://via.placeholder.com/200x150?text=Select+image'}
                                             alt="Main"
                                             style={{ width: '100%', height: '200px', objectFit: 'cover' }}
                                             className="border rounded"
                                         />
                                     </div>
-                                    <Form.Label className="btn btn-primary btn-sm w-100">
+                                        <Form.Label className="btn btn-primary btn-sm w-100">
                                         <i className="bi bi-upload me-2"></i>
-                                        Chọn ảnh chính
+                                        Select main image
                                         <Form.Control
                                             type="file"
                                             accept="image/*"
@@ -248,17 +248,17 @@ const CreateCarModal = ({ show, onHide, onCarCreated }) => {
                                     {errors.image && (
                                         <div className="text-danger small mt-2">{errors.image}</div>
                                     )}
-                                    <div className="text-muted small mt-2">
+                                        <div className="text-muted small mt-2">
                                         <i className="bi bi-info-circle me-1"></i>
-                                        Dung lượng tối đa: 2MB
+                                        Max file size: 2MB
                                     </div>
                                 </div>
                             </Form.Group>
 
-                            {/* Ảnh chi tiết */}
+                            {/* Detail images */}
                             <Form.Group>
                                 <Form.Label className="fw-semibold text-secondary">
-                                    Ảnh chi tiết
+                                    Detail images
                                 </Form.Label>
                                 {detailImagePreviews.map((preview, index) => (
                                     <div key={index} className="mb-2">
@@ -274,7 +274,7 @@ const CreateCarModal = ({ show, onHide, onCarCreated }) => {
                                                 ) : (
                                                     <Form.Label className="btn btn-outline-secondary btn-sm w-100 mb-0">
                                                         <i className="bi bi-image me-2"></i>
-                                                        Chọn ảnh {index + 1}
+                                                        Select image {index + 1}
                                                         <Form.Control
                                                             type="file"
                                                             accept="image/*"
@@ -301,19 +301,19 @@ const CreateCarModal = ({ show, onHide, onCarCreated }) => {
                                     onClick={addDetailImageField}
                                 >
                                     <i className="bi bi-plus-circle me-2"></i>
-                                    Thêm ảnh chi tiết
+                                    Add detail image
                                 </Button>
                             </Form.Group>
                         </Col>
 
-                        {/* Cột bên phải: Thông tin */}
+                        {/* Right column: Information */}
                         <Col md={8}>
                             <Row className="mb-3">
-                                {/* Tên xe */}
+                                {/* Car name */}
                                 <Col md={12}>
                                     <Form.Group>
                                         <Form.Label className="fw-semibold text-secondary">
-                                            Tên xe <span className="text-danger">*</span>
+                                            Car name <span className="text-danger">*</span>
                                         </Form.Label>
                                         <Form.Control
                                             type="text"
@@ -321,7 +321,7 @@ const CreateCarModal = ({ show, onHide, onCarCreated }) => {
                                             value={formData.name}
                                             onChange={handleChange}
                                             isInvalid={!!errors.name}
-                                            placeholder="Nhập tên xe"
+                                            placeholder="Enter car name"
                                         />
                                         <Form.Control.Feedback type="invalid">
                                             {errors.name}
@@ -331,11 +331,11 @@ const CreateCarModal = ({ show, onHide, onCarCreated }) => {
                             </Row>
 
                             <Row className="mb-3">
-                                {/* Mô tả */}
+                                {/* Description */}
                                 <Col md={12}>
                                     <Form.Group>
                                         <Form.Label className="fw-semibold text-secondary">
-                                            Mô tả <span className="text-danger">*</span>
+                                            Description <span className="text-danger">*</span>
                                         </Form.Label>
                                         <Form.Control
                                             as="textarea"
@@ -344,7 +344,7 @@ const CreateCarModal = ({ show, onHide, onCarCreated }) => {
                                             value={formData.description}
                                             onChange={handleChange}
                                             isInvalid={!!errors.description}
-                                            placeholder="Nhập mô tả chi tiết về xe"
+                                            placeholder="Enter detailed description of the car"
                                         />
                                         <Form.Control.Feedback type="invalid">
                                             {errors.description}
@@ -354,11 +354,11 @@ const CreateCarModal = ({ show, onHide, onCarCreated }) => {
                             </Row>
 
                             <Row className="mb-3">
-                                {/* Giá */}
+                                {/* Price */}
                                 <Col md={6}>
                                     <Form.Group>
                                         <Form.Label className="fw-semibold text-secondary">
-                                            Giá (VNĐ) <span className="text-danger">*</span>
+                                            Price (VND) <span className="text-danger">*</span>
                                         </Form.Label>
                                         <Form.Control
                                             type="number"
@@ -366,7 +366,7 @@ const CreateCarModal = ({ show, onHide, onCarCreated }) => {
                                             value={formData.price}
                                             onChange={handleChange}
                                             isInvalid={!!errors.price}
-                                            placeholder="Nhập giá xe"
+                                            placeholder="Enter car price"
                                             min="0"
                                         />
                                         <Form.Control.Feedback type="invalid">
@@ -374,11 +374,11 @@ const CreateCarModal = ({ show, onHide, onCarCreated }) => {
                                         </Form.Control.Feedback>
                                     </Form.Group>
                                 </Col>
-                                {/* Số lượng */}
+                                {/* Stock */}
                                 <Col md={6}>
                                     <Form.Group>
                                         <Form.Label className="fw-semibold text-secondary">
-                                            Số lượng <span className="text-danger">*</span>
+                                            Stock <span className="text-danger">*</span>
                                         </Form.Label>
                                         <div className="d-flex gap-2">
                                             <Button
@@ -412,11 +412,11 @@ const CreateCarModal = ({ show, onHide, onCarCreated }) => {
                             </Row>
 
                             <Row className="mb-3">
-                                {/* Hộp số */}
+                                {/* Transmission */}
                                 <Col md={6}>
                                     <Form.Group>
                                         <Form.Label className="fw-semibold text-secondary">
-                                            Hộp số <span className="text-danger">*</span>
+                                            Transmission <span className="text-danger">*</span>
                                         </Form.Label>
                                         <Form.Select
                                             name="transmission"
@@ -424,7 +424,7 @@ const CreateCarModal = ({ show, onHide, onCarCreated }) => {
                                             onChange={handleChange}
                                             isInvalid={!!errors.transmission}
                                         >
-                                            <option value="">Chọn loại hộp số</option>
+                                            <option value="">Select transmission type</option>
                                             <option value="Automatic">Automatic</option>
                                             <option value="Manual">Manual</option>
                                         </Form.Select>
@@ -433,11 +433,11 @@ const CreateCarModal = ({ show, onHide, onCarCreated }) => {
                                         </Form.Control.Feedback>
                                     </Form.Group>
                                 </Col>
-                                {/* Nhiên liệu */}
+                                {/* Fuel type */}
                                 <Col md={6}>
                                     <Form.Group>
                                         <Form.Label className="fw-semibold text-secondary">
-                                            Nhiên liệu <span className="text-danger">*</span>
+                                            Fuel type <span className="text-danger">*</span>
                                         </Form.Label>
                                         <Form.Select
                                             name="fuel_type"
@@ -445,7 +445,7 @@ const CreateCarModal = ({ show, onHide, onCarCreated }) => {
                                             onChange={handleChange}
                                             isInvalid={!!errors.fuel_type}
                                         >
-                                            <option value="">Chọn loại nhiên liệu</option>
+                                            <option value="">Select fuel type</option>
                                             <option value="gasoline">Gasoline</option>
                                             <option value="diesel">Diesel</option>
                                             <option value="electric">Electric</option>
@@ -459,11 +459,11 @@ const CreateCarModal = ({ show, onHide, onCarCreated }) => {
                             </Row>
 
                             <Row className="mb-3">
-                                {/* Số chỗ */}
+                                {/* Seats */}
                                 <Col md={4}>
                                     <Form.Group>
                                         <Form.Label className="fw-semibold text-secondary">
-                                            Số chỗ <span className="text-danger">*</span>
+                                            Seats <span className="text-danger">*</span>
                                         </Form.Label>
                                         <Form.Select
                                             name="seats"
@@ -471,21 +471,21 @@ const CreateCarModal = ({ show, onHide, onCarCreated }) => {
                                             onChange={handleChange}
                                             isInvalid={!!errors.seats}
                                         >
-                                            <option value="">Chọn số chỗ</option>
-                                            <option value="4">4 chỗ</option>
-                                            <option value="5">5 chỗ</option>
-                                            <option value="7">7 chỗ</option>
+                                            <option value="">Select seats</option>
+                                            <option value="4">4 seats</option>
+                                            <option value="5">5 seats</option>
+                                            <option value="7">7 seats</option>
                                         </Form.Select>
                                         <Form.Control.Feedback type="invalid">
                                             {errors.seats}
                                         </Form.Control.Feedback>
                                     </Form.Group>
                                 </Col>
-                                {/* Số cửa */}
+                                {/* Doors */}
                                 <Col md={4}>
                                     <Form.Group>
                                         <Form.Label className="fw-semibold text-secondary">
-                                            Số cửa <span className="text-danger">*</span>
+                                            Doors <span className="text-danger">*</span>
                                         </Form.Label>
                                         <Form.Select
                                             name="doors"
@@ -493,20 +493,20 @@ const CreateCarModal = ({ show, onHide, onCarCreated }) => {
                                             onChange={handleChange}
                                             isInvalid={!!errors.doors}
                                         >
-                                            <option value="">Chọn số cửa</option>
-                                            <option value="4">4 cánh</option>
-                                            <option value="5">5 cánh</option>
+                                            <option value="">Select doors</option>
+                                            <option value="4">4 doors</option>
+                                            <option value="5">5 doors</option>
                                         </Form.Select>
                                         <Form.Control.Feedback type="invalid">
                                             {errors.doors}
                                         </Form.Control.Feedback>
                                     </Form.Group>
                                 </Col>
-                                {/* Dòng xe */}
+                                {/* Category */}
                                 <Col md={4}>
                                     <Form.Group>
                                         <Form.Label className="fw-semibold text-secondary">
-                                            Dòng xe <span className="text-danger">*</span>
+                                            Category <span className="text-danger">*</span>
                                         </Form.Label>
                                         <Form.Select
                                             name="category_id"
@@ -514,7 +514,7 @@ const CreateCarModal = ({ show, onHide, onCarCreated }) => {
                                             onChange={handleChange}
                                             isInvalid={!!errors.category_id}
                                         >
-                                            <option value="">Chọn dòng xe</option>
+                                            <option value="">Select category</option>
                                             {categories.map(category => (
                                                 <option key={category.id} value={category.id}>
                                                     {category.name}
@@ -533,7 +533,7 @@ const CreateCarModal = ({ show, onHide, onCarCreated }) => {
                     <Modal.Footer className="border-top mt-4">
                         <Button variant="secondary" onClick={handleClose} disabled={isSubmitting}>
                             <i className="bi bi-x-circle me-2"></i>
-                            Hủy
+                            Cancel
                         </Button>
                         <Button
                             variant="primary"
@@ -541,7 +541,7 @@ const CreateCarModal = ({ show, onHide, onCarCreated }) => {
                             disabled={isSubmitting}
                         >
                             <i className="bi bi-check-circle me-2"></i>
-                            {isSubmitting ? 'Đang tạo...' : 'Tạo xe mới'}
+                            {isSubmitting ? 'Creating...' : 'Create car'}
                         </Button>
                     </Modal.Footer>
                 </Form>
