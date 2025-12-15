@@ -11,7 +11,7 @@ const UserDetailModal = ({ show, onHide, user }) => {
             <Modal.Header closeButton className="border-bottom">
                 <Modal.Title className="text-primary fw-bold">
                     <i className="bi bi-person-circle me-2"></i>
-                    Chi tiết người dùng
+                    User Details
                 </Modal.Title>
             </Modal.Header>
             <Modal.Body className="p-4">
@@ -63,7 +63,7 @@ const UserDetailModal = ({ show, onHide, user }) => {
                                 {/* Họ tên */}
                                 <Col md={6}>
                                     <Form.Group>
-                                        <Form.Label className="fw-semibold text-secondary">Họ tên</Form.Label>
+                                        <Form.Label className="fw-semibold text-secondary">Full Name</Form.Label>
                                         <Form.Control
                                             type="text"
                                             value={user.full_name}
@@ -90,7 +90,7 @@ const UserDetailModal = ({ show, onHide, user }) => {
                                 {/* Số điện thoại */}
                                 <Col md={6}>
                                     <Form.Group>
-                                        <Form.Label className="fw-semibold text-secondary">Số điện thoại</Form.Label>
+                                        <Form.Label className="fw-semibold text-secondary">Phone</Form.Label>
                                         <Form.Control
                                             type="text"
                                             value={user.phone}
@@ -102,10 +102,10 @@ const UserDetailModal = ({ show, onHide, user }) => {
                                 {/* Địa chỉ */}
                                 <Col md={6}>
                                     <Form.Group>
-                                        <Form.Label className="fw-semibold text-secondary">Địa chỉ</Form.Label>
+                                        <Form.Label className="fw-semibold text-secondary">Address</Form.Label>
                                         <Form.Control
                                             type="text"
-                                            value={user.address || 'Chưa cập nhật'}
+                                            value={user.address || 'Not updated'}
                                             readOnly
                                             className="form-control-detail"
                                         />
@@ -117,7 +117,7 @@ const UserDetailModal = ({ show, onHide, user }) => {
                                 {/* Role */}
                                 <Col md={6}>
                                     <Form.Group>
-                                        <Form.Label className="fw-semibold text-secondary">Vai trò</Form.Label>
+                                        <Form.Label className="fw-semibold text-secondary">Role</Form.Label>
                                         <Form.Control
                                             type="text"
                                             value={user.role_id === 1 ? 'Admin' : 'User'}
@@ -134,7 +134,7 @@ const UserDetailModal = ({ show, onHide, user }) => {
             <Modal.Footer className="border-top">
                 <Button variant="secondary" onClick={onHide} className="px-4">
                     <i className="bi bi-x-circle me-2"></i>
-                    Đóng
+                    Close
                 </Button>
             </Modal.Footer>
         </Modal>

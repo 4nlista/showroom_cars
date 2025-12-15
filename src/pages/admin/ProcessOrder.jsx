@@ -39,7 +39,7 @@ const ProcessOrder = () => {
             setOrders(data);
             setError('');
         } catch (err) {
-            setError(err.message || 'Không thể tải danh sách đơn hàng');
+            setError(err.message || 'Unable to load order list');
             console.error(err);
         } finally {
             setLoading(false);
@@ -59,14 +59,14 @@ const ProcessOrder = () => {
             );
 
             // Hiển thị success message
-            setSuccessMessage('✅ Cập nhật trạng thái đơn hàng thành công!');
+            setSuccessMessage('✅ Order status updated successfully!');
 
             // Tự động ẩn message sau 2 giây
             setTimeout(() => {
                 setSuccessMessage('');
             }, 2000);
         } catch (error) {
-            alert(error.message || 'Có lỗi xảy ra khi cập nhật trạng thái');
+            alert(error.message || 'An error occurred while updating status');
         }
     };
 
@@ -95,9 +95,9 @@ const ProcessOrder = () => {
                 <div className="mb-4 border-bottom pb-2">
                     <h2 className="fw-bold mb-1">
                         <i className="bi bi-clipboard-check me-2"></i>
-                        Xử lý đơn hàng
+                        Process Orders
                     </h2>
-                    <p className="text-muted mb-0">Quản lý và cập nhật trạng thái đơn hàng</p>
+                    <p className="text-muted mb-0">Manage and update order status</p>
                 </div>
 
                 {error && <Alert variant="danger" className="mb-3">{error}</Alert>}
@@ -114,7 +114,7 @@ const ProcessOrder = () => {
                     <Row className="g-3">
                         <Col md={3}>
                             <Form.Group>
-                                <Form.Label className="fw-semibold">Từ ngày</Form.Label>
+                                <Form.Label className="fw-semibold">From Date</Form.Label>
                                 <Form.Control
                                     type="date"
                                     value={fromDate}
@@ -124,7 +124,7 @@ const ProcessOrder = () => {
                         </Col>
                         <Col md={3}>
                             <Form.Group>
-                                <Form.Label className="fw-semibold">Đến ngày</Form.Label>
+                                <Form.Label className="fw-semibold">To Date</Form.Label>
                                 <Form.Control
                                     type="date"
                                     value={toDate}
@@ -134,15 +134,15 @@ const ProcessOrder = () => {
                         </Col>
                         <Col md={6}>
                             <Form.Group>
-                                <Form.Label className="fw-semibold">Lọc theo trạng thái</Form.Label>
+                                <Form.Label className="fw-semibold">Filter by Status</Form.Label>
                                 <Form.Select
                                     value={statusFilter}
                                     onChange={handleStatusFilterChange}
                                 >
-                                    <option value="all">Tất cả trạng thái</option>
-                                    <option value="pending">Đang xử lý</option>
-                                    <option value="completed">Đã xử lý</option>
-                                    <option value="cancelled">Đã từ chối</option>
+                                    <option value="all">All Status</option>
+                                    <option value="pending">Pending</option>
+                                    <option value="completed">Completed</option>
+                                    <option value="cancelled">Cancelled</option>
                                 </Form.Select>
                             </Form.Group>
                         </Col>
@@ -152,27 +152,27 @@ const ProcessOrder = () => {
                 {loading ? (
                     <div className="text-center py-5">
                         <Spinner animation="border" variant="primary" />
-                        <p className="mt-3 text-muted">Đang tải danh sách đơn hàng...</p>
+                        <p className="mt-3 text-muted">Loading order list...</p>
                     </div>
                 ) : (
                     <>
                         {filteredOrders.length === 0 ? (
                             <Alert variant="info">
                                 <i className="bi bi-info-circle me-2"></i>
-                                {orders.length === 0 ? 'Chưa có đơn hàng nào' : 'Không tìm thấy đơn hàng phù hợp với bộ lọc'}
+                                {orders.length === 0 ? 'No orders yet' : 'No orders found matching the filter'}
                             </Alert>
                         ) : (
                             <div className="table-responsive">
                                 <Table striped bordered hover>
                                     <thead className="table-light">
                                         <tr>
-                                            <th style={{ width: '4%' }}>STT</th>
-                                            <th style={{ width: '15%' }}>Người mua</th>
-                                            <th style={{ width: '23%' }}>Tên xe</th>
-                                            <th style={{ width: '7%' }}>Số lượng</th>
-                                            <th style={{ width: '15%' }}>Ngày đặt</th>
-                                            <th style={{ width: '15%' }}>Trạng thái</th>
-                                            <th style={{ width: '9%' }}>Thao tác</th>
+                                            <th style={{ width: '4%' }}>No.</th>
+                                            <th style={{ width: '15%' }}>Buyer</th>
+                                            <th style={{ width: '23%' }}>Car Name</th>
+                                            <th style={{ width: '7%' }}>Quantity</th>
+                                            <th style={{ width: '15%' }}>Order Date</th>
+                                            <th style={{ width: '15%' }}>Status</th>
+                                            <th style={{ width: '9%' }}>Actions</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -207,9 +207,9 @@ const ProcessOrder = () => {
                                                             onChange={(e) => handleStatusChange(order.id, e.target.value)}
                                                             style={{ flex: 1 }}
                                                         >
-                                                            <option value="pending">Đang xử lý</option>
-                                                            <option value="completed">Đã xử lý</option>
-                                                            <option value="cancelled">Đã từ chối</option>
+                                                            <option value="pending">Pending</option>
+                                                            <option value="completed">Completed</option>
+                                                            <option value="cancelled">Cancelled</option>
                                                         </Form.Select>
                                                     </div>
                                                 </td>
@@ -218,9 +218,9 @@ const ProcessOrder = () => {
                                                         size="sm"
                                                         variant="primary"
                                                         onClick={() => handleViewDetail(order.id)}
-                                                        title="Xem chi tiết"
+                                                        title="View Details"
                                                     >
-                                                        Xem chi tiết
+                                                        View Details
                                                     </Button>
                                                 </td>
                                             </tr>
@@ -231,7 +231,7 @@ const ProcessOrder = () => {
                                 <div className="mt-3 text-muted">
                                     <small>
                                         <i className="bi bi-info-circle me-1"></i>
-                                        Hiển thị: <strong>{filteredOrders.length}</strong> / Tổng số: <strong>{orders.length}</strong> đơn hàng
+                                        Showing: <strong>{filteredOrders.length}</strong> / Total: <strong>{orders.length}</strong> orders
                                     </small>
                                 </div>
                             </div>

@@ -176,7 +176,7 @@ const CarProgressLoading = ({
                             letterSpacing: '2px',
                         }}
                     >
-                        ĐANG TẢI
+                        LOADING
                     </Typography>
 
                     <Typography
@@ -201,10 +201,10 @@ const CarProgressLoading = ({
                         fontSize: '0.9rem',
                     }}
                 >
-                    {progress < 30 && "Khởi động hệ thống..."}
-                    {progress >= 30 && progress < 60 && "Đang tải nội dung..."}
-                    {progress >= 60 && progress < 90 && "Chuẩn bị trải nghiệm..."}
-                    {progress >= 90 && "Hoàn tất!"}
+                    {progress < 30 && "Starting system..."}
+                    {progress >= 30 && progress < 60 && "Loading content..."}
+                    {progress >= 60 && progress < 90 && "Preparing your experience..."}
+                    {progress >= 90 && "Ready!"}
                 </Typography>
             </Box>
         </Box>

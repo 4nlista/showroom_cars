@@ -82,7 +82,7 @@ function App() {
 
           {/* Protected admin routes */}
           <Route
-            path="/admin/quan-tri"
+            path="/admin/dashboard"
             element={
               <ProtectedRoute adminOnly>
                 <Dashboard />
@@ -90,7 +90,7 @@ function App() {
             }
           />
           <Route
-            path="/admin/quan-ly-nguoi-dung"
+            path="/admin/users"
             element={
               <ProtectedRoute adminOnly>
                 <ManageUser />
@@ -98,7 +98,7 @@ function App() {
             }
           />
           <Route
-            path="/admin/quan-ly-xe"
+            path="/admin/cars"
             element={
               <ProtectedRoute adminOnly>
                 <ManageCar />
@@ -106,7 +106,7 @@ function App() {
             }
           />
           <Route
-            path="/admin/process-orders"
+            path="/admin/orders"
             element={
               <ProtectedRoute adminOnly>
                 <ProcessOrder />
@@ -114,7 +114,7 @@ function App() {
             }
           />
           <Route
-            path="/admin/ho-so-ca-nhan"
+            path="/admin/profile"
             element={
               <ProtectedRoute adminOnly>
                 <Profile />
@@ -122,7 +122,7 @@ function App() {
             }
           />
           <Route
-            path="/admin/doi-mat-khau"
+            path="/admin/change-password"
             element={
               <ProtectedRoute adminOnly>
                 <ChangePassword />

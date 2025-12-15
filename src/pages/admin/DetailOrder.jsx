@@ -7,7 +7,7 @@ const DetailOrder = () => {
             <div className="container py-4">
                 <div className="mb-4 border-bottom pb-2">
                     <h2 className="fw-bold mb-1">
-                        Chi tiết đơn hàng
+                        Order Details
                     </h2>
                 </div>
 

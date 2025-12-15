@@ -188,7 +188,7 @@ const CreateCarModal = ({ show, onHide, onCarCreated }) => {
             // Thành công - gọi callback và đóng modal
             onCarCreated();
             handleClose();
-            alert('✅ Tạo xe mới thành công!');
+            alert('✅ Car created successfully!');
         } catch (error) {
             // Handle errors
             if (error.validationErrors) {
@@ -206,7 +206,7 @@ const CreateCarModal = ({ show, onHide, onCarCreated }) => {
             <Modal.Header closeButton className="border-bottom">
                 <Modal.Title className="text-primary fw-bold">
                     <i className="bi bi-car-front-fill me-2"></i>
-                    Thêm loại xe mới
+                    Add New Car
                 </Modal.Title>
             </Modal.Header>
 

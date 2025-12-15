@@ -109,7 +109,7 @@ const UserEditModal = ({ show, onHide, user, onUpdate }) => {
             if (error.validationErrors) {
                 setErrors(error.validationErrors);
             } else {
-                const errorMessage = error.message || 'Có lỗi xảy ra khi cập nhật thông tin';
+                const errorMessage = error.message || 'An error occurred while updating information';
                 setErrors({ submit: errorMessage });
             }
         } finally {
@@ -124,7 +124,7 @@ const UserEditModal = ({ show, onHide, user, onUpdate }) => {
             <Modal.Header closeButton className="border-bottom">
                 <Modal.Title className="text-primary fw-bold">
                     <i className="bi bi-pencil-square me-2"></i>
-                    Chỉnh sửa thông tin người dùng
+                    Edit User Information
                 </Modal.Title>
             </Modal.Header>
             <Form onSubmit={handleSubmit}>
@@ -147,7 +147,7 @@ const UserEditModal = ({ show, onHide, user, onUpdate }) => {
                             <div className="mt-3">
                                 <Form.Group>
                                     <Form.Label className="btn btn-upload-avatar btn-sm">
-                                        Chọn ảnh
+                                        Select Image
                                         <Form.Control
                                             type="file"
                                             accept="image/*"
@@ -159,7 +159,7 @@ const UserEditModal = ({ show, onHide, user, onUpdate }) => {
                                     )}
                                     <div className="text-muted small mt-2">
                                         <i className="bi bi-info-circle me-1"></i>
-                                        Dung lượng tối đa: 2MB
+                                        Max file size: 2MB
                                     </div>
                                 </Form.Group>
                             </div>
@@ -201,7 +201,7 @@ const UserEditModal = ({ show, onHide, user, onUpdate }) => {
                                 <Col md={6}>
                                     <Form.Group>
                                         <Form.Label className="fw-semibold text-secondary">
-                                            Họ tên <span className="text-danger">*</span>
+                                            Full Name <span className="text-danger">*</span>
                                         </Form.Label>
                                         <Form.Control
                                             type="text"
@@ -209,7 +209,7 @@ const UserEditModal = ({ show, onHide, user, onUpdate }) => {
                                             value={formData.full_name}
                                             onChange={handleChange}
                                             isInvalid={!!errors.full_name}
-                                            placeholder="Nhập họ tên"
+                                            placeholder="Enter full name"
                                         />
                                         <Form.Control.Feedback type="invalid">
                                             {errors.full_name}
@@ -228,7 +228,7 @@ const UserEditModal = ({ show, onHide, user, onUpdate }) => {
                                             value={formData.email}
                                             onChange={handleChange}
                                             isInvalid={!!errors.email}
-                                            placeholder="Nhập email"
+                                            placeholder="Enter email"
                                         />
                                         <Form.Control.Feedback type="invalid">
                                             {errors.email}
@@ -242,7 +242,7 @@ const UserEditModal = ({ show, onHide, user, onUpdate }) => {
                                 <Col md={6}>
                                     <Form.Group>
                                         <Form.Label className="fw-semibold text-secondary">
-                                            Số điện thoại <span className="text-danger">*</span>
+                                            Phone <span className="text-danger">*</span>
                                         </Form.Label>
                                         <Form.Control
                                             type="text"
@@ -250,7 +250,7 @@ const UserEditModal = ({ show, onHide, user, onUpdate }) => {
                                             value={formData.phone}
                                             onChange={handleChange}
                                             isInvalid={!!errors.phone}
-                                            placeholder="Nhập số điện thoại"
+                                            placeholder="Enter phone number"
                                         />
                                         <Form.Control.Feedback type="invalid">
                                             {errors.phone}
@@ -260,13 +260,13 @@ const UserEditModal = ({ show, onHide, user, onUpdate }) => {
                                 {/* Địa chỉ */}
                                 <Col md={6}>
                                     <Form.Group>
-                                        <Form.Label className="fw-semibold text-secondary">Địa chỉ</Form.Label>
+                                        <Form.Label className="fw-semibold text-secondary">Address</Form.Label>
                                         <Form.Control
                                             type="text"
                                             name="address"
                                             value={formData.address}
                                             onChange={handleChange}
-                                            placeholder="Nhập địa chỉ"
+                                            placeholder="Enter address"
                                         />
                                     </Form.Group>
                                 </Col>
@@ -276,7 +276,7 @@ const UserEditModal = ({ show, onHide, user, onUpdate }) => {
                                 {/* Vai trò */}
                                 <Col md={6}>
                                     <Form.Group>
-                                        <Form.Label className="fw-semibold text-secondary">Vai trò</Form.Label>
+                                        <Form.Label className="fw-semibold text-secondary">Role</Form.Label>
                                         <Form.Select
                                             name="role_id"
                                             value={formData.role_id}
@@ -295,11 +295,11 @@ const UserEditModal = ({ show, onHide, user, onUpdate }) => {
                 <Modal.Footer className="border-top justify-content-end">
                     <Button variant="secondary" onClick={onHide} disabled={isSubmitting} className="px-4">
                         <i className="bi bi-x-circle me-2"></i>
-                        Hủy
+                        Cancel
                     </Button>
                     <Button variant="primary" type="submit" disabled={isSubmitting} className="px-4">
                         <i className="bi bi-check-circle me-2"></i>
-                        {isSubmitting ? 'Đang cập nhật...' : 'Cập nhật'}
+                        {isSubmitting ? 'Updating...' : 'Update'}
                     </Button>
                 </Modal.Footer>
             </Form>

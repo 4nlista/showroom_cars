@@ -74,7 +74,7 @@ const ManageCar = () => {
 
             setError('');
         } catch (err) {
-            setError(err.message || 'Không thể tải danh sách xe');
+            setError(err.message || 'Unable to load car list');
             console.error(err);
         } finally {
             setLoading(false);
@@ -107,7 +107,7 @@ const ManageCar = () => {
     const handleDeleteCar = async (car) => {
         // Confirm dialog
         const confirmDelete = window.confirm(
-            `Bạn có thật sự muốn xóa xe "${car.name}" (ID: ${car.id}) không?`
+            `Are you sure you want to delete car "${car.name}" (ID: ${car.id})?`
         );
 
         if (!confirmDelete) {
@@ -119,7 +119,7 @@ const ManageCar = () => {
             await deleteCar(car.id);
 
             // Hiển thị success message
-            setSuccessMessage(`✅ Xóa xe "${car.name}" thành công!`);
+            setSuccessMessage(`✅ Car "${car.name}" deleted successfully!`);
 
             // Reload danh sách xe
             loadCars();
@@ -129,7 +129,7 @@ const ManageCar = () => {
                 setSuccessMessage('');
             }, 2000);
         } catch (error) {
-            alert(error.message || 'Có lỗi xảy ra khi xóa xe');
+            alert(error.message || 'An error occurred while deleting the car');
         }
     };
 
@@ -167,7 +167,7 @@ const ManageCar = () => {
         // Validate: min phải < max
         if (tempPriceRange.min > tempPriceRange.max) {
             // Không apply nếu min > max
-            alert('Giá tối thiểu phải nhỏ hơn giá tối đa!');
+            alert('Minimum price must be less than maximum price!');
             setTempPriceRange(priceRange); // Reset về giá trị cũ
             return;
         }
@@ -226,7 +226,7 @@ const ManageCar = () => {
             <div className="container py-4">
                 <div className="mb-4 border-bottom pb-2">
                     <h2 className="fw-bold mb-1">
-                        Quản lý mẫu xe
+                        Manage Cars
                     </h2>
                 </div>
 
@@ -249,7 +249,7 @@ const ManageCar = () => {
                                 </InputGroup.Text>
                                 <Form.Control
                                     type="text"
-                                    placeholder="Tìm kiếm theo tên xe..."
+                                    placeholder="Search by car name..."
                                     value={searchTerm}
                                     onChange={handleSearchChange}
                                 />
@@ -271,7 +271,7 @@ const ManageCar = () => {
                                 onChange={handleCategoryFilterChange}
                                 style={{ minWidth: 160 }}
                             >
-                                <option value="all">Tất cả dòng xe</option>
+                                <option value="all">All Categories</option>
                                 {categories.map(category => (
                                     <option key={category.id} value={category.id}>
                                         {category.name}
@@ -287,9 +287,9 @@ const ManageCar = () => {
                                 onChange={handleStockFilterChange}
                                 style={{ minWidth: 140 }}
                             >
-                                <option value="all">Tình trạng</option>
-                                <option value="in-stock">Còn hàng</option>
-                                <option value="out-of-stock">Hết hàng</option>
+                                <option value="all">Stock Status</option>
+                                <option value="in-stock">In Stock</option>
+                                <option value="out-of-stock">Out of Stock</option>
                             </Form.Select>
                         </div>
 
@@ -297,11 +297,11 @@ const ManageCar = () => {
                         <div className="col-auto">
                             <div className="border rounded p-2">
                                 <Form.Label className="mb-2">
-                                    Lọc theo giá: {formatPrice(tempPriceRange.min)} - {formatPrice(tempPriceRange.max)}
+                                    Filter by Price: {formatPrice(tempPriceRange.min)} - {formatPrice(tempPriceRange.max)}
                                 </Form.Label>
                                 <div className="d-flex gap-3 align-items-center">
                                     <div style={{ flex: 1 }}>
-                                        <Form.Label className="small text-muted mb-1">Giá tối thiểu</Form.Label>
+                                        <Form.Label className="small text-muted mb-1">Min Price</Form.Label>
                                         <Form.Range
                                             min={priceMinMax.min}
                                             max={priceMinMax.max}
@@ -313,7 +313,7 @@ const ManageCar = () => {
                                         />
                                     </div>
                                     <div style={{ flex: 1 }}>
-                                        <Form.Label className="small text-muted mb-1">Giá tối đa</Form.Label>
+                                        <Form.Label className="small text-muted mb-1">Max Price</Form.Label>
                                         <Form.Range
                                             min={priceMinMax.min}
                                             max={priceMinMax.max}
@@ -335,7 +335,7 @@ const ManageCar = () => {
                                 onClick={() => setShowCreateModal(true)}
                             >
                                 <i className="bi bi-plus-circle-fill me-2"></i>
-                                Thêm loại xe
+                                Add Car
                             </Button>
                         </div>
                     </div>
@@ -347,7 +347,7 @@ const ManageCar = () => {
                 {loading ? (
                     <div className="d-flex justify-content-center align-items-center" style={{ minHeight: 300 }}>
                         <Spinner animation="border" role="status" variant="primary">
-                            <span className="visually-hidden">Đang tải...</span>
+                            <span className="visually-hidden">Loading...</span>
                         </Spinner>
                     </div>
                 ) : (
@@ -356,13 +356,13 @@ const ManageCar = () => {
                             <Table bordered hover style={{ fontSize: 14 }}>
                                 <thead className="table-light">
                                     <tr>
-                                        <th style={{ textAlign: 'left', padding: '4px 6px', width: '5%' }}>STT</th>
-                                        <th style={{ textAlign: 'left', padding: '4px 6px', width: '12%' }}>Ảnh</th>
-                                        <th style={{ textAlign: 'left', padding: '4px 6px', width: '28%' }}>Tên</th>
-                                        <th style={{ textAlign: 'left', padding: '4px 6px', width: '10%' }}>Dòng xe</th>
-                                        <th style={{ textAlign: 'left', padding: '4px 6px', width: '15%' }}>Bảng giá</th>
-                                        <th style={{ textAlign: 'left', padding: '4px 6px', width: '10%' }}>Số lượng</th>
-                                        <th style={{ textAlign: 'left', padding: '4px 6px', width: '20%' }}>Thao tác</th>
+                                        <th style={{ textAlign: 'left', padding: '4px 6px', width: '5%' }}>No.</th>
+                                        <th style={{ textAlign: 'left', padding: '4px 6px', width: '12%' }}>Image</th>
+                                        <th style={{ textAlign: 'left', padding: '4px 6px', width: '28%' }}>Name</th>
+                                        <th style={{ textAlign: 'left', padding: '4px 6px', width: '10%' }}>Category</th>
+                                        <th style={{ textAlign: 'left', padding: '4px 6px', width: '15%' }}>Price</th>
+                                        <th style={{ textAlign: 'left', padding: '4px 6px', width: '10%' }}>Stock</th>
+                                        <th style={{ textAlign: 'left', padding: '4px 6px', width: '20%' }}>Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -371,12 +371,12 @@ const ManageCar = () => {
                                             <td colSpan="7" style={{ padding: '18px 6px', textAlign: 'left', verticalAlign: 'middle', color: '#888' }}>
                                                 <div>
                                                     <i className="bi bi-inbox" style={{ fontSize: 28, opacity: 0.5 }}></i>
-                                                    <span className="ms-2 fw-bold">Không tìm thấy dữ liệu</span>
+                                                    <span className="ms-2 fw-bold">No data found</span>
                                                     {searchTerm && currentItems.length === 0 && (
-                                                        <span className="ms-2 small">Không có kết quả nào cho từ khóa "{searchTerm}"</span>
+                                                        <span className="ms-2 small">No results found for keyword "{searchTerm}"</span>
                                                     )}
                                                     {tempPriceRange.min > tempPriceRange.max && (
-                                                        <span className="ms-2 small text-danger">Giá tối thiểu phải nhỏ hơn giá tối đa!</span>
+                                                        <span className="ms-2 small text-danger">Minimum price must be less than maximum price!</span>
                                                     )}
                                                 </div>
                                             </td>
@@ -406,7 +406,7 @@ const ManageCar = () => {
                                                         className={`badge ${car.stock > 0 ? 'bg-success' : 'bg-danger'}`}
                                                         style={car.stock === 0 ? { color: 'white' } : {}}
                                                     >
-                                                        {car.stock > 0 ? `Còn ${car.stock}` : 'Hết hàng'}
+                                                        {car.stock > 0 ? `In Stock (${car.stock})` : 'Out of Stock'}
                                                     </span>
                                                 </td>
                                                 <td style={{ textAlign: 'left', verticalAlign: 'middle', padding: '4px 6px' }}>
@@ -415,7 +415,7 @@ const ManageCar = () => {
                                                         variant="info"
                                                         className="me-1"
                                                         onClick={() => handleViewDetail(car)}
-                                                        title="Xem chi tiết"
+                                                        title="View Details"
                                                     >
                                                         <i className="bi bi-eye"></i>
                                                     </Button>
@@ -424,7 +424,7 @@ const ManageCar = () => {
                                                         variant="warning"
                                                         className="me-1"
                                                         onClick={() => handleEditCar(car)}
-                                                        title="Chỉnh sửa"
+                                                        title="Edit"
                                                     >
                                                         <i className="bi bi-pencil-square"></i>
                                                     </Button>
@@ -432,7 +432,7 @@ const ManageCar = () => {
                                                         size="sm"
                                                         variant="danger"
                                                         onClick={() => handleDeleteCar(car)}
-                                                        title="Xóa"
+                                                        title="Delete"
                                                     >
                                                         <i className="bi bi-trash-fill"></i>
                                                     </Button>
@@ -448,7 +448,7 @@ const ManageCar = () => {
                         {filteredCars.length > 0 && (
                             <div className="d-flex justify-content-between align-items-center mt-3">
                                 <span className="text-muted">
-                                    Hiển thị {indexOfFirstItem + 1} - {Math.min(indexOfLastItem, filteredCars.length)} / {filteredCars.length} loại xe
+                                    Showing {indexOfFirstItem + 1} - {Math.min(indexOfLastItem, filteredCars.length)} / {filteredCars.length} cars
                                 </span>
 
                                 {totalPages > 1 && (

@@ -53,7 +53,7 @@ const ManageUser = () => {
             setFilteredUsers(data);
             setError('');
         } catch (err) {
-            setError(err.message || 'Không thể tải danh sách người dùng');
+            setError(err.message || 'Unable to load user list');
             console.error(err);
         } finally {
             setLoading(false);
@@ -98,7 +98,7 @@ const ManageUser = () => {
             await updateUser(userId, userData);
             await loadUsers();
             setShowEditModal(false);
-            alert('✅ Cập nhật thông tin thành công!');
+            alert('✅ User information updated successfully!');
         } catch (err) {
             console.error('Error updating user:', err);
             // Throw lại error để UserEditModal có thể bắt và hiển thị
@@ -109,20 +109,20 @@ const ManageUser = () => {
     // Xử lý khóa/mở khóa user
     const handleToggleStatus = async (user) => {
         const newStatus = user.status === 'active' ? 'inactive' : 'active';
-        const action = newStatus === 'inactive' ? 'khóa' : 'mở khóa';
+        const action = newStatus === 'inactive' ? 'lock' : 'unlock';
 
         const confirmAction = window.confirm(
-            `⚠️ Bạn có chắc chắn muốn ${action} tài khoản "${user.full_name}"?`
+            `⚠️ Are you sure you want to ${action} account "${user.full_name}"?`
         );
 
         if (confirmAction) {
             try {
                 await updateUser(user.id, { ...user, status: newStatus });
                 await loadUsers();
-                alert(`✅ ${action.charAt(0).toUpperCase() + action.slice(1)} tài khoản thành công!`);
+                alert(`✅ Account ${action}ed successfully!`);
             } catch (err) {
                 console.error('Error toggling user status:', err);
-                alert(`❌ Có lỗi xảy ra khi ${action} tài khoản`);
+                alert(`❌ An error occurred while ${action}ing the account`);
             }
         }
     };
@@ -133,9 +133,9 @@ const ManageUser = () => {
                 <div className="mb-4 border-bottom pb-2">
                     <h2 className="fw-bold mb-1">
                         <i className="bi bi-people-fill me-2"></i>
-                        Quản lý người dùng
+                        Manage Users
                     </h2>
-                    <div className="text-muted">Quản lý thông tin người dùng trong hệ thống</div>
+                    <div className="text-muted">Manage user information in the system</div>
                 </div>
 
                 {error && <Alert variant="danger" className="mb-3">{error}</Alert>}
@@ -149,7 +149,7 @@ const ManageUser = () => {
                                 </InputGroup.Text>
                                 <Form.Control
                                     type="text"
-                                    placeholder="Tìm kiếm theo tên, username, email, số điện thoại..."
+                                    placeholder="Search by name, username, email, phone..."
                                     value={searchTerm}
                                     onChange={handleSearchChange}
                                 />
@@ -169,7 +169,7 @@ const ManageUser = () => {
                                 onChange={handleRoleFilterChange}
                                 style={{ minWidth: 160 }}
                             >
-                                <option value="all">Tất cả vai trò</option>
+                                <option value="all">All Roles</option>
                                 <option value="1">Admin</option>
                                 <option value="2">User</option>
                             </Form.Select>
@@ -180,7 +180,7 @@ const ManageUser = () => {
                                 onClick={handleCreateUser}
                             >
                                 <i className="bi bi-person-plus-fill me-2"></i>
-                                Thêm người dùng
+                                Add User
                             </Button>
                         </div>
                     </div>
@@ -189,7 +189,7 @@ const ManageUser = () => {
                 {loading ? (
                     <div className="d-flex justify-content-center align-items-center" style={{ minHeight: 300 }}>
                         <Spinner animation="border" role="status" variant="primary">
-                            <span className="visually-hidden">Đang tải...</span>
+                            <span className="visually-hidden">Loading...</span>
                         </Spinner>
                     </div>
                 ) : (
@@ -197,14 +197,14 @@ const ManageUser = () => {
                         <Table bordered hover style={{ fontSize: 14 }}>
                             <thead className="table-light">
                                 <tr>
-                                    <th style={{ textAlign: 'left', verticalAlign: 'middle', padding: '8px 6px', height: 26 }}>STT</th>
+                                    <th style={{ textAlign: 'left', verticalAlign: 'middle', padding: '8px 6px', height: 26 }}>No.</th>
                                     <th style={{ textAlign: 'left', verticalAlign: 'middle', padding: '8px 6px', height: 26 }}>Avatar</th>
-                                    <th style={{ textAlign: 'left', verticalAlign: 'middle', padding: '8px 6px', height: 26 }}>Tên</th>
-                                    <th style={{ textAlign: 'left', verticalAlign: 'middle', padding: '8px 6px', height: 26 }}>Điện thoại</th>
+                                    <th style={{ textAlign: 'left', verticalAlign: 'middle', padding: '8px 6px', height: 26 }}>Name</th>
+                                    <th style={{ textAlign: 'left', verticalAlign: 'middle', padding: '8px 6px', height: 26 }}>Phone</th>
                                     <th style={{ textAlign: 'left', verticalAlign: 'middle', padding: '8px 6px', height: 26 }}>Email</th>
-                                    <th style={{ textAlign: 'left', verticalAlign: 'middle', padding: '8px 6px', height: 26 }}>Vai trò</th>
-                                    <th style={{ textAlign: 'left', verticalAlign: 'middle', padding: '8px 6px', height: 26 }}>Trạng thái</th>
-                                    <th style={{ textAlign: 'left', verticalAlign: 'middle', padding: '8px 6px', height: 26 }}>Thao tác</th>
+                                    <th style={{ textAlign: 'left', verticalAlign: 'middle', padding: '8px 6px', height: 26 }}>Role</th>
+                                    <th style={{ textAlign: 'left', verticalAlign: 'middle', padding: '8px 6px', height: 26 }}>Status</th>
+                                    <th style={{ textAlign: 'left', verticalAlign: 'middle', padding: '8px 6px', height: 26 }}>Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -213,9 +213,9 @@ const ManageUser = () => {
                                         <td colSpan="8" style={{ padding: '18px 6px', textAlign: 'left', verticalAlign: 'middle', color: '#888' }}>
                                             <div>
                                                 <i className="bi bi-inbox" style={{ fontSize: 28, opacity: 0.5 }}></i>
-                                                <span className="ms-2 fw-bold">Không tìm thấy dữ liệu</span>
+                                                <span className="ms-2 fw-bold">No data found</span>
                                                 {searchTerm && (
-                                                    <span className="ms-2 small">Không có kết quả nào cho từ khóa "{searchTerm}"</span>
+                                                    <span className="ms-2 small">No results found for keyword "{searchTerm}"</span>
                                                 )}
                                             </div>
                                         </td>
@@ -236,7 +236,7 @@ const ManageUser = () => {
                                             <td style={{ textAlign: 'left', verticalAlign: 'middle', padding: '8px 6px' }}>{user.email}</td>
                                             <td style={{ textAlign: 'left', verticalAlign: 'middle', padding: '8px 6px' }}>{getRoleName(user.role_id)}</td>
                                             <td style={{ textAlign: 'left', verticalAlign: 'middle', padding: '8px 6px' }}>
-                                                <span className={`badge px-2 py-1 fw-semibold ${user.status === 'active' ? 'bg-success' : 'bg-danger'}`}>{user.status === 'active' ? 'Hoạt động' : 'Bị khóa'}</span>
+                                                <span className={`badge px-2 py-1 fw-semibold ${user.status === 'active' ? 'bg-success' : 'bg-danger'}`}>{user.status === 'active' ? 'Active' : 'Locked'}</span>
                                             </td>
                                             <td style={{ textAlign: 'left', verticalAlign: 'middle', padding: '8px 6px' }}>
                                                 <Button
@@ -244,7 +244,7 @@ const ManageUser = () => {
                                                     variant="info"
                                                     className="me-1"
                                                     onClick={() => handleViewDetail(user)}
-                                                    title="Xem chi tiết"
+                                                    title="View Details"
                                                 >
                                                     <i className="bi bi-eye"></i>
                                                 </Button>
@@ -253,7 +253,7 @@ const ManageUser = () => {
                                                     variant="warning"
                                                     className="me-1"
                                                     onClick={() => handleEdit(user)}
-                                                    title="Chỉnh sửa"
+                                                    title="Edit"
                                                 >
                                                     <i className="bi bi-pencil-square"></i>
                                                 </Button>
@@ -261,7 +261,7 @@ const ManageUser = () => {
                                                     size="sm"
                                                     variant={user.status === 'active' ? 'danger' : 'success'}
                                                     onClick={() => handleToggleStatus(user)}
-                                                    title={user.status === 'active' ? 'Khóa tài khoản' : 'Mở khóa tài khoản'}
+                                                    title={user.status === 'active' ? 'Lock Account' : 'Unlock Account'}
                                                 >
                                                     <i className={`bi ${user.status === 'active' ? 'bi-lock-fill' : 'bi-unlock-fill'}`}></i>
                                                 </Button>
@@ -274,7 +274,7 @@ const ManageUser = () => {
                         {filteredUsers.length > 0 && (
                             <div className="d-flex justify-content-end mt-2">
                                 <span className="text-muted">
-                                    Hiển thị {filteredUsers.length} / {users.length} người dùng
+                                    Showing {filteredUsers.length} / {users.length} users
                                 </span>
                             </div>
                         )}

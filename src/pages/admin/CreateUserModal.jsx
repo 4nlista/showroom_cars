@@ -74,12 +74,12 @@ const CreateUserModal = ({ show, onHide, onUserCreated }) => {
             await createNewUser(formData);
             onUserCreated();
             handleClose();
-            alert('✅ Tạo người dùng mới thành công!');
+            alert('✅ User created successfully!');
         } catch (error) {
             if (error.validationErrors) {
                 setErrors(error.validationErrors);
             } else {
-                setSubmitError(error.message || 'Có lỗi xảy ra khi tạo người dùng');
+                setSubmitError(error.message || 'An error occurred while creating user');
             }
         } finally {
             setIsSubmitting(false);
@@ -91,7 +91,7 @@ const CreateUserModal = ({ show, onHide, onUserCreated }) => {
             <Modal.Header closeButton className="border-bottom">
                 <Modal.Title className="text-primary fw-bold">
                     <i className="bi bi-person-plus-fill me-2"></i>
-                    Tạo người dùng mới
+                    Create New User
                 </Modal.Title>
             </Modal.Header>
 
@@ -108,7 +108,7 @@ const CreateUserModal = ({ show, onHide, onUserCreated }) => {
                         <Col md={6}>
                             <Form.Group>
                                 <Form.Label className="fw-semibold text-secondary">
-                                    Tên đăng nhập <span className="text-danger">*</span>
+                                    Username <span className="text-danger">*</span>
                                 </Form.Label>
                                 <Form.Control
                                     type="text"
@@ -116,7 +116,7 @@ const CreateUserModal = ({ show, onHide, onUserCreated }) => {
                                     value={formData.username}
                                     onChange={handleChange}
                                     isInvalid={!!errors.username}
-                                    placeholder="Nhập tên đăng nhập"
+                                    placeholder="Enter username"
                                 />
                                 <Form.Control.Feedback type="invalid">
                                     {errors.username}
@@ -127,7 +127,7 @@ const CreateUserModal = ({ show, onHide, onUserCreated }) => {
                         <Col md={6}>
                             <Form.Group>
                                 <Form.Label className="fw-semibold text-secondary">
-                                    Họ tên <span className="text-danger">*</span>
+                                    Full Name <span className="text-danger">*</span>
                                 </Form.Label>
                                 <Form.Control
                                     type="text"
@@ -135,7 +135,7 @@ const CreateUserModal = ({ show, onHide, onUserCreated }) => {
                                     value={formData.full_name}
                                     onChange={handleChange}
                                     isInvalid={!!errors.full_name}
-                                    placeholder="Nhập họ tên"
+                                    placeholder="Enter full name"
                                 />
                                 <Form.Control.Feedback type="invalid">
                                     {errors.full_name}
@@ -157,7 +157,7 @@ const CreateUserModal = ({ show, onHide, onUserCreated }) => {
                                     value={formData.email}
                                     onChange={handleChange}
                                     isInvalid={!!errors.email}
-                                    placeholder="Nhập email"
+                                    placeholder="Enter email"
                                 />
                                 <Form.Control.Feedback type="invalid">
                                     {errors.email}
@@ -168,7 +168,7 @@ const CreateUserModal = ({ show, onHide, onUserCreated }) => {
                         <Col md={6}>
                             <Form.Group>
                                 <Form.Label className="fw-semibold text-secondary">
-                                    Số điện thoại <span className="text-danger">*</span>
+                                    Phone <span className="text-danger">*</span>
                                 </Form.Label>
                                 <Form.Control
                                     type="text"
@@ -176,7 +176,7 @@ const CreateUserModal = ({ show, onHide, onUserCreated }) => {
                                     value={formData.phone}
                                     onChange={handleChange}
                                     isInvalid={!!errors.phone}
-                                    placeholder="Nhập số điện thoại"
+                                    placeholder="Enter phone number"
                                 />
                                 <Form.Control.Feedback type="invalid">
                                     {errors.phone}
@@ -189,26 +189,26 @@ const CreateUserModal = ({ show, onHide, onUserCreated }) => {
                         {/* Địa chỉ */}
                         <Col md={6}>
                             <Form.Group>
-                                <Form.Label className="fw-semibold text-secondary">Địa chỉ</Form.Label>
+                                <Form.Label className="fw-semibold text-secondary">Address</Form.Label>
                                 <Form.Control
                                     type="text"
                                     name="address"
                                     value={formData.address}
                                     onChange={handleChange}
-                                    placeholder="Nhập địa chỉ"
+                                    placeholder="Enter address"
                                 />
                             </Form.Group>
                         </Col>
                         {/* Ngày sinh */}
                         <Col md={6}>
                             <Form.Group>
-                                <Form.Label className="fw-semibold text-secondary">Ngày sinh</Form.Label>
+                                <Form.Label className="fw-semibold text-secondary">Birth Date</Form.Label>
                                 <Form.Control
                                     type="date"
                                     name="birth_date"
                                     value={formData.birth_date}
                                     onChange={handleChange}
-                                    placeholder="Chọn ngày sinh"
+                                    placeholder="Select birth date"
                                 />
                             </Form.Group>
                         </Col>
@@ -219,7 +219,7 @@ const CreateUserModal = ({ show, onHide, onUserCreated }) => {
                         <Col md={6}>
                             <Form.Group>
                                 <Form.Label className="fw-semibold text-secondary">
-                                    Mật khẩu <span className="text-danger">*</span>
+                                    Password <span className="text-danger">*</span>
                                 </Form.Label>
                                 <Form.Control
                                     type="password"
@@ -227,7 +227,7 @@ const CreateUserModal = ({ show, onHide, onUserCreated }) => {
                                     value={formData.password}
                                     onChange={handleChange}
                                     isInvalid={!!errors.password}
-                                    placeholder="Nhập mật khẩu"
+                                    placeholder="Enter password"
                                 />
                                 <Form.Control.Feedback type="invalid">
                                     {errors.password}
@@ -238,7 +238,7 @@ const CreateUserModal = ({ show, onHide, onUserCreated }) => {
                         <Col md={6}>
                             <Form.Group>
                                 <Form.Label className="fw-semibold text-secondary">
-                                    Xác nhận mật khẩu <span className="text-danger">*</span>
+                                    Confirm Password <span className="text-danger">*</span>
                                 </Form.Label>
                                 <Form.Control
                                     type="password"
@@ -246,7 +246,7 @@ const CreateUserModal = ({ show, onHide, onUserCreated }) => {
                                     value={formData.confirmPassword}
                                     onChange={handleChange}
                                     isInvalid={!!errors.confirmPassword}
-                                    placeholder="Nhập lại mật khẩu"
+                                    placeholder="Re-enter password"
                                 />
                                 <Form.Control.Feedback type="invalid">
                                     {errors.confirmPassword}
@@ -260,7 +260,7 @@ const CreateUserModal = ({ show, onHide, onUserCreated }) => {
                         <Col md={12}>
                             <Form.Group>
                                 <Form.Label className="fw-semibold text-secondary">
-                                    Vai trò <span className="text-danger">*</span>
+                                    Role <span className="text-danger">*</span>
                                 </Form.Label>
                                 <div className="d-flex gap-4">
                                     <Form.Check
@@ -289,7 +289,7 @@ const CreateUserModal = ({ show, onHide, onUserCreated }) => {
                     <Modal.Footer className="border-top mt-4">
                         <Button variant="secondary" onClick={handleClose} disabled={isSubmitting}>
                             <i className="bi bi-x-circle me-2"></i>
-                            Hủy
+                            Cancel
                         </Button>
                         <Button
                             variant="primary"
@@ -297,7 +297,7 @@ const CreateUserModal = ({ show, onHide, onUserCreated }) => {
                             disabled={isSubmitting}
                         >
                             <i className="bi bi-check-circle me-2"></i>
-                            {isSubmitting ? 'Đang tạo...' : 'Tạo người dùng'}
+                            {isSubmitting ? 'Creating...' : 'Create User'}
                         </Button>
                     </Modal.Footer>
                 </Form>
