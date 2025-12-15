@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams, useLocation, useNavigate } from 'react-router-dom';
+import { useParams, useLocation } from 'react-router-dom';
 import MainLayout from '../../../layouts/user-layouts/MainLayout';
 import {
   Box,
@@ -54,7 +54,6 @@ const ProductDetail = () => {
   const [toastMessage, setToastMessage] = useState('');
   const [toastSeverity, setToastSeverity] = useState('success');
 
-
   const productId = location.state?.productId;
 
   useEffect(() => {
@@ -99,7 +98,7 @@ const ProductDetail = () => {
     return (
       <MainLayout>
         <Box sx={{ py: 5, textAlign: 'center' }}>
-          <Typography variant="h6">Không tìm thấy sản phẩm</Typography>
+          <Typography variant="h6">Product not found</Typography>
         </Box>
       </MainLayout>
     );
@@ -121,29 +120,24 @@ const ProductDetail = () => {
       const result = await addItem(product.id, 1);
 
       if (result.success) {
-        if (result.isUpdate) {
-          setToastMessage('Đã thêm xe vào giỏ hàng thành công!');
-        } else {
-          setToastMessage('Đã thêm xe vào giỏ hàng thành công!');
-        }
+        setToastMessage('Car successfully added to cart!');
         setToastSeverity('success');
       } else {
-        setToastMessage('Có lỗi xảy ra khi thêm vào giỏ hàng!');
+        setToastMessage('An error occurred while adding to cart!');
         setToastSeverity('error');
       }
     } catch (error) {
       console.error('Error adding to cart:', error);
-      setToastMessage('Có lỗi xảy ra khi thêm vào giỏ hàng!');
+      setToastMessage('An error occurred while adding to cart!');
       setToastSeverity('error');
     }
 
     setToastOpen(true);
   };
+
   const handleCloseToast = () => {
     setToastOpen(false);
-  }
-
-
+  };
 
   return (
     <MainLayout>
@@ -164,7 +158,6 @@ const ProductDetail = () => {
         marginTop: '40px'
       }}>
         <Container maxWidth="xl">
-
           <Grid container spacing={4}>
             <Grid size={7}>
               <Paper
@@ -174,7 +167,6 @@ const ProductDetail = () => {
                   overflow: 'hidden',
                   border: '1px solid #e0e0e0',
                   position: 'relative',
-
                 }}
               >
                 <Box
@@ -182,7 +174,6 @@ const ProductDetail = () => {
                     height: { xs: 350, md: 465 },
                     backgroundColor: '#f8f8f8',
                     position: 'relative'
-
                   }}
                 >
                   <Swiper
@@ -228,7 +219,6 @@ const ProductDetail = () => {
                       >
                         <FavoriteBorder />
                       </IconButton>
-
                     </Stack>
                   </Box>
                 </Box>
@@ -262,7 +252,6 @@ const ProductDetail = () => {
                             transition: 'all 0.3s ease',
                             '&:hover': {
                               borderColor: '#1a1a1a',
-
                             },
                           }}
                         >
@@ -309,11 +298,11 @@ const ProductDetail = () => {
                   </Typography>
                   <Divider orientation="vertical" flexItem />
                   <Typography variant="body2" color="text.secondary">
-                    137 đánh giá
+                    137 reviews
                   </Typography>
                   <Divider orientation="vertical" flexItem />
                   <Typography variant="body2" color="text.secondary">
-                    812 lượt thuê
+                    812 orders
                   </Typography>
                 </Stack>
 
@@ -329,7 +318,7 @@ const ProductDetail = () => {
                 >
                   <Stack spacing={1}>
                     <Typography variant="body2" color="text.secondary" sx={{ fontWeight: 500 }}>
-                      GIÁ BÁN
+                      PRICE
                     </Typography>
                     <Stack direction="row" spacing={2} alignItems="baseline">
                       <Typography
@@ -346,7 +335,7 @@ const ProductDetail = () => {
                     <Stack direction="row" spacing={1} alignItems="center">
                       <CheckCircle sx={{ fontSize: 16, color: '#4caf50' }} />
                       <Typography variant="body2" sx={{ color: '#4caf50', fontWeight: 500 }}>
-                        Giá tốt nhất thị trường
+                        Best market price
                       </Typography>
                     </Stack>
                   </Stack>
@@ -354,7 +343,7 @@ const ProductDetail = () => {
 
                 <Box>
                   <Typography variant="h6" sx={{ mb: 2, fontWeight: 700 }}>
-                    Thông Số Kỹ Thuật
+                    Technical Specifications
                   </Typography>
                   <Grid container spacing={2}>
                     <Grid size={3}>
@@ -374,7 +363,7 @@ const ProductDetail = () => {
                       >
                         <Speed sx={{ fontSize: 32, color: '#1a1a1a', mb: 1 }} />
                         <Typography variant="body2" color="text.secondary" sx={{ mb: 0.5 }}>
-                          Hộp số
+                          Transmission
                         </Typography>
                         <Typography variant="body1" sx={{ fontWeight: 600, textTransform: 'capitalize' }}>
                           {product.transmission}
@@ -399,7 +388,7 @@ const ProductDetail = () => {
                       >
                         <LocalGasStation sx={{ fontSize: 32, color: '#1a1a1a', mb: 1 }} />
                         <Typography variant="body2" color="text.secondary" sx={{ mb: 0.5 }}>
-                          Nhiên liệu
+                          Fuel Type
                         </Typography>
                         <Typography variant="body1" sx={{ fontWeight: 600, textTransform: 'capitalize' }}>
                           {product.fuel_type}
@@ -424,10 +413,10 @@ const ProductDetail = () => {
                       >
                         <Person sx={{ fontSize: 32, color: '#1a1a1a', mb: 1 }} />
                         <Typography variant="body2" color="text.secondary" sx={{ mb: 0.5 }}>
-                          Số chỗ
+                          Seats
                         </Typography>
                         <Typography variant="body1" sx={{ fontWeight: 600 }}>
-                          {product.seats} chỗ
+                          {product.seats} seats
                         </Typography>
                       </Paper>
                     </Grid>
@@ -449,10 +438,10 @@ const ProductDetail = () => {
                       >
                         <GiCarDoor style={{ fontSize: 32, color: '#1a1a1a', marginBottom: 8 }} />
                         <Typography variant="body2" color="text.secondary" sx={{ mb: 0.5 }}>
-                          Số cửa
+                          Doors
                         </Typography>
                         <Typography variant="body1" sx={{ fontWeight: 600 }}>
-                          {product.doors} cửa
+                          {product.doors} doors
                         </Typography>
                       </Paper>
                     </Grid>
@@ -483,7 +472,7 @@ const ProductDetail = () => {
                           transition: 'all 0.3s ease',
                         }}
                       >
-                        Mua Ngay
+                        Buy Now
                       </Button>
                     </Grid>
                     <Grid size={6}>
@@ -511,7 +500,7 @@ const ProductDetail = () => {
                         }}
                       >
                         <MdOutlineAddShoppingCart style={{ marginRight: '10px' }} />
-                        Thêm vào giỏ hàng
+                        Add to Cart
                       </Button>
                     </Grid>
                   </Grid>
@@ -529,19 +518,19 @@ const ProductDetail = () => {
                   <Stack spacing={1.5}>
                     <Stack direction="row" spacing={1.5} alignItems="center">
                       <CheckCircle sx={{ fontSize: 20, color: '#4caf50' }} />
-                      <Typography variant="body2">Bảo hiểm toàn diện</Typography>
+                      <Typography variant="body2">Comprehensive insurance</Typography>
                     </Stack>
                     <Stack direction="row" spacing={1.5} alignItems="center">
                       <CheckCircle sx={{ fontSize: 20, color: '#4caf50' }} />
-                      <Typography variant="body2">Hỗ trợ 24/7</Typography>
+                      <Typography variant="body2">24/7 support</Typography>
                     </Stack>
                     <Stack direction="row" spacing={1.5} alignItems="center">
                       <CheckCircle sx={{ fontSize: 20, color: '#4caf50' }} />
-                      <Typography variant="body2">Miễn phí giao xe tận nơi</Typography>
+                      <Typography variant="body2">Free delivery to your location</Typography>
                     </Stack>
                     <Stack direction="row" spacing={1.5} alignItems="center">
                       <CheckCircle sx={{ fontSize: 20, color: '#4caf50' }} />
-                      <Typography variant="body2">Đổi xe miễn phí nếu có sự cố</Typography>
+                      <Typography variant="body2">Free vehicle replacement in case of issues</Typography>
                     </Stack>
                   </Stack>
                 </Paper>
@@ -571,30 +560,30 @@ const ProductDetail = () => {
                   }
                 }}
               >
-                <Tab label="Mô tả chi tiết" />
-                <Tab label="Đánh giá" />
-                <Tab label="Chính sách" />
+                <Tab label="Detailed Description" />
+                <Tab label="Reviews" />
+                <Tab label="Policy" />
               </Tabs>
 
               <Box sx={{ p: 4 }}>
                 {tabValue === 0 && (
                   <Stack spacing={2}>
                     <Typography variant="h6" sx={{ fontWeight: 700 }}>
-                      Giới thiệu về {product.name}
+                      Introduction to {product.name}
                     </Typography>
                     <Typography variant="body1" color="text.secondary" sx={{ lineHeight: 1.8 }}>
-                      {product.description || 'Mercedes-Benz là biểu tượng của sự sang trọng, đẳng cấp và hiệu suất vượt trội. Mỗi chiếc xe Mercedes-Benz đều được chế tác tỉ mỉ với công nghệ tiên tiến nhất, mang đến trải nghiệm lái xe đầy cảm xúc và an toàn tuyệt đối.'}
+                      {product.description || 'Mercedes-Benz is a symbol of luxury, class, and superior performance. Every Mercedes-Benz vehicle is meticulously crafted with the most advanced technology, delivering an emotional and absolutely safe driving experience.'}
                     </Typography>
                   </Stack>
                 )}
                 {tabValue === 1 && (
                   <Typography variant="body1" color="text.secondary">
-                    Phần đánh giá của khách hàng...
+                    Customer reviews section...
                   </Typography>
                 )}
                 {tabValue === 2 && (
                   <Typography variant="body1" color="text.secondary">
-                    Chính sách thuê xe...
+                    Car purchase/rental policy...
                   </Typography>
                 )}
               </Box>
