@@ -53,6 +53,16 @@ export const useCart = () => {
 
     const addItem = useCallback(async (productId, quantity = 1) => {
         try {
+            // Kiểm tra authentication trước khi thêm vào giỏ hàng
+            const user = localStorage.getItem('user');
+            if (!user) {
+                return {
+                    success: false,
+                    error: 'NOT_AUTHENTICATED',
+                    message: 'Vui lòng đăng nhập để thêm sản phẩm vào giỏ hàng'
+                };
+            }
+
             const existingItem = cartItems.find(item => String(item.car_id) === String(productId));
 
             if (existingItem) {

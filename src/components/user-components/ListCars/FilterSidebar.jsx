@@ -32,8 +32,6 @@ const FilterSidebar = ({
     onClearFilters
 }) => {
     const priceRanges = [
-        '< 1.000.000.000₫',
-        '1.000.000.000₫ - 1.500.000.000₫',
         '1.500.000.000₫ - 2.000.000.000₫',
         '2.000.000.000₫ - 3.000.000.000₫',
         '3.000.000.000₫ - 5.000.000.000₫',
@@ -80,7 +78,6 @@ const FilterSidebar = ({
             </Box>
             <hr />
 
-            {/* Price Range Filter */}
             <Accordion
                 defaultExpanded
                 sx={{
@@ -128,7 +125,6 @@ const FilterSidebar = ({
 
             <Divider sx={{ my: 2, borderColor: '#333' }} />
 
-            {/* Category Filter */}
             <Accordion
                 defaultExpanded
                 sx={{

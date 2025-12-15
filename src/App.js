@@ -1,6 +1,7 @@
 import React, { Suspense, lazy } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import CarProgressLoading from "./components/all-components/CarProgressLoading";
+import ProtectedRoute from "./components/ProtectedRoute";
 import ShoppingCart from "./pages/user-pages/Cart/ShoppingCart";
 import CarBooking from "./pages/Booking/CarBooking";
 
@@ -28,24 +29,105 @@ function App() {
     <BrowserRouter>
       <Suspense fallback={<CarProgressLoading />}>
         <Routes>
+          {/* Public routes */}
           <Route path="/dang-nhap" element={<Login />} />
           <Route path="/" element={<HomePage />} />
           <Route path="/dang-ky" element={<Signup />} />
           <Route path="/ve-chung-toi" element={<AboutDetail />} />
           <Route path="/danh-sach-san-pham" element={<ListCars />} />
           <Route path="/san-pham/:name" element={<ProductDetail />} />
-          <Route path="/gio-hang" element={<ShoppingCart />} />
-          <Route path="/profile" element={<ProfileUser />} />
-          <Route path="/history-order" element={<HistoryOrder />} />
-          <Route path="/user-change-password" element={<UserChangePassword />} />
-          <Route path="/booking" element={<CarBooking />} />
 
-          <Route path="/admin/quan-tri" element={<Dashboard />} />
-          <Route path="/admin/quan-ly-nguoi-dung" element={<ManageUser />} />
-          <Route path="/admin/quan-ly-xe" element={<ManageCar />} />
-          <Route path="/admin/process-orders" element={<ProcessOrder />} />
-          <Route path="/admin/ho-so-ca-nhan" element={<Profile />} />
-          <Route path="/admin/doi-mat-khau" element={<ChangePassword />} />
+          {/* Protected user routes */}
+          <Route
+            path="/gio-hang"
+            element={
+              <ProtectedRoute>
+                <ShoppingCart />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/profile"
+            element={
+              <ProtectedRoute>
+                <ProfileUser />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/history-order"
+            element={
+              <ProtectedRoute>
+                <HistoryOrder />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/user-change-password"
+            element={
+              <ProtectedRoute>
+                <UserChangePassword />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/booking"
+            element={
+              <ProtectedRoute>
+                <CarBooking />
+              </ProtectedRoute>
+            }
+          />
+
+          {/* Protected admin routes */}
+          <Route
+            path="/admin/quan-tri"
+            element={
+              <ProtectedRoute adminOnly>
+                <Dashboard />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin/quan-ly-nguoi-dung"
+            element={
+              <ProtectedRoute adminOnly>
+                <ManageUser />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin/quan-ly-xe"
+            element={
+              <ProtectedRoute adminOnly>
+                <ManageCar />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin/process-orders"
+            element={
+              <ProtectedRoute adminOnly>
+                <ProcessOrder />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin/ho-so-ca-nhan"
+            element={
+              <ProtectedRoute adminOnly>
+                <Profile />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin/doi-mat-khau"
+            element={
+              <ProtectedRoute adminOnly>
+                <ChangePassword />
+              </ProtectedRoute>
+            }
+          />
         </Routes>
       </Suspense>
     </BrowserRouter>

@@ -127,17 +127,30 @@ const ProductDetail = () => {
           setToastMessage('Đã thêm xe vào giỏ hàng thành công!');
         }
         setToastSeverity('success');
+        setToastOpen(true);
       } else {
-        setToastMessage('Có lỗi xảy ra khi thêm vào giỏ hàng!');
-        setToastSeverity('error');
+        // Kiểm tra nếu lỗi do chưa đăng nhập
+        if (result.error === 'NOT_AUTHENTICATED') {
+          setToastMessage(result.message || 'Vui lòng đăng nhập để thêm sản phẩm vào giỏ hàng');
+          setToastSeverity('warning');
+          setToastOpen(true);
+
+          // Chuyển hướng đến trang đăng nhập sau 1.5 giây
+          setTimeout(() => {
+            window.location.href = '/dang-nhap';
+          }, 1500);
+        } else {
+          setToastMessage('Có lỗi xảy ra khi thêm vào giỏ hàng!');
+          setToastSeverity('error');
+          setToastOpen(true);
+        }
       }
     } catch (error) {
       console.error('Error adding to cart:', error);
       setToastMessage('Có lỗi xảy ra khi thêm vào giỏ hàng!');
       setToastSeverity('error');
+      setToastOpen(true);
     }
-
-    setToastOpen(true);
   };
   const handleCloseToast = () => {
     setToastOpen(false);
