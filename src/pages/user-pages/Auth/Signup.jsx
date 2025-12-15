@@ -60,27 +60,27 @@ const Signup = () => {
             !form.password ||
             !form.confirmPassword
         ) {
-            setError('Vui lòng nhập đầy đủ thông tin')
+            setError('Please fill in all required fields')
             return
         }
 
         if (!validateEmail(form.email)) {
-            setError('Email không hợp lệ')
+            setError('Invalid email address')
             return
         }
 
         if (!validatePhone(form.phone)) {
-            setError('Số điện thoại không hợp lệ')
+            setError('Invalid phone number')
             return
         }
 
         if (form.password.length < 6) {
-            setError('Mật khẩu phải từ 6 ký tự trở lên')
+            setError('Password must be at least 6 characters long')
             return
         }
 
         if (form.password !== form.confirmPassword) {
-            setError('Mật khẩu xác nhận không khớp')
+            setError('Passwords do not match')
             return
         }
 
@@ -95,7 +95,7 @@ const Signup = () => {
             })
 
             if (result.success) {
-                setSuccess('Đăng ký thành công!')
+                setSuccess('Registration successful!')
                 setTimeout(() => {
                     navigate('/login')
                 }, 1500)
@@ -103,7 +103,7 @@ const Signup = () => {
                 setError(result.message)
             }
         } catch (err) {
-            setError(err.message || 'Đăng ký thất bại, vui lòng thử lại')
+            setError(err.message || 'Registration failed. Please try again.')
         }
     }
 
@@ -148,7 +148,7 @@ const Signup = () => {
                         }}
                     >
                         <Typography variant="h4" fontWeight={700} gutterBottom sx={{ display: 'flex', justifyContent: 'center', mb: 2, paddingBottom: { xs: 0, md: 3 } }}>
-                            Đăng ký
+                            Sign Up
                         </Typography>
 
                         <Box component="form" onSubmit={handleSubmit}>
@@ -156,8 +156,8 @@ const Signup = () => {
                                 <TextField
                                     fullWidth
                                     name="username"
-                                    label="Tài khoản"
-                                    placeholder="Nhập tài khoản"
+                                    label="Username"
+                                    placeholder="Enter username"
                                     value={form.username}
                                     onChange={handleChange}
                                     variant="outlined"
@@ -177,8 +177,8 @@ const Signup = () => {
                                 <Stack direction="row" spacing={2}>
                                     <TextField
                                         name="full_name"
-                                        label="Họ và tên"
-                                        placeholder="Nhập họ và tên"
+                                        label="Full Name"
+                                        placeholder="Enter full name"
                                         value={form.full_name}
                                         onChange={handleChange}
                                         variant="outlined"
@@ -198,8 +198,8 @@ const Signup = () => {
                                     />
                                     <TextField
                                         name="phone"
-                                        label="Số điện thoại"
-                                        placeholder="Nhập số điện thoại"
+                                        label="Phone Number"
+                                        placeholder="Enter phone number"
                                         value={form.phone}
                                         onChange={handleChange}
                                         variant="outlined"
@@ -222,7 +222,7 @@ const Signup = () => {
                                     fullWidth
                                     name="email"
                                     label="Email"
-                                    placeholder="Nhập email"
+                                    placeholder="Enter email"
                                     value={form.email}
                                     onChange={handleChange}
                                     variant="outlined"
@@ -242,8 +242,8 @@ const Signup = () => {
                                 <TextField
                                     fullWidth
                                     name="address"
-                                    label="Địa chỉ"
-                                    placeholder="Nhập địa chỉ"
+                                    label="Address"
+                                    placeholder="Enter address"
                                     value={form.address}
                                     onChange={handleChange}
                                     variant="outlined"
@@ -264,8 +264,8 @@ const Signup = () => {
                                     <TextField
                                         fullWidth
                                         name="password"
-                                        label="Mật khẩu"
-                                        placeholder="Nhập mật khẩu"
+                                        label="Password"
+                                        placeholder="Enter password"
                                         type={show ? 'text' : 'password'}
                                         value={form.password}
                                         onChange={handleChange}
@@ -275,8 +275,9 @@ const Signup = () => {
                                             style: { color: '#000000ff' },
                                             endAdornment: (
                                                 <InputAdornment position="end">
-                                                    <IconButton sx={{ color: 'rgba(120, 120, 120, 0.35)' }}
-                                                        aria-label={show ? "Ẩn mật khẩu" : "Hiện mật khẩu"}
+                                                    <IconButton 
+                                                        sx={{ color: 'rgba(120, 120, 120, 0.35)' }}
+                                                        aria-label={show ? "Hide password" : "Show password"}
                                                         onClick={() => setShow((s) => !s)}
                                                         onMouseDown={(e) => e.preventDefault()}
                                                         edge="end"
@@ -300,8 +301,8 @@ const Signup = () => {
                                     <TextField
                                         fullWidth
                                         name="confirmPassword"
-                                        label="Xác nhận mật khẩu"
-                                        placeholder="Nhập lại mật khẩu"
+                                        label="Confirm Password"
+                                        placeholder="Confirm password"
                                         type={show ? 'text' : 'password'}
                                         value={form.confirmPassword}
                                         onChange={handleChange}
@@ -311,8 +312,9 @@ const Signup = () => {
                                             style: { color: '#000000ff' },
                                             endAdornment: (
                                                 <InputAdornment position="end">
-                                                    <IconButton sx={{ color: 'rgba(120, 120, 120, 0.35)' }}
-                                                        aria-label={show ? "Ẩn mật khẩu" : "Hiện mật khẩu"}
+                                                    <IconButton 
+                                                        sx={{ color: 'rgba(120, 120, 120, 0.35)' }}
+                                                        aria-label={show ? "Hide password" : "Show password"}
                                                         onClick={() => setShow((s) => !s)}
                                                         onMouseDown={(e) => e.preventDefault()}
                                                         edge="end"
@@ -363,7 +365,7 @@ const Signup = () => {
                                         }
                                     }}
                                 >
-                                    Đăng ký
+                                    Sign Up
                                 </Button>
                             </Stack>
                         </Box>
@@ -380,7 +382,7 @@ const Signup = () => {
                                     px: 2,
                                     fontSize: '14px'
                                 }}>
-                                    hoặc
+                                    or
                                 </Typography>
                             </Divider>
                         </Box>
@@ -388,7 +390,7 @@ const Signup = () => {
                         <Box sx={{ mt: 4, textAlign: 'center' }}>
                             <Typography
                                 component="a"
-                                href="/dang-nhap"
+                                href="/login"
                                 sx={{
                                     color: 'rgba(0, 0, 0, 0.8)',
                                     textDecoration: 'none',
@@ -400,7 +402,7 @@ const Signup = () => {
                                     }
                                 }}
                             >
-                                Đã có tài khoản? Đăng nhập
+                                Already have an account? Log in
                             </Typography>
                         </Box>
                     </Paper>

@@ -28,9 +28,9 @@ function App() {
     <BrowserRouter>
       <Suspense fallback={<CarProgressLoading />}>
         <Routes>
-          <Route path="/dang-nhap" element={<Login />} />
+          <Route path="/login" element={<Login />} />
           <Route path="/" element={<HomePage />} />
-          <Route path="/dang-ky" element={<Signup />} />
+          <Route path="/register" element={<Signup />} />
           <Route path="/ve-chung-toi" element={<AboutDetail />} />
           <Route path="/danh-sach-san-pham" element={<ListCars />} />
           <Route path="/san-pham/:name" element={<ProductDetail />} />
