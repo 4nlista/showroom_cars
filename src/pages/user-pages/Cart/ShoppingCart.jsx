@@ -87,8 +87,7 @@ const CartShopee = () => {
         },
     ];
 
-
-    const formatPrice = (p) => new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(p);
+   const formatPrice = (p) => new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(p);
 
     const allChecked = isAllSelected();
     const selectedCount = getSelectedCount();
@@ -113,9 +112,9 @@ const CartShopee = () => {
     const handleRemoveSelected = async () => {
         await removeSelectedItems();
     };
+
     return (
         <MainLayout>
-
             <Box
                 sx={{
                     pt: { xs: 15, md: 20 },
@@ -146,11 +145,11 @@ const CartShopee = () => {
                                 onChange={(e) => handleToggleAll(e.target.checked)}
                             />
                         </Box>
-                        <Typography variant="body2">Sản phẩm</Typography>
-                        <Typography variant="body2">Đơn giá</Typography>
-                        <Typography variant="body2">Số lượng</Typography>
+                        <Typography variant="body2">Product</Typography>
+                        <Typography variant="body2">Unit Price</Typography>
+                        <Typography variant="body2">Quantity</Typography>
                         <Typography variant="body2" sx={{ textAlign: 'right' }}>
-                            Thao tác
+                            Actions
                         </Typography>
                     </Box>
 
@@ -323,7 +322,7 @@ const CartShopee = () => {
                                 onClick={handleRemoveSelected}
                                 sx={{ textTransform: 'none' }}
                             >
-                                Xóa {selectedCount} sản phẩm đã chọn
+                                Delete {selectedCount} selected item{selectedCount > 1 ? 's' : ''}
                             </Button>
                         </Box>
                     )}
@@ -358,7 +357,7 @@ const CartShopee = () => {
                                         onChange={(e) => handleToggleAll(e.target.checked)}
                                     />
                                     <Typography variant="body2">
-                                        Chọn tất cả ({items.length})
+                                        Select all ({items.length})
                                     </Typography>
                                 </Box>
 
@@ -372,7 +371,7 @@ const CartShopee = () => {
                                 >
                                     <Box sx={{ textAlign: 'right' }}>
                                         <Typography variant="body2" color="text.secondary">
-                                            Tổng thanh toán ({selectedCount} sản phẩm):
+                                            Total payment ({selectedCount} item):
                                         </Typography>
                                         <Typography
                                             variant="h6"
@@ -385,7 +384,7 @@ const CartShopee = () => {
                                         </Typography>
                                     </Box>
                                     <Button
-                                        onClick ={() => {navigate('/booking')}}
+                                        onClick={() => { navigate('/booking') }}
                                         variant="contained"
                                         disabled={selectedCount === 0}
                                         sx={{
@@ -405,7 +404,7 @@ const CartShopee = () => {
                                             },
                                         }}
                                     >
-                                        Mua hàng
+                                        Proceed to Checkout
                                     </Button>
                                 </Box>
                             </Box>
@@ -421,14 +420,14 @@ const CartShopee = () => {
                                 color: '#1a1a1a',
                             }}
                         >
-                            Các Mẫu Xe Bạn Có Thể Thích
+                            You Might Also Like
                         </Typography>
 
                         <Grid container spacing={3}>
                             {recommendedCars.map((car) => (
                                 <Grid size={4} key={car.id}>
                                     <CarCard
-                                    car={car}
+                                        car={car}
                                     formatVND={formatPrice}
                                     />
                                 </Grid>
@@ -437,8 +436,6 @@ const CartShopee = () => {
                     </Box>
                 </Container>
             </Box>
-
-
         </MainLayout>
     );
 };
