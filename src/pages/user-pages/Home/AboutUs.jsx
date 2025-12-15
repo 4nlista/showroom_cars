@@ -23,10 +23,10 @@ const AboutUs = () => {
                         <Grid size={{ xs: 12, md: 6 }} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                             <div>
                                 <Typography variant="h4" gutterBottom sx={{ fontWeight: 'bold', fontSize: { xs: '2rem', md: '2.5rem' } }}>
-                                    VỊ THẾ VƯỢT THỜI GIAN TỪ 1886.
+                                    TIMELESS POSITIONING SINCE 1886.
                                 </Typography>
                                 <Typography variant="body1" gutterBottom sx={{ fontSize: '1.1rem', color: '#1d1d1dff', mt: 3 }}>
-                                    Định nghĩa về xe luôn thay đổi, nhưng đẳng cấp thì không. Khi đó là Mercedes-Benz.
+                                    The definition of a car is always changing, but class is forever. That is Mercedes-Benz.
                                 </Typography>
                                 <Button
                                     variant="contained"
@@ -46,9 +46,9 @@ const AboutUs = () => {
                                             color: '#000000ff',
                                         }
                                     }}
-                                    onClick={() => navigate("/aboutus")}
+                                    onClick={() => navigate("/about-us")}
                                 >
-                                    Tìm hiểu thêm
+                                    Learn more
                                 </Button>
                             </div>
                         </Grid>

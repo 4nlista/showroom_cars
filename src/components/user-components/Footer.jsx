@@ -6,58 +6,60 @@ import {
   Typography,
   Button
 } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 const Footer = () => {
+  const navigate = useNavigate();
   const footerSections = [
     {
-      title: "Các dòng xe",
+      title: "Vehicle ranges",
       items: [
-        "Xe thuần điện EQ",
+        "EQ electric vehicles",
         "Sedan",
         "SUV",
-        "Cabriolet và Roadster",
+        "Cabriolet and Roadster",
         "Mercedes-AMG",
         "Mercedes-Maybach",
-        "Xe đa dụng"
+        "Multi-purpose vehicles"
       ]
     },
     {
-      title: "Mua xe",
+      title: "Buy a car",
       items: [
-        "Ưu đãi mới nhất",
-        "Tìm xe mới",
-        "Tìm xe đã qua sử dụng",
-        "Bảng giá & Brochure",
-        "Cấu hình xe",
-        "Khối doanh nghiệp & Khách hàng ưu tiên"
+        "Latest offers",
+        "Find new cars",
+        "Find used cars",
+        "Price list & Brochure",
+        "Configure your car",
+        "Corporate & Priority customers"
       ]
     },
     {
-      title: "Tư vấn mua xe",
+      title: "Purchase consultation",
       items: [
-        "Yêu cầu tư vấn",
-        "Đăng ký lái thử",
-        "Tìm Nhà phân phối gần nhất"
+        "Request consultation",
+        "Register for a test drive",
+        "Find the nearest dealer"
       ]
     },
     {
-      title: "Dịch vụ",
+      title: "Services",
       items: [
-        "Ưu đãi dịch vụ",
-        "Đặt hẹn dịch vụ",
-        "Hướng dẫn sử dụng dành cho chủ sở hữu xe",
-        "Phụ kiện chính hãng",
-        "Bộ sưu tập Mercedes-Benz",
-        "Triệu hồi"
+        "Service offers",
+        "Book a service appointment",
+        "Owner's manuals",
+        "Genuine accessories",
+        "Mercedes-Benz collection",
+        "Recalls"
       ]
     },
     {
-      title: "Khám phá Mercedes",
+      title: "Explore Mercedes",
       items: [
-        "Câu chuyện của chúng tôi",
-        "Cơ hội việc làm",
-        "Liên hệ",
-        "Quyền riêng tư"
+        "Our story",
+        "Careers",
+        "Contact",
+        "Privacy"
       ]
     }
   ];
@@ -71,9 +73,14 @@ const Footer = () => {
       }}
     >
       <Container maxWidth="xl">
-        <Grid container spacing={4}>
+        <Grid
+          container
+          spacing={4}
+          columns={{ xs: 4, sm: 8, md: 15 }}
+          justifyContent="space-between"
+        >
           {footerSections.map((section, index) => (
-            <Grid item xs={12} sm={6} md={2.4} key={index}>
+            <Grid item xs={4} sm={4} md={3} key={index}>
               <Typography
                 variant="h6"
                 sx={{
@@ -129,7 +136,7 @@ const Footer = () => {
               textAlign: "center"
             }}
           >
-            Tìm Showroom Mercedes-Benz
+            Find a Mercedes-Benz showroom
           </Typography>
 
           <Grid container spacing={4} alignItems="center" justifyContent="center">
@@ -176,12 +183,12 @@ const Footer = () => {
                     color: "white"
                   }}
                 >
-                  Thông tin liên hệ
+                  Contact information
                 </Typography>
 
                 <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
                   <Typography sx={{ color: "#cccccc", fontSize: "14px" }}>
-                    📍 Địa chỉ: 132a, Đường Lê Văn Miến
+                    📍 Address: 132a, Le Van Mien Street
                   </Typography>
                   <Typography sx={{ color: "#cccccc", fontSize: "14px" }}>
                     📞 Hotline: 0867897979
@@ -190,7 +197,7 @@ const Footer = () => {
                     ✉️ Email: nguyenductuan92@gmail.com
                   </Typography>
                   <Typography sx={{ color: "#cccccc", fontSize: "14px" }}>
-                    🕒 Giờ làm việc: 8:00 - 18:00 (Thứ 2 - Chủ nhật)
+                    🕒 Working hours: 8:00 - 18:00 (Monday - Sunday)
                   </Typography>
                 </Box>
 
@@ -208,8 +215,9 @@ const Footer = () => {
                       borderColor: "white"
                     }
                   }}
+                  onClick={() => navigate('/booking')}
                 >
-                  Đặt lịch hẹn
+                  Book an appointment
                 </Button>
               </Box>
             </Grid>
@@ -235,7 +243,7 @@ const Footer = () => {
               fontSize: "12px"
             }}
           >
-            © 2025 Mercedes-Benz Vietnam. Tất cả các quyền được bảo lưu.
+            © 2025 Mercedes-Benz Vietnam. All rights reserved.
           </Typography>
 
           <Box sx={{ display: "flex", gap: 3 }}>
@@ -252,7 +260,7 @@ const Footer = () => {
                 },
               }}
             >
-              Chính sách bảo mật
+              Privacy policy
             </Button>
             <Button
               sx={{
@@ -267,7 +275,7 @@ const Footer = () => {
                 },
               }}
             >
-              Điều khoản sử dụng
+              Terms of use
             </Button>
           </Box>
         </Box>
