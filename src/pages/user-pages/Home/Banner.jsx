@@ -27,13 +27,13 @@ const Banner = () => {
       id: 1,
       src: '/Images/vid-demo/original.mp4',
       poster: '/Images/poster1.jpg',
-      title: 'Khám Phá Đẳng Cấp Mercedes-Benz'
+      title: 'Discover the Luxury of Mercedes-Benz'
     },
     {
       id: 2,
       src: '/Images/vid-demo/The-G-Class-Experience-Center-in-Graz-Get-G-Proved-1080p-FHD[1080p-FHD]-(www.Download.Tube).mp4',
       poster: '/Images/poster2.jpg',
-      title: 'Trải Nghiệm G-Class Biểu Tượng Sức Mạnh Và Đẳng Cấp'
+      title: 'Experience the Iconic Power and Prestige of the G-Class'
     },
   ];
 
@@ -44,7 +44,7 @@ const Banner = () => {
         firstVideo.play().then(() => {
           setIsPlaying(true);
         }).catch((error) => {
-          console.log('Không thể tự động phát video:', error);
+          console.log('Unable to autoplay video:', error);
           setIsPlaying(false);
         });
       }
@@ -63,7 +63,7 @@ const Banner = () => {
         currentVideo.play().then(() => {
           setIsPlaying(true);
         }).catch((error) => {
-          console.log('Không thể phát video:', error);
+          console.log('Unable to play video:', error);
         });
       }
     }
@@ -81,7 +81,7 @@ const Banner = () => {
         activeVideo.play().then(() => {
           setIsPlaying(true);
         }).catch((error) => {
-          console.log('Không thể phát video mới:', error);
+          console.log('Unable to play new video:', error);
           setIsPlaying(false);
         });
       }
@@ -155,12 +155,11 @@ const Banner = () => {
                   poster={video.poster}
                   preload="auto"
                   onError={(e) => {
-                    console.log('Lỗi tải video:', e.target.src);
+                    console.log('Error loading video:', e.target.src);
                   }}
                 >
-
                   <source src={video.src} type="video/mp4" />
-                  Trình duyệt của bạn không hỗ trợ video.
+                  Your browser does not support the video tag.
                 </video>
                 <Box
                   sx={{
@@ -178,8 +177,6 @@ const Banner = () => {
                 >
                   {video.title}
                 </Box>
-
-
 
                 <Box sx={{
                   position: 'absolute',
@@ -199,7 +196,9 @@ const Banner = () => {
                       backgroundColor: 'white',
                       color: 'black',
                     },
-                  }} variant="outlined" >Tìm hiểu thêm</Button>
+                  }} variant="outlined">
+                    Learn More
+                  </Button>
                 </Box>
                 <Box
                   sx={{
@@ -213,7 +212,6 @@ const Banner = () => {
                   }}
                 />
               </Box>
-
             </SwiperSlide>
           ))}
         </Swiper>
