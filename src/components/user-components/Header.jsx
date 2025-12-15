@@ -21,9 +21,9 @@ import { useCart } from "../../hooks/useCart";
 const Header = () => {
   const navigate = useNavigate();
   const menus = [
-    { label: "Các mẫu xe", path: "/danh-sach-san-pham" },
-    { label: "Dịch vụ", path: "/dich-vu" },
-    { label: "Về chúng tôi", path: "/ve-chung-toi" }
+    { label: "Models", path: "/car-list" },
+    { label: "Services", path: "/services" },
+    { label: "About us", path: "/about-us" }
   ];
   const [anchorEl, setAnchorEl] = useState(null);
   const [user, setUser] = useState(null);
@@ -77,7 +77,7 @@ const Header = () => {
     const keyword = searchTerm.trim();
     if (!keyword) return;
     setSearchOpen(false);
-    navigate(`/danh-sach-san-pham?search=${encodeURIComponent(keyword)}`);
+    navigate(`/car-list?search=${encodeURIComponent(keyword)}`);
   };
 
 
@@ -184,7 +184,7 @@ const Header = () => {
           {!isLoggedIn ? (
             <>
               <Box
-                onClick={() => navigate('/dang-nhap')}
+                onClick={() => navigate('/login')}
                 sx={{
                   color: "white",
                   cursor: "pointer",
@@ -193,10 +193,10 @@ const Header = () => {
                   "&:hover": { color: "#ccc" },
                 }}
               >
-                Đăng nhập
+                Login
               </Box>
               <Box
-                onClick={() => navigate('/dang-ky')}
+                onClick={() => navigate('/signup')}
                 sx={{
                   color: "white",
                   px: 1,
@@ -205,7 +205,7 @@ const Header = () => {
                   "&:hover": { color: "#ccc" },
                 }}
               >
-                Đăng ký
+                Sign up
               </Box>
 
             </>
@@ -277,7 +277,7 @@ const Header = () => {
                   }}
                 >
 
-                  Hồ sơ cá nhân
+                  Personal profile
                 </MenuItem>
 
 
@@ -299,7 +299,7 @@ const Header = () => {
                   }}
                 >
 
-                  Lịch sử đơn hàng
+                  Order history
                 </MenuItem>
 
 
@@ -322,7 +322,7 @@ const Header = () => {
                   }}
                 >
 
-                  Đổi mật khẩu
+                  Change password
                 </MenuItem>
                 <MenuItem
                   onClick={handleLogout}
@@ -342,14 +342,14 @@ const Header = () => {
                   }}
                 >
 
-                  Đăng xuất
+                  Log out
                 </MenuItem>
               </Menu>
               <Badge
                 badgeContent={countCart}
                 color="error"
                 showZero
-                onClick={() => navigate('/gio-hang')}
+                onClick={() => navigate('/cart')}
                 sx={{
                   cursor: 'pointer',
                   '& .MuiBadge-badge': {
