@@ -63,11 +63,11 @@ const FeaturedCar = () => {
             <Box sx={{ py: { xs: 6, md: 8 } }}>
                 <Container maxWidth="xl">
                     <Typography variant="h5" textAlign="center" color="error">
-                        Không thể tải dữ liệu xe. Vui lòng thử lại sau.
+                        Unable to load car data. Please try again later.
                     </Typography>
                     <Box textAlign="center" mt={2}>
                         <Button variant="contained" onClick={fetchCars}>
-                            Thử lại
+                            Retry
                         </Button>
                     </Box>
                 </Container>
@@ -80,7 +80,7 @@ const FeaturedCar = () => {
             <Box sx={{ py: { xs: 6, md: 8 } }}>
                 <Container maxWidth="xl">
                     <Typography variant="h5" textAlign="center">
-                        Hiện tại chưa có xe nào được hiển thị.
+                        No featured cars are available at the moment.
                     </Typography>
                 </Container>
             </Box>
@@ -101,7 +101,7 @@ const FeaturedCar = () => {
                             fontSize: { xs: '2rem', md: '2.5rem' }
                         }}
                     >
-                        Danh Sách Xe Nổi Bật
+                        Featured Cars
                     </Typography>
                     <Typography
                         variant='body1'
@@ -113,7 +113,7 @@ const FeaturedCar = () => {
                             mx: 'auto'
                         }}
                     >
-                        Khám phá những mẫu xe ưu chuộng nhất hiện nay, mang đến trải nghiệm lái đỉnh cao và phong cách sang trọng
+                        Discover the most popular car models right now, offering an exceptional driving experience with luxurious style and advanced technology.
                     </Typography>
                 </Box>
 
@@ -185,7 +185,7 @@ const FeaturedCar = () => {
                                                 lineHeight: 1.3
                                             }}
                                         >
-                                            {car.name || 'Tên xe không có'}
+                                            {car.name || 'Car Name Unavailable'}
                                         </Typography>
 
                                         <Box
@@ -206,7 +206,7 @@ const FeaturedCar = () => {
                                                     lineHeight: 1.6,
                                                 }}
                                             >
-                                                {car.description || 'Mô tả sản phẩm sẽ được cập nhật sớm. Xe này mang đến trải nghiệm lái tuyệt vời với thiết kế hiện đại và công nghệ tiên tiến.'}
+                                                {car.description || 'Product description will be updated soon. This car delivers an outstanding driving experience with modern design and cutting-edge technology.'}
                                             </Typography>
                                         </Box>
 
@@ -227,7 +227,7 @@ const FeaturedCar = () => {
                                                     }
                                                 }}
                                             >
-                                                Xem chi tiết
+                                                View Details
                                             </Button>
 
                                             <Button
@@ -248,7 +248,7 @@ const FeaturedCar = () => {
                                                     }
                                                 }}
                                             >
-                                                Đăng ký lái thử
+                                                Book a Test Drive
                                             </Button>
 
                                         </CardActions>
