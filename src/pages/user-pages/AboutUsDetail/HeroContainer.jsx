@@ -19,7 +19,8 @@ const HeroContainer = () => {
           left: 0,
           right: 0,
           height: '60%',
-          background: 'linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.4) 40%, transparent 100%)',
+          background:
+            'linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.4) 40%, transparent 100%)',
           pointerEvents: 'none',
           zIndex: 2,
         }
@@ -27,7 +28,6 @@ const HeroContainer = () => {
     >
       <Box
         sx={{
-
           position: 'absolute',
           top: 0,
           left: 0,
@@ -40,6 +40,7 @@ const HeroContainer = () => {
           zIndex: 1,
         }}
       />
+
       <Container
         maxWidth="xl"
         sx={{
@@ -62,7 +63,7 @@ const HeroContainer = () => {
                   textShadow: '2px 2px 4px rgba(0,0,0,0.7)',
                 }}
               >
-                Định nghĩa về xe luôn thay đổi, nhưng đẳng cấp thì không.
+                The definition of a car may change, but prestige never does.
               </Typography>
 
               <Typography
@@ -75,8 +76,9 @@ const HeroContainer = () => {
                   marginBottom: { xs: 2, md: 9 }
                 }}
               >
-                Khi đó là Mercedes-Benz.
+                When it is Mercedes-Benz.
               </Typography>
+
               <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
                 <Button
                   variant="outlined"
@@ -94,8 +96,9 @@ const HeroContainer = () => {
                     },
                   }}
                 >
-                  Khám phá những điểm nổi bật
+                  Explore the highlights
                 </Button>
+
                 <Button
                   variant="contained"
                   sx={{
@@ -112,7 +115,7 @@ const HeroContainer = () => {
                     },
                   }}
                 >
-                  Liên hệ
+                  Contact us
                 </Button>
               </Box>
             </Box>

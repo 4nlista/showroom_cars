@@ -4,27 +4,27 @@ const IntroSection = () => {
     const post = [
         {
             id: 1,
-            title: '...một không gian thư giãn lý tưởng.',
+            title: '...an ideal space for relaxation.',
             img: '/Images/aboutus/card1.avif'
         },
         {
             id: 2,
-            title: '...một phòng làm việc.',
+            title: '...a workspace.',
             img: '/Images/aboutus/card2.avif'
         },
         {
             id: 3,
-            title: '...một rạp chiếu phim.',
+            title: '...a private cinema.',
             img: '/Images/aboutus/card3.webp'
         },
         {
             id: 4,
-            title: '...một trung tâm công nghệ.',
+            title: '...a technology hub.',
             img: '/Images/aboutus/card4.jpg'
         },
         {
             id: 5,
-            title: '...một vùng an toàn.',
+            title: '...a safe haven.',
             img: '/Images/aboutus/card5.avif'
         }
     ]
@@ -47,7 +47,7 @@ const IntroSection = () => {
                         fontSize: { xs: '0.45rem', lg: '1rem' },
                     }}
                 >
-                    Qua 138 năm không ngừng nghiên cứu và phát triển các tính năng công nghệ — xe Mercedes-Benz giờ đây không đơn thuần là phương tiện di chuyển mà là không gian thư giãn, phòng làm việc và một vùng an toàn — đáp ứng nhu cầu của chủ nhân thật trọn vẹn.
+                    Over 138 years of continuous research and technological innovation, Mercedes-Benz vehicles are no longer merely a means of transportation — they have become a space for relaxation, a workspace, and a safe haven, designed to fully meet the needs of their owners.
                 </Typography>
 
                 <Typography
@@ -65,8 +65,9 @@ const IntroSection = () => {
                         fontSize: { xs: '0.45rem', lg: '1rem' },
                     }}
                 >
-                    Chúng tôi tự hào khi chiếc xe có thể trở thành...
+                    We are proud that our vehicles can become...
                 </Typography>
+
                 <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
                     {post.map((post, index) => (
                         <Grid key={post.id} size={{ xs: 2, sm: 4, md: index === 0 ? 8 : 4 }}>
@@ -92,7 +93,6 @@ const IntroSection = () => {
                                         overflow: 'hidden',
                                     }}
                                 >
-
                                     <Box
                                         className="post-image"
                                         sx={{
@@ -104,6 +104,7 @@ const IntroSection = () => {
                                             transition: 'transform 0.3s ease-in-out',
                                         }}
                                     />
+
                                     <Typography
                                         variant={index === 0 ? "h5" : "h6"}
                                         component="h2"
@@ -131,7 +132,8 @@ const IntroSection = () => {
                                                 left: 0,
                                                 right: 0,
                                                 height: '80%',
-                                                background: 'linear-gradient(to top, rgba(0,0,0,0.9) 10%, rgba(0,0,0,0.4) 30%, transparent 100%)',
+                                                background:
+                                                    'linear-gradient(to top, rgba(0,0,0,0.9) 10%, rgba(0,0,0,0.4) 30%, transparent 100%)',
                                                 zIndex: 8,
                                             }
                                         }}
