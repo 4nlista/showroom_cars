@@ -16,17 +16,17 @@ const AboutUs = () => {
                                     component="img"
                                     height="100%"
                                     image="/Images/aboutus/intro.avif"
-                                    alt="green iguana"
+                                    alt="Mercedes-Benz heritage"
                                 />
                             </Card>
                         </Grid>
                         <Grid size={{ xs: 12, md: 6 }} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                             <div>
                                 <Typography variant="h4" gutterBottom sx={{ fontWeight: 'bold', fontSize: { xs: '2rem', md: '2.5rem' } }}>
-                                    VỊ THẾ VƯỢT THỜI GIAN TỪ 1886.
+                                    A LEGACY OF EXCELLENCE SINCE 1886.
                                 </Typography>
                                 <Typography variant="body1" gutterBottom sx={{ fontSize: '1.1rem', color: '#1d1d1dff', mt: 3 }}>
-                                    Định nghĩa về xe luôn thay đổi, nhưng đẳng cấp thì không. Khi đó là Mercedes-Benz.
+                                    The definition of a car may change over time, but true luxury remains timeless. Especially when it’s Mercedes-Benz.
                                 </Typography>
                                 <Button
                                     variant="contained"
@@ -48,7 +48,7 @@ const AboutUs = () => {
                                     }}
                                     onClick={() => navigate("/aboutus")}
                                 >
-                                    Tìm hiểu thêm
+                                    Learn More
                                 </Button>
                             </div>
                         </Grid>
