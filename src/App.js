@@ -40,7 +40,7 @@ function App() {
           <Route path="/user-change-password" element={<UserChangePassword />} />
           <Route path="/booking" element={<CarBooking />} />
 
-          <Route path="/admin/quan-tri" element={<Dashboard />} />
+          <Route path="/admin/dashboard" element={<Dashboard />} />
           <Route path="/admin/quan-ly-nguoi-dung" element={<ManageUser />} />
           <Route path="/admin/quan-ly-xe" element={<ManageCar />} />
           <Route path="/admin/process-orders" element={<ProcessOrder />} />
