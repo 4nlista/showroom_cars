@@ -1,8 +1,7 @@
 import axios from 'axios';
 import API_BASE_URL from '../config';
 
-
-// lấy toàn bộ danh sách các xe
+// Get all cars
 export const getCars = async () => {
   try {
     const response = await axios.get(`${API_BASE_URL}/cars`);
@@ -14,8 +13,7 @@ export const getCars = async () => {
   }
 };
 
-
-// Lấy thông tin chi tiết loại xe dùng theo ID
+// Get car detail by ID
 export const getCarById = async (carId) => {
   try {
     const response = await axios.get(`${API_BASE_URL}/cars/${carId}`);
@@ -26,9 +24,6 @@ export const getCarById = async (carId) => {
     throw error;
   }
 };
-
-
-//3. Tạo 1 loại xe mới (Validate dữ liệu , giá cả, thông tin, ảnh...), dùng cho CreateCarModal.jsx
 
 // Generate next car ID
 export const generateNextCarId = async () => {
@@ -48,20 +43,20 @@ export const generateNextCarId = async () => {
 export const validateCarImageFile = (file) => {
   if (!file) return null;
 
-  // Validate kích thước file (max 2MB cho ảnh xe)
+  // Validate file (<= 2MB)
   if (file.size > 2 * 1024 * 1024) {
-    return 'Kích thước ảnh không được vượt quá 2MB';
+    return 'Image size must not exceed 2MB';
   }
 
-  // Validate định dạng file
+  // Validate file type (image only)
   if (!file.type.startsWith('image/')) {
-    return 'Vui lòng chọn file ảnh hợp lệ';
+    return 'Please select a valid image file';
   }
 
   return null;
 };
 
-// Xử lý upload image và tạo preview
+// Handle car image upload and convert to Base64
 export const handleCarImageUpload = (file, callback) => {
   if (!file) return;
 
@@ -76,60 +71,60 @@ export const handleCarImageUpload = (file, callback) => {
 export const validateCarData = (formData) => {
   const errors = {};
 
-  // Validate tên xe
+  // Validate car name
   if (!formData.name?.trim()) {
-    errors.name = 'Vui lòng nhập tên xe';
+    errors.name = 'Please enter car name';
   }
 
-  // Validate mô tả
+  // Validate description
   if (!formData.description?.trim()) {
-    errors.description = 'Vui lòng nhập mô tả';
+    errors.description = 'Please enter car description';
   } else if (formData.description.trim().length < 20) {
-    errors.description = 'Mô tả phải có ít nhất 20 ký tự';
+    errors.description = 'Car description must be at least 20 characters long';
   }
 
-  // Validate giá
+  // Validate price
   if (!formData.price) {
-    errors.price = 'Vui lòng nhập giá xe';
+    errors.price = 'Please enter car price';
   } else if (parseFloat(formData.price) <= 0) {
-    errors.price = 'Giá xe phải lớn hơn 0';
+    errors.price = 'Car price must be greater than 0';
   }
 
-  // Validate số lượng
+  // Validate stock
   if (!formData.stock) {
-    errors.stock = 'Vui lòng nhập số lượng';
+    errors.stock = 'Please enter stock quantity';
   } else if (parseInt(formData.stock) < 1) {
-    errors.stock = 'Số lượng phải ít nhất là 1';
+    errors.stock = 'Stock must be at least 1';
   }
 
-  // Validate ảnh chính
+  // Validate main image
   if (!formData.image) {
-    errors.image = 'Vui lòng chọn ảnh chính cho xe';
+    errors.image = 'Please select a primary image for the car';
   }
 
   // Validate transmission
   if (!formData.transmission) {
-    errors.transmission = 'Vui lòng chọn loại hộp số';
+    errors.transmission = 'Please select transmission type';
   }
 
   // Validate fuel type
   if (!formData.fuel_type) {
-    errors.fuel_type = 'Vui lòng chọn loại nhiên liệu';
+    errors.fuel_type = 'Please select fuel type';
   }
 
-  // Validate số chỗ ngồi
+  // Validate seats
   if (!formData.seats) {
-    errors.seats = 'Vui lòng chọn số chỗ ngồi';
+    errors.seats = 'Please select number of seats';
   }
 
-  // Validate số cửa
+  // Validate doors
   if (!formData.doors) {
-    errors.doors = 'Vui lòng chọn số cửa';
+    errors.doors = 'Please select number of doors';
   }
 
   // Validate category
   if (!formData.category_id) {
-    errors.category_id = 'Vui lòng chọn dòng xe';
+    errors.category_id = 'Please select car category';
   }
 
   return errors;
@@ -140,7 +135,7 @@ export const createNewCar = async (formData) => {
   // Validation
   const errors = validateCarData(formData);
 
-  // Nếu có lỗi validation, throw error
+  // If there are validation errors, throw error
   if (Object.keys(errors).length > 0) {
     throw { validationErrors: errors };
   }
@@ -149,14 +144,14 @@ export const createNewCar = async (formData) => {
     // Generate next ID
     const nextId = await generateNextCarId();
 
-    // Tạo car object mới
+    // Create new car object
     const newCar = {
       id: nextId,
       name: formData.name.trim(),
       description: formData.description.trim(),
       price: String(formData.price),
       stock: parseInt(formData.stock),
-      image: formData.image, // Base64 hoặc URL
+      image: formData.image, // Base64 or URL
       imageDetail: formData.imageDetail || [],
       transmission: formData.transmission,
       fuel_type: formData.fuel_type,
@@ -172,44 +167,42 @@ export const createNewCar = async (formData) => {
     console.log('Car created:', response.data);
     return response.data;
   } catch (error) {
-    // Nếu là lỗi validation đã throw, throw lại
+    // If it's a previously thrown validation error, re-throw it
     if (error.validationErrors) {
       throw error;
     }
-    // Nếu là lỗi khác
+    // For other types of errors
     console.error('Error creating car:', error);
-    throw { message: 'Không thể tạo xe mới' };
+    throw { message: 'Could not create new car' };
   }
 };
 
-
-
-//5. Cập nhật thông tin loại xe theo ID -- chỉ sửa ảnh, thông tin , giá cả... 
+// Update car information by ID (images, info, price, etc.)
 export const updateCar = async (carId, formData) => {
-  // Validation - sử dụng lại validateCarData
+  // Validation - reuse validateCarData
   const errors = validateCarData(formData);
 
-  // Nếu có lỗi validation, throw error
+  // If there are validation errors, throw error
   if (Object.keys(errors).length > 0) {
     throw { validationErrors: errors };
   }
 
   try {
-    // Tạo car object để update
+    // Create car object for update
     const updatedCar = {
-      id: carId, // Giữ nguyên ID
+      id: carId, // Keep original ID
       name: formData.name.trim(),
       description: formData.description.trim(),
       price: String(formData.price),
       stock: parseInt(formData.stock),
-      image: formData.image, // Base64 hoặc URL
+      image: formData.image, // Base64 or URL
       imageDetail: formData.imageDetail || [],
       transmission: formData.transmission,
       fuel_type: formData.fuel_type,
       seats: parseInt(formData.seats),
       doors: parseInt(formData.doors),
       category_id: parseInt(formData.category_id),
-      // Giữ nguyên rating, reviews, view nếu có
+      // Keep existing rating, reviews, and view if available
       rating: formData.rating || null,
       reviews: formData.reviews || null,
       view: formData.view || null
@@ -219,31 +212,29 @@ export const updateCar = async (carId, formData) => {
     console.log('Car updated:', response.data);
     return response.data;
   } catch (error) {
-    // Nếu là lỗi validation đã throw, throw lại
+    // If it's a previously thrown validation error, re-throw it
     if (error.validationErrors) {
       throw error;
     }
-    // Nếu là lỗi khác
+    // For other types of errors
     console.error('Error updating car:', error);
-    throw { message: 'Không thể cập nhật xe' };
+    throw { message: 'Could not update car information' };
   }
 };
 
-
-//4. Xóa 1 loại xe theo ID
+// Delete a car by ID
 export const deleteCar = async (carId) => {
   try {
     const response = await axios.delete(`${API_BASE_URL}/cars/${carId}`);
     console.log('Car deleted:', carId);
-    return response.data;
+    throw response.data;
   } catch (error) {
     console.error('Error deleting car:', error);
-    throw { message: 'Không thể xóa xe' };
+    throw { message: 'Could not delete car' };
   }
 };
 
-
-//6. Lọc xe theo từ khóa tìm kiếm (tên xe)
+// Filter cars by search keyword (car name)
 export const filterCarsBySearch = (cars, searchTerm) => {
   if (!searchTerm) return cars;
 
@@ -253,13 +244,13 @@ export const filterCarsBySearch = (cars, searchTerm) => {
   );
 };
 
-//7. Lọc xe theo category
+// Filter cars by category
 export const filterCarsByCategory = (cars, categoryId) => {
   if (categoryId === 'all') return cars;
   return cars.filter(car => car.category_id === Number(categoryId));
 };
 
-//8. Lọc xe theo stock (còn hàng/hết hàng)
+// Filter cars by stock status (in stock / out of stock)
 export const filterCarsByStock = (cars, stockFilter) => {
   if (stockFilter === 'all') return cars;
 
@@ -272,23 +263,23 @@ export const filterCarsByStock = (cars, stockFilter) => {
   return cars;
 };
 
-//9. Lọc xe theo khoảng giá
+// Filter cars by price range
 export const filterCarsByPriceRange = (cars, minPrice, maxPrice) => {
   console.log('=== PRICE FILTER DEBUG ===');
   console.log('Min Price:', minPrice);
   console.log('Max Price:', maxPrice);
   console.log('Total cars before filter:', cars.length);
 
-  // Validate: min phải nhỏ hơn max
+  // Validation: min must be less than max
   if (minPrice > maxPrice) {
     console.log('ERROR: min > max, returning empty array');
-    return []; // Không trả về xe nào nếu min > max
+    return []; // Return empty if range is invalid
   }
 
   const filtered = cars.filter(car => {
     const price = parseFloat(car.price);
     const inRange = price >= minPrice && price <= maxPrice;
-    console.log(`${car.name}: ${price.toLocaleString('vi-VN')} VND - ${inRange ? 'PASS' : 'FAIL'}`);
+    console.log(`${car.name}: ${price.toLocaleString('vi-VN')} VND - ${inRange ? 'PASS' : 'FAIL'}`); // <<< Dòng này giữ lại định dạng 'vi-VN'
     return inRange;
   });
 
@@ -297,7 +288,7 @@ export const filterCarsByPriceRange = (cars, minPrice, maxPrice) => {
   return filtered;
 };
 
-//10. Áp dụng tất cả các filter
+// Apply all filters simultaneously
 export const applyAllFilters = (cars, filters) => {
   const { searchTerm, categoryId, stockFilter, priceRange } = filters;
 
@@ -306,26 +297,26 @@ export const applyAllFilters = (cars, filters) => {
 
   let filtered = cars;
 
-  // Lọc theo tìm kiếm
+  // Filter by search
   filtered = filterCarsBySearch(filtered, searchTerm);
   console.log('After search filter:', filtered.length);
 
-  // Lọc theo category
+  // Filter by category
   filtered = filterCarsByCategory(filtered, categoryId);
   console.log('After category filter:', filtered.length);
 
-  // Lọc theo stock
+  // Filter by stock
   filtered = filterCarsByStock(filtered, stockFilter);
   console.log('After stock filter:', filtered.length);
 
-  // Lọc theo giá (với validation)
+  // Filter by price (with validation)
   filtered = filterCarsByPriceRange(filtered, priceRange.min, priceRange.max);
   console.log('After price filter:', filtered.length);
 
   return filtered;
 };
 
-//11. Tính min/max price từ danh sách xe
+// Calculate min/max price from car list
 export const getMinMaxPrice = (cars) => {
   if (cars.length === 0) return { min: 0, max: 100000 };
 
@@ -335,6 +326,5 @@ export const getMinMaxPrice = (cars) => {
     max: Math.ceil(Math.max(...prices))
   };
 };
-
 
 export default getCars;
