@@ -3,7 +3,7 @@ import MainLayout from '../../layouts/user-layouts/MainLayout';
 import { Row, Col, Form, Button, Image, Alert, Spinner } from 'react-bootstrap';
 import { getUserById, updateUser, validateUserData, validateAvatarFile, handleAvatarUpload } from '../../services/userService';
 
-// Giả lập userId, thực tế nên lấy từ context/auth
+// Mock userId, in reality it should be fetched from context/auth
 const CURRENT_USER_ID = 2;
 
 const ProfileUser = () => {
@@ -44,7 +44,7 @@ const ProfileUser = () => {
                 });
                 setAvatarPreview(user.avatar || '');
             } catch (err) {
-                setSubmitError('Không thể tải thông tin hồ sơ');
+                setSubmitError('Could not load profile information');
             } finally {
                 setLoading(false);
             }
@@ -52,6 +52,7 @@ const ProfileUser = () => {
         fetchProfile();
     }, []);
 
+    // Effect to clear status messages after a delay
     useEffect(() => {
         let timer;
         if (submitError || submitSuccess) {
@@ -66,7 +67,8 @@ const ProfileUser = () => {
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData(prev => ({ ...prev, [name]: value }));
-        if (errors[name]) setErrors(prev => ({ ...prev, [name]: '' }));
+        // Clear error when user starts typing
+        if (errors[name]) setErrors(prev => ({ ...prev, [name]: '' })); 
     };
 
     const handleAvatarChange = (e) => {
@@ -90,6 +92,7 @@ const ProfileUser = () => {
         // Validate
         const validateFields = {
             ...formData,
+            // Pass avatar filename for validation if a new file is selected, otherwise use existing avatar
             avatar: avatarFile ? avatarFile.name : formData.avatar
         };
         const validationErrors = validateUserData(validateFields);
@@ -99,7 +102,7 @@ const ProfileUser = () => {
             return;
         }
         try {
-            // Lấy user hiện tại để giữ lại password và các trường không sửa
+            // Get current user to keep password and non-editable fields
             const currentUser = await getUserById(formData.id);
             let updatedData = {
                 ...currentUser,
@@ -107,15 +110,16 @@ const ProfileUser = () => {
                 email: formData.email,
                 phone: formData.phone,
                 address: formData.address,
+                // Use new preview if avatarFile exists, otherwise keep old avatar URL
                 avatar: avatarFile && avatarPreview ? avatarPreview : currentUser.avatar
             };
             await updateUser(formData.id, updatedData);
-            setSubmitSuccess('Cập nhật hồ sơ thành công!');
+            setSubmitSuccess('Profile updated successfully!');
         } catch (err) {
             if (err.validationErrors) {
                 setErrors(err.validationErrors);
             } else {
-                setSubmitError(err.message || 'Có lỗi xảy ra khi cập nhật hồ sơ');
+                setSubmitError(err.message || 'An error occurred while updating the profile');
             }
         } finally {
             setIsSubmitting(false);
@@ -128,7 +132,7 @@ const ProfileUser = () => {
                 <div className="mb-4 border-bottom pb-2 margin-top-100px" style={{ marginTop: '100px' }}>
                     <h2 className="fw-bold mt-6">
                         <i className="bi bi-person-circle me-2"></i>
-                        Hồ sơ cá nhân
+                        Personal Profile
                     </h2>
                 </div>
                 <div className="mx-auto" style={{ maxWidth: 900 }}>
@@ -151,7 +155,7 @@ const ProfileUser = () => {
                                             />
                                         </div>
                                         <Form.Group controlId="avatarUpload">
-                                            <Form.Label className="fw-semibold">Chọn ảnh đại diện</Form.Label>
+                                            <Form.Label className="fw-semibold">Choose Avatar</Form.Label>
                                             <Form.Control type="file" accept="image/*" onChange={handleAvatarChange} />
                                             {errors.avatar && <div className="text-danger small mt-1">{errors.avatar}</div>}
                                         </Form.Group>
@@ -166,7 +170,7 @@ const ProfileUser = () => {
                                             </Col>
                                             <Col md={6}>
                                                 <Form.Group>
-                                                    <Form.Label>Tên đăng nhập</Form.Label>
+                                                    <Form.Label>Username</Form.Label>
                                                     <Form.Control value={formData.username} readOnly disabled />
                                                 </Form.Group>
                                             </Col>
@@ -174,7 +178,7 @@ const ProfileUser = () => {
                                         <Row className="mb-3">
                                             <Col md={6}>
                                                 <Form.Group>
-                                                    <Form.Label>Họ tên</Form.Label>
+                                                    <Form.Label>Full Name</Form.Label>
                                                     <Form.Control
                                                         name="full_name"
                                                         value={formData.full_name}
@@ -200,7 +204,7 @@ const ProfileUser = () => {
                                         <Row className="mb-3">
                                             <Col md={6}>
                                                 <Form.Group>
-                                                    <Form.Label>Số điện thoại</Form.Label>
+                                                    <Form.Label>Phone Number</Form.Label>
                                                     <Form.Control
                                                         name="phone"
                                                         value={formData.phone}
@@ -212,7 +216,7 @@ const ProfileUser = () => {
                                             </Col>
                                             <Col md={6}>
                                                 <Form.Group>
-                                                    <Form.Label>Địa chỉ</Form.Label>
+                                                    <Form.Label>Address</Form.Label>
                                                     <Form.Control
                                                         name="address"
                                                         value={formData.address}
@@ -224,20 +228,20 @@ const ProfileUser = () => {
                                         <Row className="mb-3">
                                             <Col md={6}>
                                                 <Form.Group>
-                                                    <Form.Label>Vai trò</Form.Label>
+                                                    <Form.Label>Role</Form.Label>
                                                     <Form.Control value={formData.role_id === 1 ? 'Admin' : 'User'} readOnly disabled />
                                                 </Form.Group>
                                             </Col>
                                             <Col md={6}>
                                                 <Form.Group>
-                                                    <Form.Label>Trạng thái</Form.Label>
-                                                    <Form.Control value={formData.status === 'active' ? 'Hoạt động' : 'Bị khóa'} readOnly disabled />
+                                                    <Form.Label>Status</Form.Label>
+                                                    <Form.Control value={formData.status === 'active' ? 'Active' : 'Locked'} readOnly disabled />
                                                 </Form.Group>
                                             </Col>
                                         </Row>
                                         <div className="text-end">
                                             <Button type="submit" variant="primary" disabled={isSubmitting}>
-                                                {isSubmitting ? 'Đang lưu...' : 'Lưu thay đổi'}
+                                                {isSubmitting ? 'Saving...' : 'Save Changes'}
                                             </Button>
                                         </div>
                                     </Col>
