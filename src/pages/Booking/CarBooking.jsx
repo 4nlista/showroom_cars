@@ -31,7 +31,8 @@ import { createOrder } from '../../services/orderApi';
 const CarBooking = () => {
     const navigate = useNavigate();
     const { getSelectedItems } = useCart();
-    const cartItems = getSelectedItems(); // Chỉ lấy sản phẩm được chọn
+    const cartItems = getSelectedItems(); // Get only selected items
+
     const [selectedDate, setSelectedDate] = useState(null);
     const [formData, setFormData] = useState({
         fullName: '',
@@ -49,7 +50,7 @@ const CarBooking = () => {
         selectedDate: ''
     });
 
-    // Lấy thông tin user từ localStorage
+    // Load user information from localStorage
     useEffect(() => {
         const userStr = localStorage.getItem('user');
         if (userStr) {
@@ -72,7 +73,8 @@ const CarBooking = () => {
             ...formData,
             [field]: event.target.value
         });
-        // Clear error khi user bắt đầu nhập
+
+        // Clear error when user starts typing
         if (errors[field]) {
             setErrors({
                 ...errors,
@@ -85,23 +87,23 @@ const CarBooking = () => {
         const newErrors = {};
 
         if (!formData.fullName.trim()) {
-            newErrors.fullName = 'Vui lòng nhập họ và tên';
+            newErrors.fullName = 'Please enter your full name';
         }
 
         if (!formData.phone.trim()) {
-            newErrors.phone = 'Vui lòng nhập số điện thoại';
+            newErrors.phone = 'Please enter your phone number';
         } else if (!/^[0-9]{10,}$/.test(formData.phone.replace(/\D/g, ''))) {
-            newErrors.phone = 'Số điện thoại không hợp lệ';
+            newErrors.phone = 'Invalid phone number';
         }
 
         if (!formData.email.trim()) {
-            newErrors.email = 'Vui lòng nhập email';
+            newErrors.email = 'Please enter your email';
         } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
-            newErrors.email = 'Email không hợp lệ';
+            newErrors.email = 'Invalid email address';
         }
 
         if (!selectedDate) {
-            newErrors.selectedDate = 'Vui lòng chọn ngày nhận xe';
+            newErrors.selectedDate = 'Please select a pickup date';
         }
 
         setErrors(newErrors);
@@ -121,12 +123,20 @@ const CarBooking = () => {
 
         // Validate form
         if (!validateForm()) {
-            setToast({ open: true, message: 'Vui lòng điền đầy đủ thông tin bắt buộc!', severity: 'error' });
+            setToast({
+                open: true,
+                message: 'Please fill in all required fields!',
+                severity: 'error'
+            });
             return;
         }
 
         if (cartItems.length === 0) {
-            setToast({ open: true, message: 'Giỏ hàng trống!', severity: 'error' });
+            setToast({
+                open: true,
+                message: 'Your cart is empty!',
+                severity: 'error'
+            });
             return;
         }
 
@@ -154,20 +164,29 @@ const CarBooking = () => {
 
             localStorage.removeItem('selectedCartItems');
 
-            setToast({ open: true, message: 'Đặt lịch thành công! Chúng tôi sẽ liên hệ với bạn sớm.', severity: 'success' });
-          ;
+            setToast({
+                open: true,
+                message: 'Booking successful! We will contact you shortly.',
+                severity: 'success'
+            });
+
         } catch (error) {
             console.error('Error submitting order:', error);
-            setToast({ open: true, message: 'Có lỗi xảy ra. Vui lòng thử lại!', severity: 'error' });
+            setToast({
+                open: true,
+                message: 'An error occurred. Please try again!',
+                severity: 'error'
+            });
         } finally {
             setLoading(false);
         }
     };
 
-    const formatPrice = (p) => new Intl.NumberFormat('vi-VN', {
-        style: 'currency',
-        currency: 'VND'
-    }).format(p);
+    const formatPrice = (p) =>
+        new Intl.NumberFormat('vi-VN', {
+            style: 'currency',
+            currency: 'VND'
+        }).format(p);
 
     return (
         <MainLayout>
@@ -180,12 +199,7 @@ const CarBooking = () => {
                 }}
             >
                 <Container maxWidth="lg">
-                    <Paper
-                        sx={{
-                            p: 4,
-                            mb: 3,
-                        }}
-                    >
+                    <Paper sx={{ p: 4, mb: 3 }}>
                         <Typography
                             variant="h5"
                             sx={{
@@ -197,7 +211,7 @@ const CarBooking = () => {
                                 gap: 1
                             }}
                         >
-                            <PersonIcon /> Thông Tin Liên Hệ
+                            <PersonIcon /> Contact Information
                         </Typography>
 
                         <Box component="form" onSubmit={handleSubmit}>
@@ -205,9 +219,9 @@ const CarBooking = () => {
                                 <Grid item xs={12} sm={6} md={3}>
                                     <TextField
                                         fullWidth
-                                        label="Họ và tên"
+                                        label="Full Name"
                                         required
-                                        placeholder="Nhập họ và tên"
+                                        placeholder="Enter your full name"
                                         value={formData.fullName}
                                         onChange={handleInputChange('fullName')}
                                         error={Boolean(errors.fullName)}
@@ -217,13 +231,14 @@ const CarBooking = () => {
                                         }}
                                     />
                                 </Grid>
+
                                 <Grid item xs={12} sm={6} md={3}>
                                     <TextField
                                         fullWidth
-                                        label="Số điện thoại"
+                                        label="Phone Number"
                                         required
                                         type="tel"
-                                        placeholder="Nhập số điện thoại"
+                                        placeholder="Enter phone number"
                                         value={formData.phone}
                                         onChange={handleInputChange('phone')}
                                         error={Boolean(errors.phone)}
@@ -233,13 +248,14 @@ const CarBooking = () => {
                                         }}
                                     />
                                 </Grid>
+
                                 <Grid item xs={12} sm={6} md={3}>
                                     <TextField
                                         fullWidth
                                         label="Email"
                                         required
                                         type="email"
-                                        placeholder="Nhập email"
+                                        placeholder="Enter email"
                                         value={formData.email}
                                         onChange={handleInputChange('email')}
                                         error={Boolean(errors.email)}
@@ -249,11 +265,12 @@ const CarBooking = () => {
                                         }}
                                     />
                                 </Grid>
+
                                 <Grid item xs={12} sm={6} md={3}>
                                     <TextField
                                         fullWidth
-                                        label="Địa chỉ"
-                                        placeholder="Nhập địa chỉ"
+                                        label="Address"
+                                        placeholder="Enter address"
                                         value={formData.address}
                                         onChange={handleInputChange('address')}
                                         InputProps={{
@@ -276,7 +293,7 @@ const CarBooking = () => {
                                     gap: 1
                                 }}
                             >
-                                <CalendarTodayIcon /> Chọn Ngày Nhận Xe
+                                <CalendarTodayIcon /> Select Pickup Date
                             </Typography>
 
                             <Grid container spacing={2} sx={{ mb: 3 }}>
@@ -285,27 +302,24 @@ const CarBooking = () => {
                                         dateAdapter={AdapterDayjs}
                                         adapterLocale="vi"
                                     >
-                                        <DatePicker
-                                            label="Ngày nhận xe"
-                                            value={selectedDate}
-                                            onChange={(newValue) => {
-                                                setSelectedDate(newValue);
-                                                if (errors.selectedDate) {
-                                                    setErrors({
-                                                        ...errors,
-                                                        selectedDate: ''
-                                                    });
-                                                }
-                                            }}
-                                            disablePast
-                                            minDate={dayjs().add(3, 'day')}
-                                            format="DD/MM/YYYY"
-                                            slotProps={{
-                                                textField: {
-                                                    fullWidth: true,
-                                                    required: true,
-                                                    error: Boolean(errors.selectedDate),
-                                                    helperText: errors.selectedDate || 'Chọn ngày nhận xe (tối thiểu sau 3 ngày)',
+                                <DatePicker
+                                    label="Pickup Date"
+                                    value={selectedDate}
+                                    onChange={(newValue) => {
+                                        setSelectedDate(newValue);
+                                        if (errors.selectedDate) {
+                                            setErrors({ ...errors, selectedDate: '' });
+                                        }
+                                    }}
+                                    disablePast
+                                    minDate={dayjs().add(3, 'day')}
+                                    format="DD/MM/YYYY"
+                                    slotProps={{
+                                        textField: {
+                                            fullWidth: true,
+                                            required: true,
+                                            error: Boolean(errors.selectedDate),
+                                                    helperText: errors.selectedDate || 'Choose a date. (at least 3 days after)',
                                                     sx: {
                                                         '& .MuiFormHelperText-root': {
                                                             color: errors.selectedDate ? '#d32f2f !important' : 'rgba(0, 0, 0, 0.6)',
@@ -313,32 +327,25 @@ const CarBooking = () => {
                                                             fontSize: '0.875rem'
                                                         }
                                                     }
-                                                }
-                                            }}
-                                        />
-                                    </LocalizationProvider>
+                                        }
+                                    }}
+                                />
+                            </LocalizationProvider>
                                 </Grid>
                             </Grid>
 
                             <Divider sx={{ my: 4 }} />
 
-                            <Typography
-                                variant="h5"
-                                sx={{
-                                    fontWeight: 700,
-                                    mb: 3,
-                                    color: '#1a1a1a',
-                                }}
-                            >
-                                Ghi Chú
+                            <Typography variant="h5" sx={{ fontWeight: 700, mb: 3,color: '#1a1a1a' }}>
+                                Notes
                             </Typography>
 
                             <TextField
                                 fullWidth
-                                label="Ghi chú (tùy chọn)"
+                                label="Notes (optional)"
                                 multiline
                                 rows={4}
-                                placeholder="Thời gian liên hệ thuận tiện, yêu cầu đặc biệt..."
+                                placeholder="Preferred contact time, special requests..."
                                 value={notes}
                                 onChange={(e) => setNotes(e.target.value)}
                                 sx={{ mb: 3 }}
@@ -346,7 +353,6 @@ const CarBooking = () => {
 
                             <Divider sx={{ my: 4 }} />
 
-                            {/* Thông Tin Xe */}
                             <Typography
                                 variant="h5"
                                 sx={{
@@ -355,14 +361,14 @@ const CarBooking = () => {
                                     color: '#1a1a1a',
                                 }}
                             >
-                                Thông Tin Xe
+                                Vehicle infomation
                             </Typography>
 
                             <Divider sx={{ mb: 3 }} />
 
                             {cartItems.length === 0 ? (
                                 <Typography sx={{ mb: 3, color: '#666', textAlign: 'center', py: 4 }}>
-                                    Giỏ hàng trống. Vui lòng thêm xe vào giỏ hàng trước khi đặt lịch.
+                                    Your cart is empty. Please add vehicles before booking.
                                 </Typography>
                             ) : (
                                 <Box sx={{ mb: 3 }}>
@@ -387,7 +393,6 @@ const CarBooking = () => {
                                                     gap: 2,
                                                 }}
                                             >
-                                                {/* Hình ảnh */}
                                                 <Box sx={{ display: 'flex', gap: 2, alignItems: 'center' }}>
                                                     <Box
                                                         sx={{
@@ -412,7 +417,6 @@ const CarBooking = () => {
                                                     </Box>
                                                 </Box>
 
-                                                {/* Thông tin xe */}
                                                 <Box sx={{ flex: 1, minWidth: 0 }}>
                                                     <Typography
                                                         variant="h6"
@@ -423,8 +427,8 @@ const CarBooking = () => {
                                                             fontSize: { xs: '1rem', md: '1.25rem' }
                                                         }}
                                                     >
-                                                        {item.name}
-                                                    </Typography>
+                                            {item.name}
+                                        </Typography>
                                                     {item.description && (
                                                         <Typography
                                                             variant="body2"
@@ -439,11 +443,10 @@ const CarBooking = () => {
                                                             }}
                                                         >
                                                             {item.description}
-                                                        </Typography>
+                                        </Typography>
                                                     )}
                                                 </Box>
 
-                                                {/* Thông tin giá - Desktop */}
                                                 <Box
                                                     sx={{
                                                         display: { xs: 'none', md: 'flex' },
@@ -453,7 +456,7 @@ const CarBooking = () => {
                                                 >
                                                     <Box sx={{ textAlign: 'right', minWidth: 140 }}>
                                                         <Typography variant="caption" color="text.secondary" sx={{ display: 'block', mb: 0.5 }}>
-                                                            Đơn giá
+                                                            Price
                                                         </Typography>
                                                         <Typography variant="body1" sx={{ fontWeight: 600, color: '#333' }}>
                                                             {formatPrice(item.price)}
@@ -471,7 +474,7 @@ const CarBooking = () => {
                                                         }}
                                                     >
                                                         <Typography variant="caption" color="text.secondary" sx={{ display: 'block', mb: 0.5 }}>
-                                                            Số lượng
+                                                            Amount
                                                         </Typography>
                                                         <Typography variant="h6" sx={{ fontWeight: 700, color: '#1a1a1a' }}>
                                                             {item.quantity}
@@ -480,7 +483,7 @@ const CarBooking = () => {
 
                                                     <Box sx={{ textAlign: 'right', minWidth: 160 }}>
                                                         <Typography variant="caption" color="text.secondary" sx={{ display: 'block', mb: 0.5 }}>
-                                                            Thành tiền
+                                                            Total
                                                         </Typography>
                                                         <Typography
                                                             variant="h6"
@@ -494,7 +497,6 @@ const CarBooking = () => {
                                                     </Box>
                                                 </Box>
 
-                                                {/* Thông tin giá - Mobile */}
                                                 <Box
                                                     sx={{
                                                         display: { xs: 'flex', md: 'none' },
@@ -505,26 +507,25 @@ const CarBooking = () => {
                                                     }}
                                                 >
                                                     <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
-                                                        <Typography variant="body2" color="text.secondary">Đơn giá:</Typography>
+                                                        <Typography variant="body2" color="text.secondary">Price:</Typography>
                                                         <Typography variant="body2" sx={{ fontWeight: 600 }}>{formatPrice(item.price)}</Typography>
                                                     </Box>
                                                     <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
-                                                        <Typography variant="body2" color="text.secondary">Số lượng:</Typography>
+                                                        <Typography variant="body2" color="text.secondary">Amount:</Typography>
                                                         <Typography variant="body2" sx={{ fontWeight: 700 }}>{item.quantity}</Typography>
                                                     </Box>
                                                     <Box sx={{ display: 'flex', justifyContent: 'space-between', pt: 1, borderTop: '1px dashed #e0e0e0' }}>
-                                                        <Typography variant="body1" sx={{ fontWeight: 600 }}>Thành tiền:</Typography>
+                                                        <Typography variant="body1" sx={{ fontWeight: 600 }}>Total:</Typography>
                                                         <Typography variant="body1" sx={{ fontWeight: 700, color: '#d32f2f' }}>
                                                             {formatPrice(item.price * item.quantity)}
-                                                        </Typography>
+                                        </Typography>
                                                     </Box>
                                                 </Box>
                                             </Box>
-                                        </Card>
+                                    </Card>
                                     ))}
                                 </Box>
                             )}
-
 
                             <Divider sx={{ my: 4 }} />
                             <Box
@@ -538,7 +539,7 @@ const CarBooking = () => {
                             >
                                 <Box>
                                     <Typography variant="body2" color="text.secondary">
-                                        Tổng thanh toán: <strong>{cartItems.length} xe</strong>
+                                        Total: <strong>{cartItems.length} xe</strong>
                                     </Typography>
                                     <Typography
                                         variant="h5"
@@ -573,26 +574,25 @@ const CarBooking = () => {
                                         }
                                     }}
                                 >
-                                    {loading ? 'Đang xử lý...' : 'Xác Nhận Đặt Lịch'}
+                                    {loading ? 'Processing...' : 'Confirm Booking'}
                                 </Button>
                             </Box>
                         </Box>
                     </Paper>
 
-                    {/* Lưu ý */}
                     <Paper sx={{ p: 3, backgroundColor: '#fff3cd', border: '1px solid #ffc107' }}>
                         <Typography variant="body2" sx={{ fontWeight: 600, mb: 1 }}>
-                            📌 Lưu ý:
+                            📌 Note:
                         </Typography>
                         <Typography variant="body2" sx={{ lineHeight: 1.8 }}>
-                            • Nhân viên sẽ liên hệ xác nhận trong 24h<br />
-                            • Vui lòng mang CMND/CCCD khi nhận xe<br />
-                            • Thanh toán trực tiếp tại showroom
+                            • Our staff will contact you within 24 hours<br />
+                            • Please bring your ID when picking up the vehicle<br />
+                            • Payment is made directly at the showroom
                         </Typography>
                     </Paper>
-
                 </Container>
             </Box>
+
             <Toast
                 open={toast.open}
                 message={toast.message}
