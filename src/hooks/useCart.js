@@ -53,7 +53,6 @@ export const useCart = () => {
 
     const addItem = useCallback(async (productId, quantity = 1) => {
         try {
-            // Kiểm tra authentication trước khi thêm vào giỏ hàng
             const user = localStorage.getItem('user');
             if (!user) {
                 return {

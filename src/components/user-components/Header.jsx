@@ -22,7 +22,6 @@ const Header = () => {
   const navigate = useNavigate();
   const menus = [
     { label: "Models", path: "/car-list" },
-    { label: "Services", path: "/services" },
     { label: "About us", path: "/about-us" }
   ];
   const [anchorEl, setAnchorEl] = useState(null);

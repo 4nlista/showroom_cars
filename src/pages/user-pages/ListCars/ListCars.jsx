@@ -130,8 +130,8 @@ const ListCars = () => {
                             }}
                         >
                             {searchKeyword.trim()
-                                ? `All results for "${searchKeyword}" (${totalResults} results)`
-                                : `All results (${totalResults} results)`}
+                                ? `Tất cả kết quả cho "${searchKeyword}" (${totalResults} kết quả)`
+                                : `Tất cả kết quả (${totalResults} kết quả)`}
                         </Typography>
                     </Box>
                     <Grid container spacing={3}>

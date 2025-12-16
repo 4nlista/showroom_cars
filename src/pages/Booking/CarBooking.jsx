@@ -14,25 +14,20 @@ import {
     CardMedia,
     CardContent,
 } from '@mui/material';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import dayjs from 'dayjs';
-import 'dayjs/locale/vi';
+
 import PersonIcon from '@mui/icons-material/Person';
 import PhoneIcon from '@mui/icons-material/Phone';
 import EmailIcon from '@mui/icons-material/Email';
 import HomeIcon from '@mui/icons-material/Home';
-import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
+
 import Toast from '../../components/user-components/Toast';
 import { useCart } from '../../hooks/useCart';
 import { createOrder } from '../../services/orderApi';
 
 const CarBooking = () => {
     const navigate = useNavigate();
-    const { getSelectedItems } = useCart();
+    const { getSelectedItems, removeSelectedItems } = useCart();
     const cartItems = getSelectedItems(); // Chỉ lấy sản phẩm được chọn
-    const [selectedDate, setSelectedDate] = useState(null);
     const [formData, setFormData] = useState({
         fullName: '',
         phone: '',
@@ -45,8 +40,7 @@ const CarBooking = () => {
     const [errors, setErrors] = useState({
         fullName: '',
         phone: '',
-        email: '',
-        selectedDate: ''
+        email: ''
     });
 
     // Lấy thông tin user từ localStorage
@@ -101,7 +95,7 @@ const CarBooking = () => {
         }
 
         if (!selectedDate) {
-            newErrors.selectedDate = 'Please select pickup date';
+            newErrors.selectedDate = 'Vui lòng chọn ngày nhận xe';
         }
 
         setErrors(newErrors);
@@ -136,25 +130,26 @@ const CarBooking = () => {
             const userStr = localStorage.getItem('user');
             const user = userStr ? JSON.parse(userStr) : null;
 
-            const orderData = {
-                user_id: user?.id || null,
-                pickup_date: selectedDate.format('YYYY-MM-DD'),
-                notes: notes,
-                total_amount: calculateTotal(),
-                status: 'pending',
-                items: cartItems.map(item => ({
+            // Tạo đơn hàng cho từng sản phẩm
+            for (const item of cartItems) {
+                const orderData = {
+                    user_id: user?.id || null,
                     car_id: item.car_id,
                     quantity: item.quantity,
-                    price: Number(item.price)
-                })),
-                created_at: new Date().toISOString()
-            };
+                    order_date: new Date().toISOString(),
+                    status: 'pending',
+                    note: notes
+                };
 
-            await createOrder(orderData);
+                await createOrder(orderData);
+            }
+
+            // Xóa các sản phẩm đã đặt khỏi giỏ hàng
+            await removeSelectedItems();
 
             localStorage.removeItem('selectedCartItems');
 
-            setToast({ open: true, message: 'Booking successful! We will contact you soon.', severity: 'success' });
+            setToast({ open: true, message: 'Đặt lịch thành công! Chúng tôi sẽ liên hệ với bạn sớm.', severity: 'success' });
           ;
         } catch (error) {
             console.error('Error submitting order:', error);
@@ -276,7 +271,7 @@ const CarBooking = () => {
                                     gap: 1
                                 }}
                             >
-                                <CalendarTodayIcon /> Select Pickup Date
+                                <CalendarTodayIcon /> Chọn Ngày Nhận Xe
                             </Typography>
 
                             <Grid container spacing={2} sx={{ mb: 3 }}>
@@ -286,7 +281,7 @@ const CarBooking = () => {
                                         adapterLocale="vi"
                                     >
                                         <DatePicker
-                                            label="Pickup Date"
+                                            label="Ngày nhận xe"
                                             value={selectedDate}
                                             onChange={(newValue) => {
                                                 setSelectedDate(newValue);
@@ -305,7 +300,7 @@ const CarBooking = () => {
                                                     fullWidth: true,
                                                     required: true,
                                                     error: Boolean(errors.selectedDate),
-                                                    helperText: errors.selectedDate || 'Select pickup date (minimum 3 days from now)',
+                                                    helperText: errors.selectedDate || 'Chọn ngày nhận xe (tối thiểu sau 3 ngày)',
                                                     sx: {
                                                         '& .MuiFormHelperText-root': {
                                                             color: errors.selectedDate ? '#d32f2f !important' : 'rgba(0, 0, 0, 0.6)',
@@ -573,7 +568,7 @@ const CarBooking = () => {
                                         }
                                     }}
                                 >
-                                    {loading ? 'Processing...' : 'Confirm Booking'}
+                                    {loading ? 'Đang xử lý...' : 'Xác Nhận Đặt Lịch'}
                                 </Button>
                             </Box>
                         </Box>
