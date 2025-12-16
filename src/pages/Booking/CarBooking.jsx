@@ -14,25 +14,20 @@ import {
     CardMedia,
     CardContent,
 } from '@mui/material';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import dayjs from 'dayjs';
-import 'dayjs/locale/vi';
+
 import PersonIcon from '@mui/icons-material/Person';
 import PhoneIcon from '@mui/icons-material/Phone';
 import EmailIcon from '@mui/icons-material/Email';
 import HomeIcon from '@mui/icons-material/Home';
-import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
+
 import Toast from '../../components/user-components/Toast';
 import { useCart } from '../../hooks/useCart';
 import { createOrder } from '../../services/orderApi';
 
 const CarBooking = () => {
     const navigate = useNavigate();
-    const { getSelectedItems } = useCart();
+    const { getSelectedItems, removeSelectedItems } = useCart();
     const cartItems = getSelectedItems(); // Chỉ lấy sản phẩm được chọn
-    const [selectedDate, setSelectedDate] = useState(null);
     const [formData, setFormData] = useState({
         fullName: '',
         phone: '',
@@ -45,8 +40,7 @@ const CarBooking = () => {
     const [errors, setErrors] = useState({
         fullName: '',
         phone: '',
-        email: '',
-        selectedDate: ''
+        email: ''
     });
 
     // Lấy thông tin user từ localStorage
@@ -100,10 +94,6 @@ const CarBooking = () => {
             newErrors.email = 'Email không hợp lệ';
         }
 
-        if (!selectedDate) {
-            newErrors.selectedDate = 'Vui lòng chọn ngày nhận xe';
-        }
-
         setErrors(newErrors);
         return Object.keys(newErrors).length === 0;
     };
@@ -136,26 +126,31 @@ const CarBooking = () => {
             const userStr = localStorage.getItem('user');
             const user = userStr ? JSON.parse(userStr) : null;
 
-            const orderData = {
-                user_id: user?.id || null,
-                pickup_date: selectedDate.format('YYYY-MM-DD'),
-                notes: notes,
-                total_amount: calculateTotal(),
-                status: 'pending',
-                items: cartItems.map(item => ({
+            // Tạo đơn hàng cho từng sản phẩm
+            for (const item of cartItems) {
+                const orderData = {
+                    user_id: user?.id || null,
                     car_id: item.car_id,
                     quantity: item.quantity,
-                    price: Number(item.price)
-                })),
-                created_at: new Date().toISOString()
-            };
+                    order_date: new Date().toISOString(),
+                    status: 'pending',
+                    note: notes
+                };
 
-            await createOrder(orderData);
+                await createOrder(orderData);
+            }
+
+            // Xóa các sản phẩm đã đặt khỏi giỏ hàng
+            await removeSelectedItems();
 
             localStorage.removeItem('selectedCartItems');
 
             setToast({ open: true, message: 'Đặt lịch thành công! Chúng tôi sẽ liên hệ với bạn sớm.', severity: 'success' });
-          ;
+
+            // Chuyển về trang chủ sau 2 giây
+            setTimeout(() => {
+                navigate('/');
+            }, 2000);
         } catch (error) {
             console.error('Error submitting order:', error);
             setToast({ open: true, message: 'Có lỗi xảy ra. Vui lòng thử lại!', severity: 'error' });
@@ -263,64 +258,7 @@ const CarBooking = () => {
                                 </Grid>
                             </Grid>
 
-                            <Divider sx={{ my: 4 }} />
 
-                            <Typography
-                                variant="h5"
-                                sx={{
-                                    fontWeight: 700,
-                                    mb: 3,
-                                    color: '#1a1a1a',
-                                    display: 'flex',
-                                    alignItems: 'center',
-                                    gap: 1
-                                }}
-                            >
-                                <CalendarTodayIcon /> Chọn Ngày Nhận Xe
-                            </Typography>
-
-                            <Grid container spacing={2} sx={{ mb: 3 }}>
-                                <Grid item xs={12} md={6}>
-                                    <LocalizationProvider
-                                        dateAdapter={AdapterDayjs}
-                                        adapterLocale="vi"
-                                    >
-                                        <DatePicker
-                                            label="Ngày nhận xe"
-                                            value={selectedDate}
-                                            onChange={(newValue) => {
-                                                setSelectedDate(newValue);
-                                                if (errors.selectedDate) {
-                                                    setErrors({
-                                                        ...errors,
-                                                        selectedDate: ''
-                                                    });
-                                                }
-                                            }}
-                                            disablePast
-                                            minDate={dayjs().add(3, 'day')}
-                                            format="DD/MM/YYYY"
-                                            slotProps={{
-                                                textField: {
-                                                    fullWidth: true,
-                                                    required: true,
-                                                    error: Boolean(errors.selectedDate),
-                                                    helperText: errors.selectedDate || 'Chọn ngày nhận xe (tối thiểu sau 3 ngày)',
-                                                    sx: {
-                                                        '& .MuiFormHelperText-root': {
-                                                            color: errors.selectedDate ? '#d32f2f !important' : 'rgba(0, 0, 0, 0.6)',
-                                                            fontWeight: errors.selectedDate ? 600 : 400,
-                                                            fontSize: '0.875rem'
-                                                        }
-                                                    }
-                                                }
-                                            }}
-                                        />
-                                    </LocalizationProvider>
-                                </Grid>
-                            </Grid>
-
-                            <Divider sx={{ my: 4 }} />
 
                             <Typography
                                 variant="h5"
@@ -573,7 +511,7 @@ const CarBooking = () => {
                                         }
                                     }}
                                 >
-                                    {loading ? 'Đang xử lý...' : 'Xác Nhận Đặt Lịch'}
+                                    {loading ? 'Đang xử lý...' : 'Xác Nhận'}
                                 </Button>
                             </Box>
                         </Box>

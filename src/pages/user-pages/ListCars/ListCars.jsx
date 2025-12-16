@@ -121,19 +121,6 @@ const ListCars = () => {
         <MainLayout>
             <Box sx={{ py: { xs: 4, md: 6 }, backgroundColor: '#f7f7f7', minHeight: '100vh', marginTop: '100px' }}>
                 <Container maxWidth="">
-                    <Box mb={3}>
-                        <Typography
-                            sx={{
-                                fontSize: { xs: '18px', md: '22px' },
-                                fontWeight: 700,
-                                color: '#000',
-                            }}
-                        >
-                            {searchKeyword.trim()
-                                ? `Tất cả kết quả cho "${searchKeyword}" (${totalResults} kết quả)`
-                                : `Tất cả kết quả (${totalResults} kết quả)`}
-                        </Typography>
-                    </Box>
                     <Grid container spacing={3}>
                         <Grid size={3} item xs={12} md={3}>
                             <FilterSidebar

@@ -22,7 +22,6 @@ const Header = () => {
   const navigate = useNavigate();
   const menus = [
     { label: "Các mẫu xe", path: "/danh-sach-san-pham" },
-    { label: "Dịch vụ", path: "/dich-vu" },
     { label: "Về chúng tôi", path: "/ve-chung-toi" }
   ];
   const [anchorEl, setAnchorEl] = useState(null);

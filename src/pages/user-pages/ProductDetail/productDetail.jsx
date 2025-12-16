@@ -474,32 +474,7 @@ const ProductDetail = () => {
 
                 <Stack spacing={2} sx={{ mt: 2 }}>
                   <Grid container spacing={2}>
-                    <Grid size={6}>
-                      <Button
-                        variant="contained"
-                        size="large"
-                        fullWidth
-                        sx={{
-                          background: 'linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%)',
-                          color: '#fff',
-                          py: 1.8,
-                          fontSize: '1rem',
-                          fontWeight: 700,
-                          textTransform: 'none',
-                          borderRadius: 2,
-                          boxShadow: '0 4px 12px rgba(0,0,0,0.3)',
-                          '&:hover': {
-                            background: 'linear-gradient(135deg, #000 0%, #1a1a1a 100%)',
-                            boxShadow: '0 6px 20px rgba(0,0,0,0.4)',
-                            transform: 'translateY(-2px)',
-                          },
-                          transition: 'all 0.3s ease',
-                        }}
-                      >
-                        Mua Ngay
-                      </Button>
-                    </Grid>
-                    <Grid size={6}>
+                    <Grid size={12}>
                       <Button
                         variant="outlined"
                         size="large"
