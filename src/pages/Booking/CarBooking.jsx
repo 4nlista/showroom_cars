@@ -27,7 +27,7 @@ import { createOrder } from '../../services/orderApi';
 const CarBooking = () => {
     const navigate = useNavigate();
     const { getSelectedItems, removeSelectedItems } = useCart();
-    const cartItems = getSelectedItems(); // Chỉ lấy sản phẩm được chọn
+    const cartItems = getSelectedItems(); // Only get selected products
     const [formData, setFormData] = useState({
         fullName: '',
         phone: '',
@@ -43,7 +43,7 @@ const CarBooking = () => {
         email: ''
     });
 
-    // Lấy thông tin user từ localStorage
+    // Get user information from localStorage
     useEffect(() => {
         const userStr = localStorage.getItem('user');
         if (userStr) {
@@ -66,7 +66,7 @@ const CarBooking = () => {
             ...formData,
             [field]: event.target.value
         });
-        // Clear error khi user bắt đầu nhập
+        // Clear error when user starts typing
         if (errors[field]) {
             setErrors({
                 ...errors,
@@ -92,10 +92,6 @@ const CarBooking = () => {
             newErrors.email = 'Please enter email';
         } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
             newErrors.email = 'Invalid email address';
-        }
-
-        if (!selectedDate) {
-            newErrors.selectedDate = 'Vui lòng chọn ngày nhận xe';
         }
 
         setErrors(newErrors);
@@ -130,7 +126,7 @@ const CarBooking = () => {
             const userStr = localStorage.getItem('user');
             const user = userStr ? JSON.parse(userStr) : null;
 
-            // Tạo đơn hàng cho từng sản phẩm
+            // Create order for each product
             for (const item of cartItems) {
                 const orderData = {
                     user_id: user?.id || null,
@@ -144,13 +140,16 @@ const CarBooking = () => {
                 await createOrder(orderData);
             }
 
-            // Xóa các sản phẩm đã đặt khỏi giỏ hàng
+            // Remove ordered products from cart
             await removeSelectedItems();
 
             localStorage.removeItem('selectedCartItems');
 
-            setToast({ open: true, message: 'Đặt lịch thành công! Chúng tôi sẽ liên hệ với bạn sớm.', severity: 'success' });
-          ;
+            setToast({ open: true, message: 'Booking successful! We will contact you soon.', severity: 'success' });
+            ;
+            setTimeout(() => {
+                navigate('/history-order');
+            }, 1500);
         } catch (error) {
             console.error('Error submitting order:', error);
             setToast({ open: true, message: 'An error occurred. Please try again!', severity: 'error' });
@@ -259,64 +258,6 @@ const CarBooking = () => {
                             </Grid>
 
                             <Divider sx={{ my: 4 }} />
-
-                            <Typography
-                                variant="h5"
-                                sx={{
-                                    fontWeight: 700,
-                                    mb: 3,
-                                    color: '#1a1a1a',
-                                    display: 'flex',
-                                    alignItems: 'center',
-                                    gap: 1
-                                }}
-                            >
-                                <CalendarTodayIcon /> Chọn Ngày Nhận Xe
-                            </Typography>
-
-                            <Grid container spacing={2} sx={{ mb: 3 }}>
-                                <Grid item xs={12} md={6}>
-                                    <LocalizationProvider
-                                        dateAdapter={AdapterDayjs}
-                                        adapterLocale="vi"
-                                    >
-                                        <DatePicker
-                                            label="Ngày nhận xe"
-                                            value={selectedDate}
-                                            onChange={(newValue) => {
-                                                setSelectedDate(newValue);
-                                                if (errors.selectedDate) {
-                                                    setErrors({
-                                                        ...errors,
-                                                        selectedDate: ''
-                                                    });
-                                                }
-                                            }}
-                                            disablePast
-                                            minDate={dayjs().add(3, 'day')}
-                                            format="DD/MM/YYYY"
-                                            slotProps={{
-                                                textField: {
-                                                    fullWidth: true,
-                                                    required: true,
-                                                    error: Boolean(errors.selectedDate),
-                                                    helperText: errors.selectedDate || 'Chọn ngày nhận xe (tối thiểu sau 3 ngày)',
-                                                    sx: {
-                                                        '& .MuiFormHelperText-root': {
-                                                            color: errors.selectedDate ? '#d32f2f !important' : 'rgba(0, 0, 0, 0.6)',
-                                                            fontWeight: errors.selectedDate ? 600 : 400,
-                                                            fontSize: '0.875rem'
-                                                        }
-                                                    }
-                                                }
-                                            }}
-                                        />
-                                    </LocalizationProvider>
-                                </Grid>
-                            </Grid>
-
-                            <Divider sx={{ my: 4 }} />
-
                             <Typography
                                 variant="h5"
                                 sx={{
@@ -341,7 +282,7 @@ const CarBooking = () => {
 
                             <Divider sx={{ my: 4 }} />
 
-                            {/* Thông Tin Xe */}
+                            {/* Car Information */}
                             <Typography
                                 variant="h5"
                                 sx={{
@@ -382,7 +323,7 @@ const CarBooking = () => {
                                                     gap: 2,
                                                 }}
                                             >
-                                                {/* Hình ảnh */}
+                                                {/* Image */}
                                                 <Box sx={{ display: 'flex', gap: 2, alignItems: 'center' }}>
                                                     <Box
                                                         sx={{
@@ -407,7 +348,7 @@ const CarBooking = () => {
                                                     </Box>
                                                 </Box>
 
-                                                {/* Thông tin xe */}
+                                                {/* Car Information */}
                                                 <Box sx={{ flex: 1, minWidth: 0 }}>
                                                     <Typography
                                                         variant="h6"
@@ -438,7 +379,7 @@ const CarBooking = () => {
                                                     )}
                                                 </Box>
 
-                                                {/* Thông tin giá - Desktop */}
+                                                {/* Price Information - Desktop */}
                                                 <Box
                                                     sx={{
                                                         display: { xs: 'none', md: 'flex' },
@@ -448,7 +389,7 @@ const CarBooking = () => {
                                                 >
                                                     <Box sx={{ textAlign: 'right', minWidth: 140 }}>
                                                         <Typography variant="caption" color="text.secondary" sx={{ display: 'block', mb: 0.5 }}>
-                                                            Đơn giá
+                                                            Unit Price
                                                         </Typography>
                                                         <Typography variant="body1" sx={{ fontWeight: 600, color: '#333' }}>
                                                             {formatPrice(item.price)}
@@ -466,7 +407,7 @@ const CarBooking = () => {
                                                         }}
                                                     >
                                                         <Typography variant="caption" color="text.secondary" sx={{ display: 'block', mb: 0.5 }}>
-                                                            Số lượng
+                                                            Quantity
                                                         </Typography>
                                                         <Typography variant="h6" sx={{ fontWeight: 700, color: '#1a1a1a' }}>
                                                             {item.quantity}
@@ -475,7 +416,7 @@ const CarBooking = () => {
 
                                                     <Box sx={{ textAlign: 'right', minWidth: 160 }}>
                                                         <Typography variant="caption" color="text.secondary" sx={{ display: 'block', mb: 0.5 }}>
-                                                            Thành tiền
+                                                            Total Amount
                                                         </Typography>
                                                         <Typography
                                                             variant="h6"
@@ -489,7 +430,7 @@ const CarBooking = () => {
                                                     </Box>
                                                 </Box>
 
-                                                {/* Thông tin giá - Mobile */}
+                                                {/* Price Information - Mobile */}
                                                 <Box
                                                     sx={{
                                                         display: { xs: 'flex', md: 'none' },
@@ -568,13 +509,13 @@ const CarBooking = () => {
                                         }
                                     }}
                                 >
-                                    {loading ? 'Đang xử lý...' : 'Xác Nhận Đặt Lịch'}
+                                    {loading ? 'Processing...' : 'Confirm Booking'}
                                 </Button>
                             </Box>
                         </Box>
                     </Paper>
 
-                    {/* Lưu ý */}
+                    {/* Notes */}
                     <Paper sx={{ p: 3, backgroundColor: '#fff3cd', border: '1px solid #ffc107' }}>
                         <Typography variant="body2" sx={{ fontWeight: 600, mb: 1 }}>
                             📌 Notes:
