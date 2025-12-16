@@ -52,7 +52,7 @@ const Dashboard = () => {
                 setLoading(false);
             })
             .catch(() => {
-                setError('Không thể tải dữ liệu thống kê');
+                setError('Unable to load statistics data');
                 setLoading(false);
             });
     }, []);
@@ -71,10 +71,10 @@ const Dashboard = () => {
             <div style={{ padding: '0 24px' }}>
                 <div style={{ marginBottom: 32 }}>
                     <h2 style={{ fontWeight: 700, fontSize: 28, marginBottom: 8 }}>E-commerce Dashboard</h2>
-                    <span style={{ color: '#888' }}>Thống kê tổng quan hệ thống</span>
+                    <span style={{ color: '#888' }}>System Overview Statistics</span>
                 </div>
                 {loading ? (
-                    <div>Đang tải dữ liệu...</div>
+                    <div>Loading data...</div>
                 ) : error ? (
                     <div style={{ color: 'red' }}>{error}</div>
                 ) : (
@@ -83,26 +83,26 @@ const Dashboard = () => {
                         <div style={{ display: 'flex', gap: 24, marginBottom: 32 }}>
                             <div style={{ ...cardStyle, borderTop: '4px solid #ff9800' }}>
                                 <span style={{ color: '#ff9800', fontWeight: 700, fontSize: 22 }}>{stats.totalRevenue.toLocaleString('vi-VN')} ₫</span>
-                                <span style={{ color: '#888', fontSize: 15 }}>Tổng doanh thu</span>
+                                <span style={{ color: '#888', fontSize: 15 }}>Total Revenue</span>
                             </div>
                             <div style={{ ...cardStyle, borderTop: '4px solid #43a047' }}>
                                 <span style={{ color: '#43a047', fontWeight: 700, fontSize: 22 }}>{stats.totalCars}</span>
-                                <span style={{ color: '#888', fontSize: 15 }}>Tổng số xe</span>
+                                <span style={{ color: '#888', fontSize: 15 }}>Total Cars</span>
                             </div>
                             <div style={{ ...cardStyle, borderTop: '4px solid #e53935' }}>
                                 <span style={{ color: '#e53935', fontWeight: 700, fontSize: 22 }}>{stats.totalPosts}</span>
-                                <span style={{ color: '#888', fontSize: 15 }}>Tổng số bài viết</span>
+                                <span style={{ color: '#888', fontSize: 15 }}>Total Posts</span>
                             </div>
                             <div style={{ ...cardStyle, borderTop: '4px solid #1976d2' }}>
                                 <span style={{ color: '#1976d2', fontWeight: 700, fontSize: 22 }}>{stats.totalUsers}</span>
-                                <span style={{ color: '#888', fontSize: 15 }}>Tổng số người dùng</span>
+                                <span style={{ color: '#888', fontSize: 15 }}>Total Users</span>
                             </div>
                         </div>
 
                         {/* Analytics Row: Pie chart left, Top 5 cars right */}
                         <div style={{ display: 'flex', gap: 24, marginBottom: 32 }}>
                             <div style={{ flex: 2, background: '#fff', borderRadius: 12, boxShadow: '0 2px 12px rgba(0,0,0,0.08)', padding: 24, minHeight: 320, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
-                                <h4 style={{ fontWeight: 600, fontSize: 18, marginBottom: 16 }}>Tỉ lệ tài khoản</h4>
+                                <h4 style={{ fontWeight: 600, fontSize: 18, marginBottom: 16 }}>Account Ratio</h4>
                                 <Pie
                                     data={{
                                         labels: ['Admin', 'User'],
@@ -126,12 +126,12 @@ const Dashboard = () => {
                                 </div>
                             </div>
                             <div style={{ flex: 3, background: '#fff', borderRadius: 12, boxShadow: '0 2px 12px rgba(0,0,0,0.08)', padding: 24, minHeight: 320 }}>
-                                <h3 style={{ fontWeight: 600, fontSize: 18, marginBottom: 16 }}>Top 5 xe đắt nhất</h3>
+                                <h3 style={{ fontWeight: 600, fontSize: 18, marginBottom: 16 }}>Top 5 Most Expensive Cars</h3>
                                 <table style={{ width: '100%', borderCollapse: 'collapse' }}>
                                     <thead>
                                         <tr style={{ background: '#f5f5f5' }}>
-                                            <th style={{ padding: '8px 12px', textAlign: 'left', color: '#888', fontWeight: 600 }}>Tên xe</th>
-                                            <th style={{ padding: '8px 12px', textAlign: 'right', color: '#888', fontWeight: 600 }}>Giá</th>
+                                            <th style={{ padding: '8px 12px', textAlign: 'left', color: '#888', fontWeight: 600 }}>Car Name</th>
+                                            <th style={{ padding: '8px 12px', textAlign: 'right', color: '#888', fontWeight: 600 }}>Price</th>
                                         </tr>
                                     </thead>
                                     <tbody>

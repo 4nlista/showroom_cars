@@ -33,7 +33,7 @@ export const AuthProvider = ({ children }) => {
             console.error('Login error:', error);
             return {
                 success: false,
-                message: error.message || 'Đăng nhập thất bại, vui lòng thử lại'
+                message: error.message || 'Login failed, please try again'
             };
         }
     };
@@ -54,7 +54,7 @@ export const AuthProvider = ({ children }) => {
             console.error('Signup error:', error);
             return {
                 success: false,
-                message: error.message || 'Đăng ký thất bại, vui lòng thử lại'
+                message: error.message || 'Registration failed, please try again'
             };
         }
     };

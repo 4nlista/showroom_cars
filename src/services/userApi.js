@@ -8,7 +8,7 @@ export const fetchAllUsers = async () => {
         return response.data;
     } catch (error) {
         console.error('Error fetching users:', error);
-        throw new Error('Không thể tải danh sách người dùng');
+        throw new Error('Unable to load user list');
     }
 };
 

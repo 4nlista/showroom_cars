@@ -68,7 +68,7 @@ const HistoryOrder = () => {
             const detail = await getOrderDetailById(orderId);
             setOrderDetail(detail);
         } catch (err) {
-            setDetailError('Không thể tải chi tiết đơn hàng');
+            setDetailError('Unable to load order details');
         } finally {
             setDetailLoading(false);
         }
@@ -151,7 +151,7 @@ const HistoryOrder = () => {
                                         </td>
                                         <td>
                                             <Button size="sm" variant="outline-primary" onClick={() => handleViewDetail(order.id)}>
-                                                <i className="bi bi-eye"></i> Xem chi tiết
+                                                <i className="bi bi-eye"></i> View Details
                                             </Button>
                                         </td>
                                     </tr>
@@ -166,14 +166,14 @@ const HistoryOrder = () => {
                     <Modal.Header closeButton className="border-bottom">
                         <Modal.Title className="text-primary fw-bold">
                             <i className="bi bi-receipt me-2"></i>
-                            Chi tiết đơn hàng
+                            Order Details
                         </Modal.Title>
                     </Modal.Header>
                     <Modal.Body style={{ width: 700, maxWidth: '100%', maxHeight: 420, overflowY: 'auto', margin: '0 auto' }}>
                         {detailLoading ? (
                             <div className="text-center py-5">
                                 <Spinner animation="border" variant="primary" />
-                                <p className="mt-3 text-muted">Đang tải chi tiết đơn hàng...</p>
+                                <p className="mt-3 text-muted">Loading order details...</p>
                             </div>
                         ) : detailError ? (
                             <Alert variant="danger">{detailError}</Alert>

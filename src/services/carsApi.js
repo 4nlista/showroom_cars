@@ -50,12 +50,12 @@ export const validateCarImageFile = (file) => {
 
   // Validate kích thước file (max 2MB cho ảnh xe)
   if (file.size > 2 * 1024 * 1024) {
-    return 'Kích thước ảnh không được vượt quá 2MB';
+    return 'Image size must not exceed 2MB';
   }
 
   // Validate định dạng file
   if (!file.type.startsWith('image/')) {
-    return 'Vui lòng chọn file ảnh hợp lệ';
+    return 'Please select a valid image file';
   }
 
   return null;
@@ -78,58 +78,58 @@ export const validateCarData = (formData) => {
 
   // Validate tên xe
   if (!formData.name?.trim()) {
-    errors.name = 'Vui lòng nhập tên xe';
+    errors.name = 'Please enter car name';
   }
 
   // Validate mô tả
   if (!formData.description?.trim()) {
-    errors.description = 'Vui lòng nhập mô tả';
+    errors.description = 'Please enter description';
   } else if (formData.description.trim().length < 20) {
-    errors.description = 'Mô tả phải có ít nhất 20 ký tự';
+    errors.description = 'Description must be at least 20 characters';
   }
 
   // Validate giá
   if (!formData.price) {
-    errors.price = 'Vui lòng nhập giá xe';
+    errors.price = 'Please enter car price';
   } else if (parseFloat(formData.price) <= 0) {
-    errors.price = 'Giá xe phải lớn hơn 0';
+    errors.price = 'Car price must be greater than 0';
   }
 
   // Validate số lượng
   if (!formData.stock) {
-    errors.stock = 'Vui lòng nhập số lượng';
+    errors.stock = 'Please enter stock quantity';
   } else if (parseInt(formData.stock) < 1) {
-    errors.stock = 'Số lượng phải ít nhất là 1';
+    errors.stock = 'Stock quantity must be at least 1';
   }
 
   // Validate ảnh chính
   if (!formData.image) {
-    errors.image = 'Vui lòng chọn ảnh chính cho xe';
+    errors.image = 'Please select main image for car';
   }
 
   // Validate transmission
   if (!formData.transmission) {
-    errors.transmission = 'Vui lòng chọn loại hộp số';
+    errors.transmission = 'Please select transmission type';
   }
 
   // Validate fuel type
   if (!formData.fuel_type) {
-    errors.fuel_type = 'Vui lòng chọn loại nhiên liệu';
+    errors.fuel_type = 'Please select fuel type';
   }
 
   // Validate số chỗ ngồi
   if (!formData.seats) {
-    errors.seats = 'Vui lòng chọn số chỗ ngồi';
+    errors.seats = 'Please select number of seats';
   }
 
   // Validate số cửa
   if (!formData.doors) {
-    errors.doors = 'Vui lòng chọn số cửa';
+    errors.doors = 'Please select number of doors';
   }
 
   // Validate category
   if (!formData.category_id) {
-    errors.category_id = 'Vui lòng chọn dòng xe';
+    errors.category_id = 'Please select car category';
   }
 
   return errors;
@@ -178,7 +178,7 @@ export const createNewCar = async (formData) => {
     }
     // Nếu là lỗi khác
     console.error('Error creating car:', error);
-    throw { message: 'Không thể tạo xe mới' };
+    throw { message: 'Unable to create new car' };
   }
 };
 
@@ -225,7 +225,7 @@ export const updateCar = async (carId, formData) => {
     }
     // Nếu là lỗi khác
     console.error('Error updating car:', error);
-    throw { message: 'Không thể cập nhật xe' };
+    throw { message: 'Unable to update car' };
   }
 };
 
@@ -238,7 +238,7 @@ export const deleteCar = async (carId) => {
     return response.data;
   } catch (error) {
     console.error('Error deleting car:', error);
-    throw { message: 'Không thể xóa xe' };
+    throw { message: 'Unable to delete car' };
   }
 };
 

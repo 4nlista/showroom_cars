@@ -40,8 +40,8 @@ const FilterSidebar = ({
         '> 12.000.000.000₫'
     ];
 
-    const gearShifts = ['Số tự động', 'Số tay'];
-    const fuelTypes = ['Xăng', 'Diesel', 'Hybrid', 'Điện'];
+    const gearShifts = ['Automatic', 'Manual'];
+    const fuelTypes = ['Gasoline', 'Diesel', 'Hybrid', 'Electric'];
 
     return (
         <Paper
@@ -60,7 +60,7 @@ const FilterSidebar = ({
         >
             <Box display="flex" alignItems="center" justifyContent="space-between" mb={3}>
                 <Typography variant="h6" fontWeight={700} sx={{ color: 'black' }}>
-                    BỘ LỌC
+                    FILTERS
                 </Typography>
                 <Button
                     size="small"
@@ -73,7 +73,7 @@ const FilterSidebar = ({
                     }}
                     onClick={onClearFilters}
                 >
-                    Xóa bộ lọc
+                    Clear filters
                 </Button>
             </Box>
             <hr />
@@ -93,7 +93,7 @@ const FilterSidebar = ({
                     sx={{ p: 0, minHeight: 'unset' }}
                 >
                     <Typography fontWeight={600} sx={{ color: 'black', fontSize: '20px' }}>
-                        KHUNG GIÁ
+                        PRICE RANGE
                     </Typography>
                 </AccordionSummary>
                 <AccordionDetails sx={{ p: 0, pt: 2 }}>
@@ -138,7 +138,7 @@ const FilterSidebar = ({
                     sx={{ p: 0, minHeight: 'unset' }}
                 >
                     <Typography fontWeight={600} sx={{ color: 'black', fontSize: '20px' }}>
-                        LOẠI XE
+                        CAR TYPE
                     </Typography>
                 </AccordionSummary>
                 <AccordionDetails sx={{ p: 0, pt: 2 }}>
@@ -204,7 +204,7 @@ const FilterSidebar = ({
                     sx={{ p: 0, minHeight: 'unset' }}
                 >
                     <Typography fontWeight={600} sx={{ color: 'black', fontSize: '20px' }}>
-                        CẦU SỐ
+                        TRANSMISSION
                     </Typography>
                 </AccordionSummary>
                 <AccordionDetails sx={{ p: 0, pt: 2 }}>
@@ -249,7 +249,7 @@ const FilterSidebar = ({
                     sx={{ p: 0, minHeight: 'unset' }}
                 >
                     <Typography fontWeight={600} sx={{ color: 'black', fontSize: '20px' }}>
-                        LOẠI NHIÊN LIỆU
+                        FUEL TYPE
                     </Typography>
                 </AccordionSummary>
                 <AccordionDetails sx={{ p: 0, pt: 2 }}>

@@ -44,7 +44,7 @@ const SearchOverlay = ({
       <Stack spacing={1.5}>
         <TextField
           fullWidth
-          placeholder="Từ khóa tìm kiếm"
+          placeholder="Search keywords"
           value={searchTerm}
           onChange={(e) => onChange(e.target.value)}
           InputProps={{
@@ -62,7 +62,7 @@ const SearchOverlay = ({
           }}
         />
         <Typography sx={{ color: "#555", fontSize: 14 }}>
-          Tìm kiếm theo loại xe, mẫu xe, mã cấu hình hoặc các phụ kiện, sản phẩm và thông tin khác
+          Search by car type, model, configuration code or accessories, products and other information
         </Typography>
         {suggestions.length > 0 && (
           <Paper
@@ -99,7 +99,7 @@ const SearchOverlay = ({
                     <Stack direction="row" spacing={0.5} alignItems="center" sx={{ mt: 0.5 }}>
                       <StarIcon sx={{ color: "#f5a623", fontSize: 18 }} />
                       <Typography sx={{ fontSize: 13, color: "#222" }}>
-                        {item.rating ? item.rating.toFixed(1) : "4.5"} ({item.reviews || "120"} đánh giá)
+                        {item.rating ? item.rating.toFixed(1) : "4.5"} ({item.reviews || "120"} reviews)
                       </Typography>
                     </Stack>
                   </Box>
@@ -118,7 +118,7 @@ const SearchOverlay = ({
               onClick={() => onViewAll(searchTerm)}
             >
               <Typography sx={{ color: "#000", fontWeight: 600 }}>
-                Xem tất cả kết quả cho "{searchTerm}"
+                View all results for "{searchTerm}"
               </Typography>
             </Box>
           </Paper>

@@ -30,7 +30,7 @@ const UserChangePassword = () => {
         setIsSubmitting(true);
         try {
             if (!user || !user.id) {
-                setSubmitError('Không xác định được người dùng. Vui lòng đăng nhập lại.');
+                setSubmitError('Unable to identify user. Please login again.');
                 setIsSubmitting(false);
                 return;
             }
@@ -40,7 +40,7 @@ const UserChangePassword = () => {
                 formData.newPassword,
                 formData.confirmPassword
             );
-            setSuccessMessage('✅ Đổi mật khẩu thành công! Đang đăng xuất...');
+            setSuccessMessage('✅ Password changed successfully! Logging out...');
             setFormData({ currentPassword: '', newPassword: '', confirmPassword: '' });
             // Auto logout and redirect after 2 seconds
             setTimeout(() => {
@@ -52,7 +52,7 @@ const UserChangePassword = () => {
             if (error.validationErrors) {
                 setErrors(error.validationErrors);
             } else {
-                setSubmitError(error.message || 'Có lỗi xảy ra khi đổi mật khẩu');
+                setSubmitError(error.message || 'An error occurred while changing password');
             }
         } finally {
             setIsSubmitting(false);
@@ -65,9 +65,9 @@ const UserChangePassword = () => {
                 <div className="mb-4 border-bottom pb-2 text-center">
                     <h2 className="fw-bold mb-1 ">
                         <i className="bi bi-key me-2"></i>
-                        Đổi mật khẩu
+                        Change Password
                     </h2>
-                    <p className="text-muted mb-0">Thay đổi mật khẩu đăng nhập của bạn</p>
+                    <p className="text-muted mb-0">Change your login password</p>
                 </div>
                 <Row className="justify-content-center">
                     <Col md={8} lg={6}>
@@ -84,7 +84,7 @@ const UserChangePassword = () => {
                                 <Form onSubmit={handleSubmit}>
                                     <Form.Group className="mb-3">
                                         <Form.Label className="fw-semibold">
-                                            Mật khẩu hiện tại <span className="text-danger">*</span>
+                                            Current Password <span className="text-danger">*</span>
                                         </Form.Label>
                                         <Form.Control
                                             type="password"
@@ -92,7 +92,7 @@ const UserChangePassword = () => {
                                             value={formData.currentPassword}
                                             onChange={handleChange}
                                             isInvalid={!!errors.currentPassword}
-                                            placeholder="Nhập mật khẩu hiện tại"
+                                            placeholder="Enter current password"
                                         />
                                         <Form.Control.Feedback type="invalid">
                                             {errors.currentPassword}
@@ -100,7 +100,7 @@ const UserChangePassword = () => {
                                     </Form.Group>
                                     <Form.Group className="mb-3">
                                         <Form.Label className="fw-semibold">
-                                            Mật khẩu mới <span className="text-danger">*</span>
+                                            New Password <span className="text-danger">*</span>
                                         </Form.Label>
                                         <Form.Control
                                             type="password"
@@ -108,19 +108,19 @@ const UserChangePassword = () => {
                                             value={formData.newPassword}
                                             onChange={handleChange}
                                             isInvalid={!!errors.newPassword}
-                                            placeholder="Nhập mật khẩu mới"
+                                            placeholder="Enter new password"
                                         />
                                         <Form.Control.Feedback type="invalid">
                                             {errors.newPassword}
                                         </Form.Control.Feedback>
                                         <Form.Text className="text-muted">
                                             <i className="bi bi-info-circle me-1"></i>
-                                            Mật khẩu phải có ít nhất 6 ký tự và không chứa khoảng trắng
+                                            Password must be at least 6 characters and cannot contain spaces
                                         </Form.Text>
                                     </Form.Group>
                                     <Form.Group className="mb-4">
                                         <Form.Label className="fw-semibold">
-                                            Nhập lại mật khẩu mới <span className="text-danger">*</span>
+                                            Confirm New Password <span className="text-danger">*</span>
                                         </Form.Label>
                                         <Form.Control
                                             type="password"
@@ -128,7 +128,7 @@ const UserChangePassword = () => {
                                             value={formData.confirmPassword}
                                             onChange={handleChange}
                                             isInvalid={!!errors.confirmPassword}
-                                            placeholder="Nhập lại mật khẩu mới"
+                                            placeholder="Re-enter new password"
                                         />
                                         <Form.Control.Feedback type="invalid">
                                             {errors.confirmPassword}
@@ -142,7 +142,7 @@ const UserChangePassword = () => {
                                             className="flex-grow-1"
                                         >
                                             <i className="bi bi-check-circle me-2"></i>
-                                            {isSubmitting ? 'Đang xử lý...' : 'Đổi mật khẩu'}
+                                            {isSubmitting ? 'Processing...' : 'Change Password'}
                                         </Button>
                                         <Button
                                             variant="secondary"
@@ -155,7 +155,7 @@ const UserChangePassword = () => {
                                             disabled={isSubmitting}
                                         >
                                             <i className="bi bi-x-circle me-2"></i>
-                                            Hủy
+                                            Cancel
                                         </Button>
                                     </div>
                                 </Form>

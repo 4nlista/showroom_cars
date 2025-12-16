@@ -59,7 +59,7 @@ export const useCart = () => {
                 return {
                     success: false,
                     error: 'NOT_AUTHENTICATED',
-                    message: 'Vui lòng đăng nhập để thêm sản phẩm vào giỏ hàng'
+                    message: 'Please login to add items to cart'
                 };
             }
 

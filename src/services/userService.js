@@ -23,11 +23,11 @@ export const updateUser = async (userId, userData) => {
         let validationErrors = {};
         const emailExists = users.some(u => u.id !== userId && u.email === userData.email);
         if (emailExists) {
-            validationErrors.email = 'Email đã được sử dụng';
+            validationErrors.email = 'Email is already in use';
         }
         const phoneExists = users.some(u => u.id !== userId && u.phone === userData.phone);
         if (phoneExists) {
-            validationErrors.phone = 'Số điện thoại đã được sử dụng';
+            validationErrors.phone = 'Phone number is already in use';
         }
         if (Object.keys(validationErrors).length > 0) {
             throw { validationErrors };
@@ -58,21 +58,21 @@ export const validateUserData = (formData) => {
 
     // Validate họ tên
     if (!formData.full_name?.trim()) {
-        errors.full_name = 'Vui lòng nhập họ tên';
+        errors.full_name = 'Please enter full name';
     }
 
     // Validate email
     if (!formData.email?.trim()) {
-        errors.email = 'Vui lòng nhập email';
+        errors.email = 'Please enter email';
     } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-        errors.email = 'Email không hợp lệ';
+        errors.email = 'Invalid email address';
     }
 
     // Validate số điện thoại
     if (!formData.phone?.trim()) {
-        errors.phone = 'Vui lòng nhập số điện thoại';
+        errors.phone = 'Please enter phone number';
     } else if (!/^[0-9]{10}$/.test(formData.phone)) {
-        errors.phone = 'Số điện thoại phải có 10 chữ số';
+        errors.phone = 'Phone number must be 10 digits';
     }
 
     return errors;
@@ -84,12 +84,12 @@ export const validateAvatarFile = (file) => {
 
     // Validate kích thước file (max 2MB)
     if (file.size > 2 * 1024 * 1024) {
-        return 'Kích thước ảnh không được vượt quá 2MB';
+        return 'Image size must not exceed 2MB';
     }
 
     // Validate định dạng file
     if (!file.type.startsWith('image/')) {
-        return 'Vui lòng chọn file ảnh hợp lệ';
+        return 'Please select a valid image file';
     }
 
     return null;
@@ -128,42 +128,42 @@ export const createNewUser = async (formData) => {
 
     // Validate username
     if (!formData.username?.trim()) {
-        errors.username = 'Vui lòng nhập tên đăng nhập';
+        errors.username = 'Please enter username';
     } else if (formData.username.length < 3) {
-        errors.username = 'Tên đăng nhập phải có ít nhất 3 ký tự';
+        errors.username = 'Username must have at least 3 characters';
     }
 
     // Validate họ tên
     if (!formData.full_name?.trim()) {
-        errors.full_name = 'Vui lòng nhập họ tên';
+        errors.full_name = 'Please enter full name';
     }
 
     // Validate email
     if (!formData.email?.trim()) {
-        errors.email = 'Vui lòng nhập email';
+        errors.email = 'Please enter email';
     } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-        errors.email = 'Email không hợp lệ';
+        errors.email = 'Invalid email';
     }
 
     // Validate số điện thoại
     if (!formData.phone?.trim()) {
-        errors.phone = 'Vui lòng nhập số điện thoại';
+        errors.phone = 'Please enter phone number';
     } else if (!/^[0-9]{10}$/.test(formData.phone)) {
-        errors.phone = 'Số điện thoại phải có 10 chữ số';
+        errors.phone = 'Phone number must have 10 digits';
     }
 
     // Validate mật khẩu
     if (!formData.password?.trim()) {
-        errors.password = 'Vui lòng nhập mật khẩu';
+        errors.password = 'Please enter password';
     } else if (formData.password.length < 6) {
-        errors.password = 'Mật khẩu phải có ít nhất 6 ký tự';
+        errors.password = 'Password must have at least 6 characters';
     }
 
     // Validate xác nhận mật khẩu
     if (!formData.confirmPassword?.trim()) {
-        errors.confirmPassword = 'Vui lòng xác nhận mật khẩu';
+        errors.confirmPassword = 'Please confirm password';
     } else if (formData.password !== formData.confirmPassword) {
-        errors.confirmPassword = 'Mật khẩu xác nhận không khớp';
+        errors.confirmPassword = 'Passwords do not match';
     }
 
     // Nếu có lỗi validation, throw error
@@ -178,15 +178,15 @@ export const createNewUser = async (formData) => {
         let validationErrors = {};
         const usernameExists = users.some(user => user.username === formData.username);
         if (usernameExists) {
-            validationErrors.username = 'Tên đăng nhập đã tồn tại';
+            validationErrors.username = 'Username already exists';
         }
         const emailExists = users.some(user => user.email === formData.email);
         if (emailExists) {
-            validationErrors.email = 'Email đã được sử dụng';
+            validationErrors.email = 'Email is already in use';
         }
         const phoneExists = users.some(user => user.phone === formData.phone);
         if (phoneExists) {
-            validationErrors.phone = 'Số điện thoại đã được sử dụng';
+            validationErrors.phone = 'Phone number is already in use';
         }
         if (Object.keys(validationErrors).length > 0) {
             throw { validationErrors };
@@ -215,7 +215,7 @@ export const createNewUser = async (formData) => {
         }
         // Nếu là lỗi khác
         console.error('Error creating user:', error);
-        throw { message: 'Không thể tạo người dùng mới' };
+        throw { message: 'Unable to create new user' };
     }
 };
 
@@ -225,23 +225,23 @@ export const validatePasswordChange = (currentPassword, newPassword, confirmPass
 
     // Validate current password
     if (!currentPassword?.trim()) {
-        errors.currentPassword = 'Vui lòng nhập mật khẩu hiện tại';
+        errors.currentPassword = 'Please enter current password';
     }
 
     // Validate new password
     if (!newPassword?.trim()) {
-        errors.newPassword = 'Vui lòng nhập mật khẩu mới';
+        errors.newPassword = 'Please enter new password';
     } else if (newPassword.length < 6) {
-        errors.newPassword = 'Mật khẩu phải có ít nhất 6 ký tự';
+        errors.newPassword = 'Password must have at least 6 characters';
     } else if (/\s/.test(newPassword)) {
-        errors.newPassword = 'Mật khẩu không được chứa khoảng trắng';
+        errors.newPassword = 'Password must not contain spaces';
     }
 
     // Validate confirm password
     if (!confirmPassword?.trim()) {
-        errors.confirmPassword = 'Vui lòng nhập lại mật khẩu mới';
+        errors.confirmPassword = 'Please re-enter new password';
     } else if (newPassword !== confirmPassword) {
-        errors.confirmPassword = 'Mật khẩu xác nhận không khớp';
+        errors.confirmPassword = 'Passwords do not match';
     }
 
     return errors;
@@ -263,12 +263,12 @@ export const changePassword = async (userId, currentPassword, newPassword, confi
 
         // Verify current password
         if (currentUser.password !== currentPassword) {
-            throw { validationErrors: { currentPassword: 'Mật khẩu hiện tại không đúng' } };
+            throw { validationErrors: { currentPassword: 'Current password is incorrect' } };
         }
 
         // Check if new password is different from current
         if (currentPassword === newPassword) {
-            throw { validationErrors: { newPassword: 'Mật khẩu mới phải khác mật khẩu hiện tại' } };
+            throw { validationErrors: { newPassword: 'New password must be different from current password' } };
         }
 
         // Update password
@@ -287,7 +287,7 @@ export const changePassword = async (userId, currentPassword, newPassword, confi
         }
         // Other errors
         console.error('Error changing password:', error);
-        throw { message: 'Không thể đổi mật khẩu' };
+        throw { message: 'Unable to change password' };
     }
 };
 

@@ -41,7 +41,7 @@ const CarGrid = ({
                             mb: 1
                         }}
                     >
-                        Không tìm thấy kết quả
+                        No Results Found
                     </Typography>
                     <Typography
                         variant="body1"
@@ -50,7 +50,7 @@ const CarGrid = ({
                             maxWidth: '400px'
                         }}
                     >
-                        Không có xe nào phù hợp với tiêu chí tìm kiếm của bạn. Vui lòng thử điều chỉnh bộ lọc.
+                        No cars match your search criteria. Please try adjusting the filters.
                     </Typography>
                 </Box>
             </Grid>

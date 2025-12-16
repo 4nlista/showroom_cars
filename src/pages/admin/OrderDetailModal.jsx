@@ -55,7 +55,7 @@ const OrderDetailModal = ({ show, onHide, orderId }) => {
             <Modal.Header closeButton className="border-bottom">
                 <Modal.Title className="text-primary fw-bold">
                     <i className="bi bi-receipt me-2"></i>
-                    Chi tiết đơn hàng
+                    Order Details
                 </Modal.Title>
             </Modal.Header>
 

@@ -46,7 +46,7 @@ const Profile = () => {
                 });
                 setAvatarPreview(user.avatar || '');
             } catch (err) {
-                setSubmitError('Không thể tải thông tin hồ sơ');
+                setSubmitError('Unable to load profile information');
             } finally {
                 setLoading(false);
             }
@@ -116,12 +116,12 @@ const Profile = () => {
                 avatar: avatarFile && avatarPreview ? avatarPreview : currentUser.avatar
             };
             await updateUser(formData.id, updatedData);
-            setSubmitSuccess('Cập nhật hồ sơ thành công!');
+            setSubmitSuccess('Profile updated successfully!');
         } catch (err) {
             if (err.validationErrors) {
                 setErrors(err.validationErrors);
             } else {
-                setSubmitError(err.message || 'Có lỗi xảy ra khi cập nhật hồ sơ');
+                setSubmitError(err.message || 'An error occurred while updating profile');
             }
         } finally {
             setIsSubmitting(false);
@@ -134,7 +134,7 @@ const Profile = () => {
                 <div className="mb-4 border-bottom pb-2">
                     <h2 className="fw-bold mb-1">
                         <i className="bi bi-people-fill me-2"></i>
-                        Hồ sơ cá nhân
+                        Profile
                     </h2>
                 </div>
                 <div className="mx-auto" style={{ maxWidth: 900 }}>
@@ -157,7 +157,7 @@ const Profile = () => {
                                             />
                                         </div>
                                         <Form.Group controlId="avatarUpload">
-                                            <Form.Label className="fw-semibold">Chọn ảnh đại diện</Form.Label>
+                                            <Form.Label className="fw-semibold">Choose avatar</Form.Label>
                                             <Form.Control type="file" accept="image/*" onChange={handleAvatarChange} />
                                             {errors.avatar && <div className="text-danger small mt-1">{errors.avatar}</div>}
                                         </Form.Group>
@@ -172,7 +172,7 @@ const Profile = () => {
                                             </Col>
                                             <Col md={6}>
                                                 <Form.Group>
-                                                    <Form.Label>Tên đăng nhập</Form.Label>
+                                                    <Form.Label>Username</Form.Label>
                                                     <Form.Control value={formData.username} readOnly disabled />
                                                 </Form.Group>
                                             </Col>
@@ -180,7 +180,7 @@ const Profile = () => {
                                         <Row className="mb-3">
                                             <Col md={6}>
                                                 <Form.Group>
-                                                    <Form.Label>Họ tên</Form.Label>
+                                                    <Form.Label>Full Name</Form.Label>
                                                     <Form.Control
                                                         name="full_name"
                                                         value={formData.full_name}
@@ -206,7 +206,7 @@ const Profile = () => {
                                         <Row className="mb-3">
                                             <Col md={6}>
                                                 <Form.Group>
-                                                    <Form.Label>Số điện thoại</Form.Label>
+                                                    <Form.Label>Phone Number</Form.Label>
                                                     <Form.Control
                                                         name="phone"
                                                         value={formData.phone}
@@ -218,7 +218,7 @@ const Profile = () => {
                                             </Col>
                                             <Col md={6}>
                                                 <Form.Group>
-                                                    <Form.Label>Địa chỉ</Form.Label>
+                                                    <Form.Label>Address</Form.Label>
                                                     <Form.Control
                                                         name="address"
                                                         value={formData.address}
@@ -230,20 +230,20 @@ const Profile = () => {
                                         <Row className="mb-3">
                                             <Col md={6}>
                                                 <Form.Group>
-                                                    <Form.Label>Vai trò</Form.Label>
+                                                    <Form.Label>Role</Form.Label>
                                                     <Form.Control value={formData.role_id === 1 ? 'Admin' : 'User'} readOnly disabled />
                                                 </Form.Group>
                                             </Col>
                                             <Col md={6}>
                                                 <Form.Group>
-                                                    <Form.Label>Trạng thái</Form.Label>
-                                                    <Form.Control value={formData.status === 'active' ? 'Hoạt động' : 'Bị khóa'} readOnly disabled />
+                                                    <Form.Label>Status</Form.Label>
+                                                    <Form.Control value={formData.status === 'active' ? 'Active' : 'Locked'} readOnly disabled />
                                                 </Form.Group>
                                             </Col>
                                         </Row>
                                         <div className="text-end">
                                             <Button type="submit" variant="primary" disabled={isSubmitting}>
-                                                {isSubmitting ? 'Đang lưu...' : 'Lưu thay đổi'}
+                                                {isSubmitting ? 'Saving...' : 'Save Changes'}
                                             </Button>
                                         </div>
                                     </Col>

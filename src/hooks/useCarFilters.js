@@ -70,7 +70,7 @@ const useCarFilters = (cars, categories) => {
 
         if (selectedTransmission.length > 0) {
             filtered = filtered.filter(car => {
-                const carTransmission = car.transmission === 'Automatic' ? 'Số tự động' : 'Số tay';
+                const carTransmission = car.transmission === 'Automatic' ? 'Automatic' : 'Manual';
                 return selectedTransmission.includes(carTransmission);
             });
         }
@@ -78,10 +78,10 @@ const useCarFilters = (cars, categories) => {
         if (selectedFuelTypes.length > 0) {
             filtered = filtered.filter(car => {
                 const fuelTypeMap = {
-                    'gasoline': 'Xăng',
+                    'gasoline': 'Gasoline',
                     'diesel': 'Diesel',
                     'hybrid': 'Hybrid',
-                    'electric': 'Điện'
+                    'electric': 'Electric'
                 };
                 const carFuelType = fuelTypeMap[car.fuel_type] || car.fuel_type;
                 return selectedFuelTypes.includes(carFuelType);

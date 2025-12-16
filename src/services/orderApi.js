@@ -196,7 +196,7 @@ export const updateOrderStatus = async (orderId, newStatus) => {
         return response.data;
     } catch (error) {
         console.error('Error updating order status:', error);
-        throw { message: 'Không thể cập nhật trạng thái đơn hàng' };
+        throw { message: 'Unable to update order status' };
     }
 };
 
@@ -217,9 +217,9 @@ export const formatOrderDate = (dateString) => {
 // 7. Chuyển đổi status sang tiếng Việt
 export const getStatusLabel = (status) => {
     const statusMap = {
-        'completed': 'Đã xử lý',
-        'pending': 'Đang xử lý',
-        'cancelled': 'Đã từ chối'
+        'completed': 'Completed',
+        'pending': 'Pending',
+        'cancelled': 'Cancelled'
     };
     return statusMap[status] || status;
 };

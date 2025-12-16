@@ -4,13 +4,13 @@ import { AuthContext } from '../../context/AuthContext';
 
 
 const menuItems = [
-    { label: 'Trang quản trị', path: '/admin/quan-tri' },
-    { label: 'Hồ sơ cá nhân', path: '/admin/ho-so-ca-nhan' },
-    { label: 'Quản lí người dùng', path: '/admin/quan-ly-nguoi-dung' },
-    { label: 'Quản lí mẫu xe', path: '/admin/quan-ly-xe' },
-    { label: 'Xử lý đơn hàng', path: '/admin/process-orders' },
-    { label: 'Đổi mật khẩu', path: '/admin/doi-mat-khau' },
-    { label: 'Đăng xuất', path: '/' },
+    { label: 'Dashboard', path: '/admin/quan-tri' },
+    { label: 'Profile', path: '/admin/ho-so-ca-nhan' },
+    { label: 'User Management', path: '/admin/quan-ly-nguoi-dung' },
+    { label: 'Car Management', path: '/admin/quan-ly-xe' },
+    { label: 'Order Processing', path: '/admin/process-orders' },
+    { label: 'Change Password', path: '/admin/doi-mat-khau' },
+    { label: 'Logout', path: '/' },
 ];
 
 
@@ -46,7 +46,7 @@ const Sidebar = () => {
                 <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
                     {menuItems.map(item => (
                         <li key={item.path} style={{ marginBottom: 18 }}>
-                            {item.label === 'Đăng xuất' ? (
+                            {item.label === 'Logout' ? (
                                 <a
                                     href="/"
                                     onClick={handleLogout}

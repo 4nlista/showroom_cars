@@ -12,11 +12,11 @@ const login = async ({ username, password }) => {
         if (foundUser) {
             // Kiểm tra trạng thái tài khoản
             if (foundUser.status === 'inactive') {
-                throw new Error("Tài khoản của bạn đã bị vô hiệu hóa. Vui lòng liên hệ quản trị viên.");
+                throw new Error("Your account has been deactivated. Please contact administrator.");
             }
             return foundUser;
         } else {
-            throw new Error("Tên đăng nhập hoặc mật khẩu không đúng");
+            throw new Error("Invalid username or password");
         }
     } catch (error) {
         console.error("Lỗi xảy ra:", error);
@@ -30,11 +30,11 @@ const signup = async (username, full_name, phone, email, address, password) => {
         const users = usersRes.data;
 
         if (users.some(user => user.username === username)) {
-            throw new Error("Tên đăng nhập đã tồn tại");
+            throw new Error("Username already exists");
         }
 
         if (users.some(user => user.email === email)) {
-            throw new Error("Email đã được sử dụng");
+            throw new Error("Email is already in use");
         }
         const response = await axios.post(`${API_BASE_URL}/users`, {
             username,

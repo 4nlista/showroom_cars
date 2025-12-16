@@ -51,7 +51,7 @@ const CarDetailModal = ({ show, onHide, car, categories }) => {
             <Modal.Header closeButton className="border-bottom">
                 <Modal.Title className="text-primary fw-bold">
                     <i className="bi bi-eye-fill me-2"></i>
-                    Chi tiết xe
+                    Car Details
                 </Modal.Title>
             </Modal.Header>
 

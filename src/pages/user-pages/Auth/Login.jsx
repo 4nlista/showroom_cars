@@ -33,7 +33,7 @@ const Login = () => {
     setError("");
     try {
       if (!username || !password) {
-        setError("Vui lòng nhập đầy đủ Username và Mật khẩu");
+        setError("Please enter both Username and Password");
         return;
       }
 
@@ -49,11 +49,11 @@ const Login = () => {
           navigate(from, { replace: true });
         }
       } else {
-        setError("Tên đăng nhập hoặc mật khẩu không đúng");
+        setError("Invalid username or password");
       }
     } catch (error) {
       // Hiển thị thông báo lỗi từ API (bao gồm cả lỗi tài khoản bị vô hiệu hóa)
-      setError(error.message || "Tên đăng nhập hoặc mật khẩu không đúng");
+      setError(error.message || "Invalid username or password");
     }
   }
 
@@ -66,8 +66,8 @@ const Login = () => {
     e.preventDefault()
     setError('')
     if (!form.username || !form.password) {
-      setError('Vui lòng nhập đầy đủ Username và Mật khẩu')
-      return
+      setError('Please enter both Username and Password')
+      return;
     }
     try {
       const result = await login(form)
@@ -79,11 +79,11 @@ const Login = () => {
           navigate(from, { replace: true })
         }
       } else {
-        setError(result.message || 'Tên đăng nhập hoặc mật khẩu không đúng')
+        setError(result.message || 'Invalid username or password')
       }
     } catch (err) {
       // Hiển thị thông báo lỗi từ API (bao gồm cả lỗi tài khoản bị vô hiệu hóa)
-      setError(err.message || 'Tên đăng nhập hoặc mật khẩu không đúng')
+      setError(err.message || 'Invalid username or password')
     }
   }
 
@@ -130,10 +130,10 @@ const Login = () => {
             }}
           >
             <Typography variant="h4" fontWeight={700} gutterBottom sx={{ display: 'flex', justifyContent: 'center', mb: 2 }}>
-              Đăng nhập
+              Login
             </Typography>
             <Typography variant="body1" sx={{ opacity: 0.9, mb: 4, display: 'flex', justifyContent: 'center' }}>
-              Chào mừng bạn trở lại
+              Welcome back
             </Typography>
 
             <Box component="form" onSubmit={handleSubmit}>
@@ -141,8 +141,8 @@ const Login = () => {
                 <TextField
                   fullWidth
                   name="username"
-                  label="Tài khoản"
-                  placeholder="Nhập tài khoản"
+                  label="Username"
+                  placeholder="Enter your username"
                   value={form.username}
                   onChange={handleChange}
                   variant="outlined"
@@ -167,8 +167,8 @@ const Login = () => {
                 <TextField
                   fullWidth
                   name="password"
-                  label="Mật khẩu"
-                  placeholder="Nhập mật khẩu"
+                  label="Password"
+                  placeholder="Enter your password"
                   type={show ? 'text' : 'password'}
                   value={form.password}
                   onChange={handleChange}
@@ -179,7 +179,7 @@ const Login = () => {
                     endAdornment: (
                       <InputAdornment position="end">
                         <IconButton sx={{ color: 'rgba(120, 120, 120, 0.35)' }}
-                          aria-label={show ? "Ẩn mật khẩu" : "Hiện mật khẩu"}
+                          aria-label={show ? "Hide password" : "Show password"}
                           onClick={() => setShow((s) => !s)}
                           onMouseDown={(e) => e.preventDefault()}
                           edge="end"
@@ -229,7 +229,7 @@ const Login = () => {
                     }
                   }}
                 >
-                  Đăng nhập
+                  Login
                 </Button>
 
                 <Box sx={{ textAlign: 'left', mt: -2 }}>
@@ -246,7 +246,7 @@ const Login = () => {
                       }
                     }}
                   >
-                    Quên mật khẩu?
+                    Forgot password?
                   </Typography>
                 </Box>
               </Stack>
