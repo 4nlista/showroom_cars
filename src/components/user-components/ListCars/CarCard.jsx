@@ -154,7 +154,7 @@ const CarCard = ({ car, formatVND }) => {
                                 fontWeight: 600
                             }}
                         >
-                            Giá
+                            Price
                         </Typography>
                         <Typography
                             fontWeight={700}

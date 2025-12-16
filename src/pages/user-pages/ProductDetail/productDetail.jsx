@@ -99,7 +99,7 @@ const ProductDetail = () => {
     return (
       <MainLayout>
         <Box sx={{ py: 5, textAlign: 'center' }}>
-          <Typography variant="h6">Không tìm thấy sản phẩm</Typography>
+          <Typography variant="h6">Product not found</Typography>
         </Box>
       </MainLayout>
     );
@@ -122,22 +122,35 @@ const ProductDetail = () => {
 
       if (result.success) {
         if (result.isUpdate) {
-          setToastMessage('Đã thêm xe vào giỏ hàng thành công!');
+          setToastMessage('Car added to cart successfully!');
         } else {
-          setToastMessage('Đã thêm xe vào giỏ hàng thành công!');
+          setToastMessage('Car added to cart successfully!');
         }
         setToastSeverity('success');
+        setToastOpen(true);
       } else {
-        setToastMessage('Có lỗi xảy ra khi thêm vào giỏ hàng!');
-        setToastSeverity('error');
+        // Check if error is due to unauthenticated user
+        if (result.error === 'NOT_AUTHENTICATED') {
+          setToastMessage(result.message || 'Please log in to add products to your cart.');
+          setToastSeverity('warning');
+          setToastOpen(true);
+
+          // Redirect to login page after 1.5 seconds
+          setTimeout(() => {
+            window.location.href = '/login';
+          }, 1500);
+        } else {
+          setToastMessage('An error occurred while adding to cart!');
+          setToastSeverity('error');
+          setToastOpen(true);
+        }
       }
     } catch (error) {
       console.error('Error adding to cart:', error);
-      setToastMessage('Có lỗi xảy ra khi thêm vào giỏ hàng!');
+      setToastMessage('An error occurred while adding to cart!');
       setToastSeverity('error');
+      setToastOpen(true);
     }
-
-    setToastOpen(true);
   };
   const handleCloseToast = () => {
     setToastOpen(false);
@@ -308,12 +321,12 @@ const ProductDetail = () => {
                     4.5
                   </Typography>
                   <Divider orientation="vertical" flexItem />
-                  <Typography variant="body2" color="text.secondary">
-                    137 đánh giá
+                    <Typography variant="body2" color="text.secondary">
+                    137 reviews
                   </Typography>
                   <Divider orientation="vertical" flexItem />
                   <Typography variant="body2" color="text.secondary">
-                    812 lượt thuê
+                    812 bookings
                   </Typography>
                 </Stack>
 
@@ -329,7 +342,7 @@ const ProductDetail = () => {
                 >
                   <Stack spacing={1}>
                     <Typography variant="body2" color="text.secondary" sx={{ fontWeight: 500 }}>
-                      GIÁ BÁN
+                      SELLING PRICE
                     </Typography>
                     <Stack direction="row" spacing={2} alignItems="baseline">
                       <Typography
@@ -346,7 +359,7 @@ const ProductDetail = () => {
                     <Stack direction="row" spacing={1} alignItems="center">
                       <CheckCircle sx={{ fontSize: 16, color: '#4caf50' }} />
                       <Typography variant="body2" sx={{ color: '#4caf50', fontWeight: 500 }}>
-                        Giá tốt nhất thị trường
+                        Best price on the market
                       </Typography>
                     </Stack>
                   </Stack>
@@ -354,7 +367,7 @@ const ProductDetail = () => {
 
                 <Box>
                   <Typography variant="h6" sx={{ mb: 2, fontWeight: 700 }}>
-                    Thông Số Kỹ Thuật
+                  Specifications
                   </Typography>
                   <Grid container spacing={2}>
                     <Grid size={3}>
@@ -374,7 +387,7 @@ const ProductDetail = () => {
                       >
                         <Speed sx={{ fontSize: 32, color: '#1a1a1a', mb: 1 }} />
                         <Typography variant="body2" color="text.secondary" sx={{ mb: 0.5 }}>
-                          Hộp số
+                          Transmission
                         </Typography>
                         <Typography variant="body1" sx={{ fontWeight: 600, textTransform: 'capitalize' }}>
                           {product.transmission}
@@ -399,7 +412,7 @@ const ProductDetail = () => {
                       >
                         <LocalGasStation sx={{ fontSize: 32, color: '#1a1a1a', mb: 1 }} />
                         <Typography variant="body2" color="text.secondary" sx={{ mb: 0.5 }}>
-                          Nhiên liệu
+                          Fuel type
                         </Typography>
                         <Typography variant="body1" sx={{ fontWeight: 600, textTransform: 'capitalize' }}>
                           {product.fuel_type}
@@ -424,10 +437,10 @@ const ProductDetail = () => {
                       >
                         <Person sx={{ fontSize: 32, color: '#1a1a1a', mb: 1 }} />
                         <Typography variant="body2" color="text.secondary" sx={{ mb: 0.5 }}>
-                          Số chỗ
+                          Seats
                         </Typography>
                         <Typography variant="body1" sx={{ fontWeight: 600 }}>
-                          {product.seats} chỗ
+                          {product.seats} seats
                         </Typography>
                       </Paper>
                     </Grid>
@@ -449,10 +462,10 @@ const ProductDetail = () => {
                       >
                         <GiCarDoor style={{ fontSize: 32, color: '#1a1a1a', marginBottom: 8 }} />
                         <Typography variant="body2" color="text.secondary" sx={{ mb: 0.5 }}>
-                          Số cửa
+                          Doors
                         </Typography>
                         <Typography variant="body1" sx={{ fontWeight: 600 }}>
-                          {product.doors} cửa
+                          {product.doors} doors
                         </Typography>
                       </Paper>
                     </Grid>
@@ -483,7 +496,7 @@ const ProductDetail = () => {
                           transition: 'all 0.3s ease',
                         }}
                       >
-                        Mua Ngay
+                        Buy Now
                       </Button>
                     </Grid>
                     <Grid size={6}>
@@ -511,7 +524,7 @@ const ProductDetail = () => {
                         }}
                       >
                         <MdOutlineAddShoppingCart style={{ marginRight: '10px' }} />
-                        Thêm vào giỏ hàng
+                        Add to cart
                       </Button>
                     </Grid>
                   </Grid>
@@ -529,19 +542,19 @@ const ProductDetail = () => {
                   <Stack spacing={1.5}>
                     <Stack direction="row" spacing={1.5} alignItems="center">
                       <CheckCircle sx={{ fontSize: 20, color: '#4caf50' }} />
-                      <Typography variant="body2">Bảo hiểm toàn diện</Typography>
+                      <Typography variant="body2">Comprehensive insurance</Typography>
                     </Stack>
                     <Stack direction="row" spacing={1.5} alignItems="center">
                       <CheckCircle sx={{ fontSize: 20, color: '#4caf50' }} />
-                      <Typography variant="body2">Hỗ trợ 24/7</Typography>
+                      <Typography variant="body2">24/7 support</Typography>
                     </Stack>
                     <Stack direction="row" spacing={1.5} alignItems="center">
                       <CheckCircle sx={{ fontSize: 20, color: '#4caf50' }} />
-                      <Typography variant="body2">Miễn phí giao xe tận nơi</Typography>
+                      <Typography variant="body2">Free home delivery</Typography>
                     </Stack>
                     <Stack direction="row" spacing={1.5} alignItems="center">
                       <CheckCircle sx={{ fontSize: 20, color: '#4caf50' }} />
-                      <Typography variant="body2">Đổi xe miễn phí nếu có sự cố</Typography>
+                      <Typography variant="body2">Free car replacement in case of issues</Typography>
                     </Stack>
                   </Stack>
                 </Paper>
@@ -571,30 +584,30 @@ const ProductDetail = () => {
                   }
                 }}
               >
-                <Tab label="Mô tả chi tiết" />
-                <Tab label="Đánh giá" />
-                <Tab label="Chính sách" />
+                <Tab label="Detailed description" />
+                <Tab label="Reviews" />
+                <Tab label="Policy" />
               </Tabs>
 
               <Box sx={{ p: 4 }}>
                 {tabValue === 0 && (
                   <Stack spacing={2}>
                     <Typography variant="h6" sx={{ fontWeight: 700 }}>
-                      Giới thiệu về {product.name}
+                      About {product.name}
                     </Typography>
                     <Typography variant="body1" color="text.secondary" sx={{ lineHeight: 1.8 }}>
-                      {product.description || 'Mercedes-Benz là biểu tượng của sự sang trọng, đẳng cấp và hiệu suất vượt trội. Mỗi chiếc xe Mercedes-Benz đều được chế tác tỉ mỉ với công nghệ tiên tiến nhất, mang đến trải nghiệm lái xe đầy cảm xúc và an toàn tuyệt đối.'}
+                      {product.description || 'Mercedes-Benz is a symbol of luxury, class, and outstanding performance. Each Mercedes-Benz is meticulously crafted with cutting-edge technology, delivering an emotional and exceptionally safe driving experience.'}
                     </Typography>
                   </Stack>
                 )}
                 {tabValue === 1 && (
                   <Typography variant="body1" color="text.secondary">
-                    Phần đánh giá của khách hàng...
+                  Customer review section...
                   </Typography>
                 )}
                 {tabValue === 2 && (
                   <Typography variant="body1" color="text.secondary">
-                    Chính sách thuê xe...
+                    Rental policy...
                   </Typography>
                 )}
               </Box>

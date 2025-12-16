@@ -7,13 +7,11 @@ import {
   Button,
   Typography,
   Stack,
-  Divider,
   IconButton,
   Alert,
   InputAdornment
 } from '@mui/material'
-import GoogleIcon from '@mui/icons-material/Google'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
 import { AuthContext } from '../../../context/AuthContext'
 import { Visibility, VisibilityOff } from '@mui/icons-material'
 import AuthLayout from '../../../layouts/user-layouts/AuthLayout'
@@ -25,8 +23,11 @@ const Login = () => {
   const [error, setError] = useState('')
   const [show, setShow] = useState(false)
   const navigate = useNavigate()
+  const location = useLocation()
   const { login } = useContext(AuthContext);
 
+  // Lấy đường dẫn trước đó từ state (nếu có)
+  const from = location.state?.from?.pathname || '/';
 
   const handleLogin = async () => {
     setError("");
@@ -44,7 +45,8 @@ const Login = () => {
         if (result.users.role_id === '1') {
           navigate("/admin/quan-tri");
         } else {
-          navigate("/");
+          // Redirect về trang trước đó hoặc trang chủ
+          navigate(from, { replace: true });
         }
       } else {
         setError("Tên đăng nhập hoặc mật khẩu không đúng");
@@ -73,7 +75,8 @@ const Login = () => {
         if (result.user.role_id === 1) {
           navigate('/admin/quan-tri')
         } else {
-          navigate('/')
+          // Redirect về trang trước đó hoặc trang chủ
+          navigate(from, { replace: true })
         }
       } else {
         setError(result.message || 'Tên đăng nhập hoặc mật khẩu không đúng')
@@ -84,9 +87,7 @@ const Login = () => {
     }
   }
 
-  const handleGoogleLogin = () => {
-    console.log('Google login clicked')
-  }
+
 
   return (
     <AuthLayout>
@@ -112,7 +113,7 @@ const Login = () => {
           <Paper
             elevation={0}
             sx={{
-              height: { xs: 'auto', sm: 520, md: 560 },
+              height: { xs: 'auto', sm: 480, md: 500 },
               width: { xs: '100%', sm: 420, md: 450 },
               p: { xs: 4, sm: 9 },
               py: { xs: 5, sm: 5 },
@@ -251,66 +252,6 @@ const Login = () => {
               </Stack>
             </Box>
 
-            <Box sx={{ my: 4 }}>
-              <Divider sx={{
-                borderColor: 'rgba(120, 120, 120, 0.35)',
-                '&::before, &::after': {
-                  borderColor: 'rgba(120, 120, 120, 0.35)',
-                }
-              }}>
-                <Typography variant="body2" sx={{
-                  color: 'rgba(0, 0, 0, 0.8)',
-                  px: 2,
-                  fontSize: '14px'
-                }}>
-                  hoặc
-                </Typography>
-              </Divider>
-            </Box>
-
-            <Button
-              onClick={handleGoogleLogin}
-              variant="outlined"
-              fullWidth
-              startIcon={<GoogleIcon />}
-              sx={{
-                py: 1.5,
-                borderRadius: 2,
-                borderColor: 'rgba(120, 120, 120, 0.35)',
-                color: '#000000ff',
-                fontWeight: 600,
-                background: 'rgba(0, 0, 0, 0.05)',
-                '&:hover': {
-                  borderColor: 'rgba(255,255,255,0.6)',
-                  background: 'rgba(255,255,255,0.1)',
-                  transform: 'translateY(-1px)',
-                },
-                '& .MuiSvgIcon-root': {
-                  color: '#000000ff',
-                }
-              }}
-            >
-              Đăng nhập với Google
-            </Button>
-
-            <Box sx={{ mt: 4, textAlign: 'center' }}>
-              <Typography
-                component="a"
-                href="/dang-ky"
-                sx={{
-                  color: 'rgba(0, 0, 0, 0.8)',
-                  textDecoration: 'none',
-                  fontSize: '14px',
-                  fontWeight: 600,
-                  '&:hover': {
-                    color: '#rgba(120, 120, 120, 0.35)',
-                    textDecoration: 'underline',
-                  }
-                }}
-              >
-                Chưa có tài khoản? Đăng ký
-              </Typography>
-            </Box>
           </Paper>
         </Container>
       </Box>

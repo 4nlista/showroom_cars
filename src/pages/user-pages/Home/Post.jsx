@@ -37,7 +37,7 @@ const Post = () => {
              fontSize: { xs: '2rem', lg: '2.7rem' },
           }}
         >
-          Tin Tức & Khuyến Mại
+          News & Promotions
         </Typography>
         <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
           {posts.map((post, index) => (

@@ -368,27 +368,11 @@ const Signup = () => {
                             </Stack>
                         </Box>
 
-                        <Box sx={{ my: 4 }}>
-                            <Divider sx={{
-                                borderColor: 'rgba(120, 120, 120, 0.35)',
-                                '&::before, &::after': {
-                                    borderColor: 'rgba(120, 120, 120, 0.35)',
-                                }
-                            }}>
-                                <Typography variant="body2" sx={{
-                                    color: 'rgba(0, 0, 0, 0.8)',
-                                    px: 2,
-                                    fontSize: '14px'
-                                }}>
-                                    hoặc
-                                </Typography>
-                            </Divider>
-                        </Box>
 
                         <Box sx={{ mt: 4, textAlign: 'center' }}>
                             <Typography
                                 component="a"
-                                href="/dang-nhap"
+                                href="/login"
                                 sx={{
                                     color: 'rgba(0, 0, 0, 0.8)',
                                     textDecoration: 'none',

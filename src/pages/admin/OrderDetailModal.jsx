@@ -22,7 +22,7 @@ const OrderDetailModal = ({ show, onHide, orderId }) => {
             const data = await getOrderDetailById(orderId);
             setOrderDetail(data);
         } catch (err) {
-            setError(err.message || 'Không thể tải chi tiết đơn hàng');
+            setError(err.message || 'Unable to load order details');
             console.error(err);
         } finally {
             setLoading(false);
@@ -63,16 +63,16 @@ const OrderDetailModal = ({ show, onHide, orderId }) => {
                 {loading ? (
                     <div className="text-center py-5">
                         <Spinner animation="border" variant="primary" />
-                        <p className="mt-3 text-muted">Đang tải chi tiết đơn hàng...</p>
+                        <p className="mt-3 text-muted">Loading order details...</p>
                     </div>
                 ) : error ? (
                     <Alert variant="danger">{error}</Alert>
                 ) : orderDetail ? (
                     <Row>
-                        {/* Cột bên trái: Ảnh xe */}
+                        {/* Left column: Car image */}
                         <Col md={4}>
                             <Form.Group className="mb-3">
-                                <Form.Label className="fw-semibold text-secondary">Ảnh xe</Form.Label>
+                                <Form.Label className="fw-semibold text-secondary">Car image</Form.Label>
                                 <div className="text-center">
                                     <Image
                                         src={orderDetail.car_image || 'https://via.placeholder.com/300x200?text=No+Image'}
@@ -84,13 +84,13 @@ const OrderDetailModal = ({ show, onHide, orderId }) => {
                             </Form.Group>
                         </Col>
 
-                        {/* Cột bên phải: Thông tin đơn hàng */}
+                        {/* Right column: Order information */}
                         <Col md={8}>
                             <Row className="mb-3">
-                                {/* Mã đơn hàng */}
+                                {/* Order ID */}
                                 <Col md={6}>
                                     <Form.Group>
-                                        <Form.Label className="fw-semibold text-secondary">Mã đơn hàng</Form.Label>
+                                        <Form.Label className="fw-semibold text-secondary">Order ID</Form.Label>
                                         <Form.Control
                                             type="text"
                                             value={orderDetail.id}
@@ -100,10 +100,10 @@ const OrderDetailModal = ({ show, onHide, orderId }) => {
                                         />
                                     </Form.Group>
                                 </Col>
-                                {/* Ngày đặt */}
+                                {/* Order date */}
                                 <Col md={6}>
                                     <Form.Group>
-                                        <Form.Label className="fw-semibold text-secondary">Ngày đặt</Form.Label>
+                                        <Form.Label className="fw-semibold text-secondary">Order date</Form.Label>
                                         <Form.Control
                                             type="text"
                                             value={formatOrderDate(orderDetail.order_date)}
@@ -116,10 +116,10 @@ const OrderDetailModal = ({ show, onHide, orderId }) => {
                             </Row>
 
                             <Row className="mb-3">
-                                {/* Tên người mua */}
+                                {/* Buyer name */}
                                 <Col md={6}>
                                     <Form.Group>
-                                        <Form.Label className="fw-semibold text-secondary">Tên người mua</Form.Label>
+                                        <Form.Label className="fw-semibold text-secondary">Buyer name</Form.Label>
                                         <Form.Control
                                             type="text"
                                             value={orderDetail.user_name}
@@ -145,10 +145,10 @@ const OrderDetailModal = ({ show, onHide, orderId }) => {
                             </Row>
 
                             <Row className="mb-3">
-                                {/* Số điện thoại */}
+                                {/* Phone number */}
                                 <Col md={6}>
                                     <Form.Group>
-                                        <Form.Label className="fw-semibold text-secondary">Số điện thoại</Form.Label>
+                                        <Form.Label className="fw-semibold text-secondary">Phone number</Form.Label>
                                         <Form.Control
                                             type="text"
                                             value={orderDetail.user_phone}
@@ -158,10 +158,10 @@ const OrderDetailModal = ({ show, onHide, orderId }) => {
                                         />
                                     </Form.Group>
                                 </Col>
-                                {/* Địa chỉ */}
+                                {/* Address */}
                                 <Col md={6}>
                                     <Form.Group>
-                                        <Form.Label className="fw-semibold text-secondary">Địa chỉ</Form.Label>
+                                        <Form.Label className="fw-semibold text-secondary">Address</Form.Label>
                                         <Form.Control
                                             type="text"
                                             value={orderDetail.user_address}
@@ -176,10 +176,10 @@ const OrderDetailModal = ({ show, onHide, orderId }) => {
                             <hr />
 
                             <Row className="mb-3">
-                                {/* Tên xe */}
+                                {/* Car name */}
                                 <Col md={12}>
                                     <Form.Group>
-                                        <Form.Label className="fw-semibold text-secondary">Tên xe</Form.Label>
+                                        <Form.Label className="fw-semibold text-secondary">Car name</Form.Label>
                                         <Form.Control
                                             type="text"
                                             value={orderDetail.car_name}
@@ -192,10 +192,10 @@ const OrderDetailModal = ({ show, onHide, orderId }) => {
                             </Row>
 
                             <Row className="mb-3">
-                                {/* Dòng xe */}
+                                {/* Category */}
                                 <Col md={4}>
                                     <Form.Group>
-                                        <Form.Label className="fw-semibold text-secondary">Dòng xe</Form.Label>
+                                        <Form.Label className="fw-semibold text-secondary">Category</Form.Label>
                                         <Form.Control
                                             type="text"
                                             value={orderDetail.category_name}
@@ -205,10 +205,10 @@ const OrderDetailModal = ({ show, onHide, orderId }) => {
                                         />
                                     </Form.Group>
                                 </Col>
-                                {/* Giá xe */}
+                                {/* Car price */}
                                 <Col md={4}>
                                     <Form.Group>
-                                        <Form.Label className="fw-semibold text-secondary">Giá xe</Form.Label>
+                                        <Form.Label className="fw-semibold text-secondary">Car price</Form.Label>
                                         <Form.Control
                                             type="text"
                                             value={formatPrice(orderDetail.car_price)}
@@ -218,10 +218,10 @@ const OrderDetailModal = ({ show, onHide, orderId }) => {
                                         />
                                     </Form.Group>
                                 </Col>
-                                {/* Số lượng */}
+                                {/* Quantity */}
                                 <Col md={4}>
                                     <Form.Group>
-                                        <Form.Label className="fw-semibold text-secondary">Số lượng</Form.Label>
+                                        <Form.Label className="fw-semibold text-secondary">Quantity</Form.Label>
                                         <Form.Control
                                             type="text"
                                             value={orderDetail.quantity}
@@ -234,10 +234,10 @@ const OrderDetailModal = ({ show, onHide, orderId }) => {
                             </Row>
 
                             <Row className="mb-3">
-                                {/* Hộp số */}
+                                {/* Transmission */}
                                 <Col md={3}>
                                     <Form.Group>
-                                        <Form.Label className="fw-semibold text-secondary">Hộp số</Form.Label>
+                                        <Form.Label className="fw-semibold text-secondary">Transmission</Form.Label>
                                         <Form.Control
                                             type="text"
                                             value={orderDetail.car_transmission}
@@ -247,10 +247,10 @@ const OrderDetailModal = ({ show, onHide, orderId }) => {
                                         />
                                     </Form.Group>
                                 </Col>
-                                {/* Nhiên liệu */}
+                                {/* Fuel type */}
                                 <Col md={3}>
                                     <Form.Group>
-                                        <Form.Label className="fw-semibold text-secondary">Nhiên liệu</Form.Label>
+                                        <Form.Label className="fw-semibold text-secondary">Fuel type</Form.Label>
                                         <Form.Control
                                             type="text"
                                             value={orderDetail.car_fuel_type}
@@ -260,26 +260,26 @@ const OrderDetailModal = ({ show, onHide, orderId }) => {
                                         />
                                     </Form.Group>
                                 </Col>
-                                {/* Số chỗ */}
+                                {/* Seats */}
                                 <Col md={3}>
                                     <Form.Group>
-                                        <Form.Label className="fw-semibold text-secondary">Số chỗ</Form.Label>
+                                        <Form.Label className="fw-semibold text-secondary">Seats</Form.Label>
                                         <Form.Control
                                             type="text"
-                                            value={`${orderDetail.car_seats} chỗ`}
+                                            value={`${orderDetail.car_seats} seats`}
                                             disabled
                                             readOnly
                                             className="form-control-detail"
                                         />
                                     </Form.Group>
                                 </Col>
-                                {/* Số cửa */}
+                                {/* Doors */}
                                 <Col md={3}>
                                     <Form.Group>
-                                        <Form.Label className="fw-semibold text-secondary">Số cửa</Form.Label>
+                                        <Form.Label className="fw-semibold text-secondary">Doors</Form.Label>
                                         <Form.Control
                                             type="text"
-                                            value={`${orderDetail.car_doors} cánh`}
+                                            value={`${orderDetail.car_doors} doors`}
                                             disabled
                                             readOnly
                                             className="form-control-detail"
@@ -289,10 +289,10 @@ const OrderDetailModal = ({ show, onHide, orderId }) => {
                             </Row>
 
                             <Row className="mb-3">
-                                {/* Trạng thái */}
+                                {/* Status */}
                                 <Col md={12}>
                                     <Form.Group>
-                                        <Form.Label className="fw-semibold text-secondary">Trạng thái</Form.Label>
+                                        <Form.Label className="fw-semibold text-secondary">Status</Form.Label>
                                         <div>
                                             <span className={`badge ${getStatusBadgeClass(orderDetail.status)} fs-6`}>
                                                 {getStatusLabel(orderDetail.status)}
@@ -303,14 +303,14 @@ const OrderDetailModal = ({ show, onHide, orderId }) => {
                             </Row>
 
                             <Row className="mb-3">
-                                {/* Ghi chú */}
+                                {/* Note */}
                                 <Col md={12}>
                                     <Form.Group>
-                                        <Form.Label className="fw-semibold text-secondary">Ghi chú</Form.Label>
+                                        <Form.Label className="fw-semibold text-secondary">Note</Form.Label>
                                         <Form.Control
                                             as="textarea"
                                             rows={3}
-                                            value={orderDetail.note || 'Không có ghi chú'}
+                                            value={orderDetail.note || 'No notes'}
                                             disabled
                                             readOnly
                                             className="form-control-detail"
@@ -321,14 +321,14 @@ const OrderDetailModal = ({ show, onHide, orderId }) => {
                         </Col>
                     </Row>
                 ) : (
-                    <Alert variant="warning">Không tìm thấy thông tin đơn hàng</Alert>
+                    <Alert variant="warning">Order information not found</Alert>
                 )}
             </Modal.Body>
 
             <Modal.Footer className="border-top">
                 <Button variant="secondary" onClick={onHide}>
                     <i className="bi bi-x-circle me-2"></i>
-                    Đóng
+                    Close
                 </Button>
             </Modal.Footer>
         </Modal>
